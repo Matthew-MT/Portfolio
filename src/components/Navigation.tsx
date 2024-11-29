@@ -3,8 +3,13 @@ import { useEffect, useState } from "react";
 import { samePageLinkNavigation } from "../utility";
 import Tab from "@mui/material/Tab";
 import { Link } from "react-router-dom";
+import useTheme from "@mui/material/styles/useTheme";
 
 export default function Navigation({ sx, ...props }: TabsProps) {
+    // constants
+    const theme = useTheme();
+
+    // hooks
     const [tab, setTab] = useState<number>(0);
     const [top, setTop] = useState<boolean>(window.scrollY < 1);
 
@@ -21,6 +26,7 @@ export default function Navigation({ sx, ...props }: TabsProps) {
             position: "fixed",
             transition: "all .2s linear",
             backdropFilter: top ? undefined : "blur(20px) saturate(1.6)",
+            backgroundColor: top ? undefined : `${theme.palette.grey[600]}80`,
             ...sx,
         }}
         value={tab}

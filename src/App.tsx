@@ -6,6 +6,14 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Navigation from "./components/Navigation";
 import Grid from "@mui/material/Grid2";
+import useTheme from "@mui/material/styles/useTheme";
+import ShowcaseCard from "./components/ShowcaseCard";
+import WebDevelopment from "./assets/3-2-web-development-png-hd-2495354893.png";
+import APIs from "./assets/Technology-528960878.png";
+import Databases from "./assets/database-schema-1895779_960_720-3491758589.png";
+import AWS from "./assets/amazon_web_services_73a55e2b43-154728351.png";
+import GameDevelopment from "./assets/41285-1-game-controller-png-download-free-1989348200.png";
+import Mobile from "./assets/mobile-dev-android-studio-apple-app-store.png";
 
 // #172026
 // #5FCDD9
@@ -14,6 +22,8 @@ import Grid from "@mui/material/Grid2";
 // #04BF9D
 
 export default function App() {
+    const theme = useTheme();
+
     return <Stack
         direction="column"
         sx={{
@@ -42,10 +52,53 @@ export default function App() {
             sx={{
                 alignSelf: "center",
                 padding: "4rem",
-                width: "min(80vw, 1600px)",
+                width: `min(80vw, ${theme.breakpoints.values.xl}px)`,
                 rowGap: "48px",
             }}
         >
+            <Stack
+                direction="row"
+                sx={{
+                    padding: "1rem",
+                    backgroundColor: "white",
+                }}
+            >
+                <Box
+                    sx={{
+                        backgroundColor: "#172026",
+                        width: "4rem",
+                        height: "4rem",
+                    }}
+                />
+                <Box
+                    sx={{
+                        backgroundColor: "#5FCDD9",
+                        width: "4rem",
+                        height: "4rem",
+                    }}
+                />
+                <Box
+                    sx={{
+                        backgroundColor: "#027373",
+                        width: "4rem",
+                        height: "4rem",
+                    }}
+                />
+                <Box
+                    sx={{
+                        backgroundColor: "#04BFAD",
+                        width: "4rem",
+                        height: "4rem",
+                    }}
+                />
+                <Box
+                    sx={{
+                        backgroundColor: "#04BF9D",
+                        width: "4rem",
+                        height: "4rem",
+                    }}
+                />
+            </Stack>
             <Stack
                 direction="column"
             >
@@ -59,38 +112,71 @@ export default function App() {
                     <Typography fontSize="8rem" lineHeight="1.2em">Matthew</Typography><Typography fontSize="8rem" lineHeight="1.2em">Montoni-Tiller.</Typography>
                 </Stack>
                 <Typography fontSize="8rem" lineHeight="1.2em">Software Engineer.</Typography>
+                <Typography variant="h5">I'm enthusiastic to solve complex problems and deliver powerful features that delight users.</Typography>
             </Stack>
             <Grid
                 container
                 spacing={12}
             >
-                <Grid flexGrow={1}>
-                    <Stack
-                        sx={theme => ({
-                            borderRadius: "4rem",
-                            backgroundColor: "white",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            color: theme.palette.getContrastText("#fff"),
-                            height: "32rem",
-                        })}
-                    >
-                        <Typography>Box A</Typography>
-                    </Stack>
+                <Grid size={{ xs: 12, xl: 8 }}>
+                    <ShowcaseCard
+                        title="Web Development"
+                        image={WebDevelopment}
+                        sx={{
+                            backgroundColor: "#5FCDD9",
+                            height: "24rem",
+                        }}
+                    />
                 </Grid>
-                <Grid width="32rem">
-                    <Stack
-                        sx={theme => ({
-                            borderRadius: "4rem",
-                            backgroundColor: "white",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            color: theme.palette.getContrastText("#fff"),
-                            height: "32rem",
-                        })}
-                    >
-                        <Typography>Box B</Typography>
-                    </Stack>
+                <Grid size={{ xs: 12, xl: 4 }}>
+                    <ShowcaseCard
+                        title="APIs"
+                        image={APIs}
+                        sx={{
+                            backgroundColor: "#027373",
+                            height: "24rem",
+                        }}
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, xl: 4 }}>
+                    <ShowcaseCard
+                        title="Databases"
+                        image={Databases}
+                        sx={{
+                            backgroundColor: "#04BFAD",
+                            height: "24rem",
+                        }}
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, xl: 8 }}>
+                    <ShowcaseCard
+                        title="AWS"
+                        image={AWS}
+                        sx={{
+                            backgroundColor: "#172026",
+                            height: "24rem",
+                        }}
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, xl: 8 }}>
+                    <ShowcaseCard
+                        title="Game Development"
+                        image={GameDevelopment}
+                        sx={{
+                            backgroundColor: "#027373",
+                            height: "24rem",
+                        }}
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, xl: 4 }}>
+                    <ShowcaseCard
+                        title="Mobile"
+                        image={Mobile}
+                        sx={{
+                            backgroundColor: "#04BF9D",
+                            height: "24rem",
+                        }}
+                    />
                 </Grid>
             </Grid>
         </Stack>
