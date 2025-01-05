@@ -1,16 +1,16 @@
 import Tabs, { TabsProps } from "@mui/material/Tabs";
 import { useEffect, useState } from "react";
-import { samePageLinkNavigation } from "../utility";
 import Tab from "@mui/material/Tab";
-import { Link } from "react-router-dom";
 import useTheme from "@mui/material/styles/useTheme";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import { NavLink, useLocation } from "react-router";
 
 export default function Navigation({ sx, ...props }: TabsProps) {
     // constants
     const theme = useTheme();
 
     // hooks
-    const [tab, setTab] = useState<number>(0);
+    const location = useLocation();
     const [top, setTop] = useState<boolean>(window.scrollY < 1);
 
     useEffect(() => {
@@ -24,27 +24,46 @@ export default function Navigation({ sx, ...props }: TabsProps) {
         role="navigation"
         sx={{
             position: "fixed",
+            zIndex: 20,
             transition: "all .2s linear",
             backdropFilter: top ? undefined : "blur(20px) saturate(1.6)",
             backgroundColor: top ? undefined : `${theme.palette.grey[600]}80`,
+            "& > .MuiTabs-scroller": {
+                "& > .MuiTabs-flexContainer": {
+                    "& > .MuiTab-root": {
+                        minHeight: "48px",
+                    },
+                },
+            },
             ...sx,
         }}
-        value={tab}
-        onChange={(event: React.SyntheticEvent, newValue: number) => {
-            if (
-                event.type !== "click"
-                || (
-                    event.type === "click"
-                    && samePageLinkNavigation(
-                        event as React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-                    )
-                )
-            ) setTab(newValue);
-        }}
+        value={location.pathname}
         {...props}
     >
-        <Tab component={Link} label="About" to="/" />
-        <Tab component={Link} label="Work" to="/work" />
-        <Tab component={Link} label="Contact" to="/contact" />
+        <Tab
+            component={NavLink}
+            label="About"
+            value="/"
+            to="/"
+        />
+        <Tab
+            component={NavLink}
+            label="Work"
+            value="/work"
+            to="/work"
+        />
+        <Tab
+            component={NavLink}
+            label="Contact"
+            value="/contact"
+            to="/contact"
+        />
+        <Tab
+            icon={<GitHubIcon />}
+            iconPosition="start"
+            component={NavLink}
+            label="GitHub"
+            to="https://github.com/Matthew-MT"
+        />
     </Tabs>;
 }
