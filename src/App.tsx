@@ -3,6 +3,7 @@ import Navigation from "./components/Navigation";
 import Box from "@mui/material/Box";
 import About from "./pages/About";
 import Work from "./pages/Work";
+import Contact from "./pages/Contact";
 
 export default function App() {
     return <div style={{ minHeight: "100%" }}>
@@ -21,7 +22,7 @@ export default function App() {
         <Routes>
             <Route index element={<About />} />
             <Route path="work" element={<Work />} />
-            <Route path="contact" element={<About />} />
+            <Route path="contact" element={<Contact />} />
         </Routes>
     </div>;
 }

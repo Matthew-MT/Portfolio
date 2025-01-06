@@ -63,7 +63,7 @@ export default function Navigation({ sx, ...props }: TabsProps) {
             iconPosition="start"
             component={NavLink}
             label="GitHub"
-            to="https://github.com/Matthew-MT"
+            to="https://github.com/Matthew-MT/Portfolio"
         />
     </Tabs>;
 }

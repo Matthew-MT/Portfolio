@@ -1,16 +1,20 @@
 import Stack, { StackProps } from "@mui/material/Stack";
 import useTheme from "@mui/material/styles/useTheme";
-import Typography from "@mui/material/Typography";
-import { useMemo } from "react";
+import Typography, { TypographyProps } from "@mui/material/Typography";
+import { ReactNode, useMemo } from "react";
 
 export interface ShowcaseCardProps extends StackProps {
+    variant?: TypographyProps["variant"];
     title: string;
-    image: string;
+    image?: string;
+    children?: ReactNode;
 };
 
 export default function ShowcaseCard({
+    variant,
     title,
     image,
+    children,
     sx,
     ...props//
 }: ShowcaseCardProps) {
@@ -19,11 +23,11 @@ export default function ShowcaseCard({
 
     return <Stack
         direction="column"
-        gap="2rem"
         sx={{
             borderRadius: "4rem",
             color: contrast,
             alignItems: "flex-end",
+            gap: "2rem",
             padding: "2rem 3.2rem",
             overflow: "hidden",
             transition: "all .2s ease-out",
@@ -36,8 +40,9 @@ export default function ShowcaseCard({
         }}
         {...props}
     >
-        <Typography variant="h2" textAlign="right">{title}</Typography>
-        <figure
+        <Typography variant={variant || "h2"} textAlign="right">{title}</Typography>
+        {children}
+        {image && <figure
             style={{
                 width: "100%",
                 margin: 0,
@@ -50,6 +55,6 @@ export default function ShowcaseCard({
                     maxWidth: "min(100%, 640px)",
                 }}
             />
-        </figure>
+        </figure>}
     </Stack>;
 }
