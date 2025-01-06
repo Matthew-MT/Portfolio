@@ -2,7 +2,6 @@
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import useTheme from "@mui/material/styles/useTheme";
-import Grid from "@mui/material/Grid2";
 import ShowcaseCard from "../components/ShowcaseCard";
 import Typography, { TypographyProps } from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";

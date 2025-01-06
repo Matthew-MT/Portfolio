@@ -1,23 +1,12 @@
+import { NavLink } from "react-router";
+
 // mui
 import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid2";
 import useTheme from "@mui/material/styles/useTheme";
-
-// components
-import ShowcaseCard from "../components/ShowcaseCard";
+import Divider from "@mui/material/Divider";
 
 // assets
-import Banner from "../assets/banner-1500x630-2809715463.jpg";
-import WebDevelopment from "../assets/3-2-web-development-png-hd-2495354893.png";
-import APIs from "../assets/Technology-528960878.png";
-import Databases from "../assets/database-schema-1895779_960_720-3491758589.png";
-import AWS from "../assets/amazon_web_services_73a55e2b43-154728351.png";
-import GameDevelopment from "../assets/41285-1-game-controller-png-download-free-1989348200.png";
-import Mobile from "../assets/mobile-dev-android-studio-apple-app-store.png";
-import Divider from "@mui/material/Divider";
-import { NavLink } from "react-router";
 
 // #172026
 // #5FCDD9
