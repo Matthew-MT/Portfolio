@@ -5,6 +5,10 @@ import useTheme from "@mui/material/styles/useTheme";
 import ShowcaseCard from "../components/ShowcaseCard";
 import Typography, { TypographyProps } from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
+import { ReactNode } from "react";
+import Chip from "@mui/material/Chip";
+import Paper from "@mui/material/Paper";
+import SkillsList from "../components/SkillsList";
 
 // #172026
 // #5FCDD9
@@ -37,7 +41,7 @@ interface WorkExperience {
     side: "left" | "right";
     label: string;
     organization: string;
-    description: string;
+    description: ReactNode;
 };
 
 const experiences: WorkExperience[] = [
@@ -47,7 +51,11 @@ const experiences: WorkExperience[] = [
         side: "left",
         label: "Student",
         organization: "Colorado Mesa University",
-        description: "Description TBD",
+        description: <Stack
+            spacing={1}
+        >
+            <Typography>Bachelor's in Science in Computer Science, Mathematics.</Typography>
+        </Stack>,
     },
     {
         start: 9,
@@ -55,7 +63,18 @@ const experiences: WorkExperience[] = [
         side: "right",
         label: "Software Intern",
         organization: "Colorado Mesa University",
-        description: "Description TBD",
+        description: <Stack
+            spacing={1}
+        >
+            <SkillsList list={["React.js", "Cybersecurity", "Web Development", "Python", "JavaScript"]} />
+            <Typography>
+                <ul>
+                    <li>Collaborated with one other student and one faculty mentor to continue development of an introductory Cybersecurity education program modeled after PyGoat.</li>
+                    <li>Made improvements and feature additions to the Python server, including performance optimizations, new lessons, and content organization.</li>
+                    <li>Implemented UI improvements in the web application using JavaScript and React, updated the lesson plan, and collaborated to develop new lessons.</li>
+                </ul>
+            </Typography>
+        </Stack>,
     },
     {
         start: 12,
@@ -63,7 +82,12 @@ const experiences: WorkExperience[] = [
         side: "right",
         label: "Mathematics Tutor",
         organization: "Colorado Mesa University",
-        description: "Description TBD",
+        description: <Stack
+            spacing={1}
+        >
+            <SkillsList list={["Mathematics", "Mathematics Education", "Communication"]} />
+            <Typography>Tutored students enrolled in the mathematics program at CMU.</Typography>
+        </Stack>,
     },
     {
         start: 33,
@@ -71,7 +95,18 @@ const experiences: WorkExperience[] = [
         side: "right",
         label: "Software Development Engineer Intern",
         organization: "Amazon.com",
-        description: "Description TBD",
+        description: <Stack
+            spacing={1}
+        >
+            <SkillsList list={["React.js", "User Interface Design", "Communication", "Agile", "Amazon Web Services"]} />
+            <Typography>
+                <ul>
+                    <li>Collaborated with 6 stakeholders to develop a task automation dashboard.</li>
+                    <li>Led the development of a serverless application using AWS-Lambda, AWS-DynamoDB, and JavaScript to manage business data. Integrated server and client using AWS-API Gateway for a real-time data workflow, increasing data recency by an estimated 50%.</li>
+                    <li>Delivered a DevOps data control and monitoring solution by building a user-facing dashboard using Node.js, React, and Cloudscape, which automated DevOps workflows for the 6-person team and increased process efficiency.</li>
+                </ul>
+            </Typography>
+        </Stack>,
     },
     {
         start: 36,
@@ -79,7 +114,19 @@ const experiences: WorkExperience[] = [
         side: "right",
         label: "Software Intern",
         organization: "Colorado Mesa University",
-        description: "Description TBD",
+        description: <Stack
+            spacing={1}
+        >
+            <SkillsList list={["React.js", "User Interface Design", "Client Relations", "JavaScript", "MongoDB"]} />
+            <Typography>
+                <ul>
+                    <li>Collaborated with two other students and several project stakeholders to design and develop a digital billboard solution as a candidate to replace current university billboard software.</li>
+                    <li>Developed a user-facing dashboard using JavaScript and React to manage billboard content and configuration, enabling live content updates by university staff and user management by university administrators.</li>
+                    <li>Built an always-online server application using Node.js, Express.js, and MongoDB to manage, store, and serve billboard content and login data in JSON format.</li>
+                    <li>Automated the billboard display using Electron.js and React, enabling hands-off functionality.</li>
+                </ul>
+            </Typography>
+        </Stack>,
     },
     {
         start: 48,
@@ -87,7 +134,21 @@ const experiences: WorkExperience[] = [
         side: "right",
         label: "Contract Software Developer",
         organization: "MORR LLC",
-        description: "Description TBD",
+        description: <Stack
+            spacing={1}
+        >
+            <SkillsList list={["React.js", "User Interface Design", "Client Relations", "Communication", "Agile"]} />
+            <Typography>
+                <ul>
+                    <li>Worked with a client to develop a full-stack application to connect prospective students with dream universities.</li>
+                    <li>Designed and implemented dashboards for universities and students using Node.js, TypeScript, and React, reducing design-to-development timeline by an estimated 30% compared to alternative solutions.</li>
+                    <li>Automated the CI/CD pipeline using GitHub Actions and Vercel, reducing the need for manual monitoring by an estimated 90%.</li>
+                    <li>Developed and deployed a mobile app on Apple TestFlight for students using React Native and Expo, enabling seamless student-university interactions and increasing user engagement by an estimated 5%.</li>
+                    <li>Set up Supabase PostgreSQL for secure relational data storage, file handling, and live updates. Configured user authentication and row-level security (RLS), enhancing data security compliance for all users.</li>
+                    <li>Coordinated the alpha testing phase to refine client requirements and user expectations, resulting in positive feedback from client stakeholders and at least 10 alpha-test users.</li>
+                </ul>
+            </Typography>
+        </Stack>,
     },
     {
         start: 53,
@@ -95,14 +156,37 @@ const experiences: WorkExperience[] = [
         side: "left",
         label: "Lead Contract Software Developer",
         organization: "Incipio (MORR LLC)",
-        description: "Description TBD",
+        description: <Stack
+            spacing={1}
+        >
+            <SkillsList list={["User Interface Design", "AI", "GPT-4", "Web Development", "Bubble.io"]} />
+            <Typography>
+                <ul>
+                    <li>Built groundbreaking AI strategy management software designed to track top-level corporate goals and milestones. Collaborated with project stakeholders to generate requirements and feature sets.</li>
+                    <li>Directed the UI/UX design cycle to build an intuitive and fully-featured user interface prototyped in Figma.</li>
+                    <li>Developed a web dashboard using the Bubble.io platform, enabling strategy managers to define objectives and manage team assignments, prioritizing clear cross-functional communication about all goals.</li>
+                    <li>Integrated ChatGPT’s GPT Assistant service via the GPT-4 API to generate business insights and strategy based on accumulated platform data from employees, projects, teams, and performance reviews, demonstrating a strong understanding of Large Language Models (LLMs).</li>
+                </ul>
+            </Typography>
+        </Stack>,
     },
     {
         start: 56,
         side: "right",
         label: "IT Specialist",
         organization: "Freelance",
-        description: "Description TBD",
+        description: <Stack
+            spacing={1}
+        >
+            <SkillsList list={["Technical Support", "Problem Solving", "Communication", "Information Technology Infrastructure"]} />
+            <Typography>
+                <ul>
+                    <li>Built a client base through local networking, providing IT support for home and small business users.</li>
+                    <li>Resolved over 20 system administration issues across Windows and Linux environments, including troubleshooting and software deployment, resulting in improved system uptime and efficiency for clients.</li>
+                    <li>Liaised with clients to maintain a 100% client satisfaction rate.</li>
+                </ul>
+            </Typography>
+        </Stack>,
     },
 ];
 
