@@ -6,8 +6,6 @@ import ShowcaseCard from "../components/ShowcaseCard";
 import Typography, { TypographyProps } from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import { ReactNode } from "react";
-import Chip from "@mui/material/Chip";
-import Paper from "@mui/material/Paper";
 import SkillsList from "../components/SkillsList";
 
 // #172026
