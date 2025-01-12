@@ -3,10 +3,24 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import useTheme from "@mui/material/styles/useTheme";
 import ShowcaseCard from "../components/ShowcaseCard";
-import Typography, { TypographyProps } from "@mui/material/Typography";
+import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import { ReactNode } from "react";
+import { useState } from "react";
+import Alert from "@mui/material/Alert";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListSubheader from "@mui/material/ListSubheader";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ResumeIcon from "@mui/icons-material/ContactPage";
+import SkillsIcon from "@mui/icons-material/Checklist";
+import Paper from "@mui/material/Paper";
+import { experiences, Organization, SkillCategory, skills } from "../config/data";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 import SkillsList from "../components/SkillsList";
+import { useEnterFrameAnimation } from "../utility";
+import LinearProgress from "@mui/material/LinearProgress";
 
 // #172026
 // #5FCDD9
@@ -33,223 +47,115 @@ const labels = (new Array(months - 1)).fill(0).map((_, index) => {
     return monthNames[date.getMonth()];
 });
 
-interface WorkExperience {
-    start: number;
-    end?: number;
-    side: "left" | "right";
-    label: string;
-    organization: string;
-    description: ReactNode;
-};
-
-const experiences: WorkExperience[] = [
-    {
-        start: 0,
-        end: 45,
-        side: "left",
-        label: "Student",
-        organization: "Colorado Mesa University",
-        description: <Stack
-            spacing={1}
-        >
-            <Typography>Bachelor's in Science in Computer Science, Mathematics.</Typography>
-        </Stack>,
-    },
-    {
-        start: 9,
-        end: 12,
-        side: "right",
-        label: "Software Intern",
-        organization: "Colorado Mesa University",
-        description: <Stack
-            spacing={1}
-        >
-            <SkillsList list={["React.js", "Cybersecurity", "Web Development", "Python", "JavaScript"]} />
-            <Typography>
-                <ul>
-                    <li>Collaborated with one other student and one faculty mentor to continue development of an introductory Cybersecurity education program modeled after PyGoat.</li>
-                    <li>Made improvements and feature additions to the Python server, including performance optimizations, new lessons, and content organization.</li>
-                    <li>Implemented UI improvements in the web application using JavaScript and React, updated the lesson plan, and collaborated to develop new lessons.</li>
-                </ul>
-            </Typography>
-        </Stack>,
-    },
-    {
-        start: 12,
-        end: 33,
-        side: "right",
-        label: "Mathematics Tutor",
-        organization: "Colorado Mesa University",
-        description: <Stack
-            spacing={1}
-        >
-            <SkillsList list={["Mathematics", "Mathematics Education", "Communication"]} />
-            <Typography>Tutored students enrolled in the mathematics program at CMU.</Typography>
-        </Stack>,
-    },
-    {
-        start: 33,
-        end: 36,
-        side: "right",
-        label: "Software Development Engineer Intern",
-        organization: "Amazon.com",
-        description: <Stack
-            spacing={1}
-        >
-            <SkillsList list={["React.js", "User Interface Design", "Communication", "Agile", "Amazon Web Services"]} />
-            <Typography>
-                <ul>
-                    <li>Collaborated with 6 stakeholders to develop a task automation dashboard.</li>
-                    <li>Led the development of a serverless application using AWS-Lambda, AWS-DynamoDB, and JavaScript to manage business data. Integrated server and client using AWS-API Gateway for a real-time data workflow, increasing data recency by an estimated 50%.</li>
-                    <li>Delivered a DevOps data control and monitoring solution by building a user-facing dashboard using Node.js, React, and Cloudscape, which automated DevOps workflows for the 6-person team and increased process efficiency.</li>
-                </ul>
-            </Typography>
-        </Stack>,
-    },
-    {
-        start: 36,
-        end: 45,
-        side: "right",
-        label: "Software Intern",
-        organization: "Colorado Mesa University",
-        description: <Stack
-            spacing={1}
-        >
-            <SkillsList list={["React.js", "User Interface Design", "Client Relations", "JavaScript", "MongoDB"]} />
-            <Typography>
-                <ul>
-                    <li>Collaborated with two other students and several project stakeholders to design and develop a digital billboard solution as a candidate to replace current university billboard software.</li>
-                    <li>Developed a user-facing dashboard using JavaScript and React to manage billboard content and configuration, enabling live content updates by university staff and user management by university administrators.</li>
-                    <li>Built an always-online server application using Node.js, Express.js, and MongoDB to manage, store, and serve billboard content and login data in JSON format.</li>
-                    <li>Automated the billboard display using Electron.js and React, enabling hands-off functionality.</li>
-                </ul>
-            </Typography>
-        </Stack>,
-    },
-    {
-        start: 48,
-        end: 55,
-        side: "right",
-        label: "Contract Software Developer",
-        organization: "MORR LLC",
-        description: <Stack
-            spacing={1}
-        >
-            <SkillsList list={["React.js", "User Interface Design", "Client Relations", "Communication", "Agile"]} />
-            <Typography>
-                <ul>
-                    <li>Worked with a client to develop a full-stack application to connect prospective students with dream universities.</li>
-                    <li>Designed and implemented dashboards for universities and students using Node.js, TypeScript, and React, reducing design-to-development timeline by an estimated 30% compared to alternative solutions.</li>
-                    <li>Automated the CI/CD pipeline using GitHub Actions and Vercel, reducing the need for manual monitoring by an estimated 90%.</li>
-                    <li>Developed and deployed a mobile app on Apple TestFlight for students using React Native and Expo, enabling seamless student-university interactions and increasing user engagement by an estimated 5%.</li>
-                    <li>Set up Supabase PostgreSQL for secure relational data storage, file handling, and live updates. Configured user authentication and row-level security (RLS), enhancing data security compliance for all users.</li>
-                    <li>Coordinated the alpha testing phase to refine client requirements and user expectations, resulting in positive feedback from client stakeholders and at least 10 alpha-test users.</li>
-                </ul>
-            </Typography>
-        </Stack>,
-    },
-    {
-        start: 53,
-        end: 55,
-        side: "left",
-        label: "Lead Contract Software Developer",
-        organization: "Incipio (MORR LLC)",
-        description: <Stack
-            spacing={1}
-        >
-            <SkillsList list={["User Interface Design", "AI", "GPT-4", "Web Development", "Bubble.io"]} />
-            <Typography>
-                <ul>
-                    <li>Built groundbreaking AI strategy management software designed to track top-level corporate goals and milestones. Collaborated with project stakeholders to generate requirements and feature sets.</li>
-                    <li>Directed the UI/UX design cycle to build an intuitive and fully-featured user interface prototyped in Figma.</li>
-                    <li>Developed a web dashboard using the Bubble.io platform, enabling strategy managers to define objectives and manage team assignments, prioritizing clear cross-functional communication about all goals.</li>
-                    <li>Integrated ChatGPT’s GPT Assistant service via the GPT-4 API to generate business insights and strategy based on accumulated platform data from employees, projects, teams, and performance reviews, demonstrating a strong understanding of Large Language Models (LLMs).</li>
-                </ul>
-            </Typography>
-        </Stack>,
-    },
-    {
-        start: 56,
-        side: "right",
-        label: "IT Specialist",
-        organization: "Freelance",
-        description: <Stack
-            spacing={1}
-        >
-            <SkillsList list={["Technical Support", "Problem Solving", "Communication", "Information Technology Infrastructure"]} />
-            <Typography>
-                <ul>
-                    <li>Built a client base through local networking, providing IT support for home and small business users.</li>
-                    <li>Resolved over 20 system administration issues across Windows and Linux environments, including troubleshooting and software deployment, resulting in improved system uptime and efficiency for clients.</li>
-                    <li>Liaised with clients to maintain a 100% client satisfaction rate.</li>
-                </ul>
-            </Typography>
-        </Stack>,
-    },
-];
-
-function DividerLabel({ variant, label }: { variant?: TypographyProps["variant"], label: string }) {
-    const theme = useTheme();
-
-    return <Typography
-        variant={variant || "body1"}
-        textAlign="center"
-        sx={{
-            color: variant === "body2" ? theme.palette.grey[400] : theme.palette.grey[600],
-            width: "100%",
-            height: "1.25rem",
-            lineHeight: "1.25rem",
-            marginTop: "-0.75rem",
-            marginBottom: "-0.5rem",
-            alignSelf: "center",
-            overflow: "hidden",
-            mixBlendMode: "difference",
-            "&::before, &::after": {
-                display: "inline-block",
-                position: "relative",
-                verticalAlign: "middle",
-                content: "\"\"",
-                backgroundColor: variant === "body2" ? theme.palette.grey[400] : theme.palette.grey[600],
-                mixBlendMode: "difference",
-                width: "50%",
-                height: "1px",
-            },
-            "&::before": {
-                marginLeft: "-50%",
-                right: "2px",
-            },
-            "&::after": {
-                marginRight: "-50%",
-                left: "2px",
-            },
-        }}
-    >
-        {label}
-    </Typography>;
-}
+const experienceCheckboxLabels = Object.values(Organization).sort();
+const skillCategoryCheckboxLabels = Object.values(SkillCategory).sort();
 
 export default function Work() {
     const theme = useTheme();
 
+    const [showInfo, setShowInfo] = useState<boolean>(true);
+    const [shownExperiences, setShownExperiences] = useState<Organization[]>(Object.values(Organization));
+    const [miscellaneousExperiences, setMiscellaneousExperiences] = useState<boolean>(true);
+    const [shownSkillCategories, setShownSkillCategories] = useState<SkillCategory[]>(Object.values(SkillCategory));
+    const [miscellaneousSkills, setMiscellaneousSkills] = useState<boolean>(true);
+
+    const mainAnimatorProps = useEnterFrameAnimation();
+    const introAnimatorProps = useEnterFrameAnimation(200);
+    const resumeAnimatorProps = useEnterFrameAnimation(400);
+    const skillsAnimatorProps = useEnterFrameAnimation(200);
+
     return <Stack
+        {...mainAnimatorProps}
         direction="column"
         sx={{
-            backgroundImage: "linear-gradient(120deg, #5FCDD9 0%, #04BF9D 10%, #04BFAD 40%, #172026 65%)",
-            backgroundAttachment: "fixed",
-            minHeight: "100%",
+            marginX: "auto",
+            alignContent: "center",
+            marginTop: "calc(112px - 4rem)",
+            padding: "4rem",
+            width: `min(80vw, ${theme.breakpoints.values.xl}px)`,
+            flexGrow: 1,
+            gap: "48px",
         }}
     >
+        <Typography variant="h1" >My Work</Typography>
         <Stack
+            {...introAnimatorProps}
             direction="column"
             sx={{
-                alignSelf: "center",
-                marginTop: "calc(112px - 4rem)",
-                padding: "4rem",
-                width: `min(80vw, ${theme.breakpoints.values.xl}px)`,
-                flexGrow: 1,
-                rowGap: "48px",
+                gap: "24px",
             }}
         >
+            {/* <Typography variant="h2" >Introduction</Typography> */}
+            <Stack
+                direction="row"
+                sx={{
+                    gap: "2rem",
+                }}
+            >
+                <Box>
+                    <Typography>
+                        I am a full-stack software engineer with 3 years of experience in technologies such as React, AWS, Databases, and Linux, and with Bachelor's degrees in Computer Science and Mathematics.
+                        I have worked in several different environments, including large cross-functional teams at Amazon.com and as the sole developer at MORR LLC.
+                    </Typography>
+                </Box>
+                <Paper
+                    square
+                    sx={{
+                        width: "max-content",
+                        height: "max-content",
+                    }}
+                >
+                    <List
+                        sx={{
+                            width: "max-content",
+                            maxWidth: "24rem",
+                            height: "max-content",
+                        }}
+                        subheader={<ListSubheader>
+                            Quick Links
+                        </ListSubheader>}
+                    >
+                        <ListItemButton
+                            component="a"
+                            href="#Interactive-Resume"
+                        >
+                            <ListItemIcon>
+                                <ResumeIcon />
+                            </ListItemIcon>
+                            <ListItemText>
+                                Interactive Resume
+                            </ListItemText>
+                        </ListItemButton>
+                        <ListItemButton
+                            component="a"
+                            href="#Skills"
+                        >
+                            <ListItemIcon>
+                                <SkillsIcon />
+                            </ListItemIcon>
+                            <ListItemText>
+                                Skills
+                            </ListItemText>
+                        </ListItemButton>
+                    </List>
+                </Paper>
+            </Stack>
+        </Stack>
+        <Stack
+            {...resumeAnimatorProps}
+            direction="column"
+            sx={{
+                gap: "24px",
+            }}
+        >
+            <Typography id="Interactive-Resume" variant="h2" >Interactive Resume</Typography>
+            {showInfo && <Alert
+                variant="filled"
+                severity="info"
+                onClose={() => setShowInfo(false)}
+            >
+                Hover an item to learn more.
+            </Alert>}
             <Box
                 sx={{
                     display: "grid",
@@ -266,15 +172,29 @@ export default function Work() {
                         flexDirection: "column",
                         borderTopLeftRadius: index === 0 ? "1rem" : undefined,
                         borderTopRightRadius: index === 0 ? "1rem" : undefined,
-                        borderTop: index === 0 ? `1px solid ${theme.palette.grey[600]}` : undefined,
-                        borderLeft: `1px solid ${theme.palette.grey[600]}`,
-                        borderRight: `1px solid ${theme.palette.grey[600]}`,
-                        mixBlendMode: "difference",
+                        borderTop: index === 0 ? `1px solid ${theme.palette.grey[900]}` : undefined,
+                        borderLeft: `1px solid ${theme.palette.grey[900]}`,
+                        borderRight: `1px solid ${theme.palette.grey[900]}`,
                         justifyContent: "end",
                         paddingX: "0.5rem",
                     }}
                 >
-                    <DividerLabel variant={typeof label === "number" ? "body1" : "body2"} label={`${label}`} />
+                    <Divider
+                        sx={{
+                            height: "1.5rem",
+                            lineHeight: "1.5rem",
+                            marginTop: "-0.75rem",
+                            marginBottom: "-0.75rem",
+                            color: typeof label === "number" ? theme.palette.grey[900] : theme.palette.grey[800],
+                            "&::before, &::after": { borderColor: "currentcolor" },
+                        }}
+                    >
+                        <Typography
+                            variant={typeof label === "number" ? "body1" : "body2"}
+                        >
+                            {label}
+                        </Typography>
+                    </Divider>
                 </Box>)}
                 <Box
                     sx={{
@@ -336,7 +256,6 @@ export default function Work() {
                                     justifyContent="space-between"
                                 >
                                     <Typography variant="h6">{experience.organization}</Typography>
-                                    <Divider />
                                     <Typography variant="subtitle2">{monthNames[start.getMonth()]} {start.getFullYear()} - {experience.end === undefined ? "Present" : `${monthNames[end.getMonth()]} ${end.getFullYear()}`}</Typography>
                                 </Stack>
                                 <Divider sx={{ backgroundColor: "currentcolor" }} />
@@ -346,6 +265,229 @@ export default function Work() {
                     </Box>;
                 })}
             </Box>
+        </Stack>
+        <Stack
+            {...skillsAnimatorProps}
+            direction="column"
+            sx={{
+                gap: "24px",
+            }}
+        >
+            <Typography id="Skills" variant="h2" >Skills</Typography>
+            <Stack
+                direction="row"
+                sx={{
+                    gap: "2rem",
+                }}
+            >
+                <Stack
+                    direction="column"
+                    spacing={1}
+                    sx={{
+                        flexGrow: 1,
+                    }}
+                >
+                    {skills.filter(
+                        skill =>
+                        ((skill.experiences.length === 0 && miscellaneousExperiences) || skill.experiences.some(experience => shownExperiences.includes(experience)))
+                        && ((skill.categories.length === 0 && miscellaneousSkills) || skill.categories.some(category => shownSkillCategories.includes(category)))
+                    ).map(skill => <ShowcaseCard
+                        hoverable={false}
+                        variant="h5"
+                        sx={{
+                            boxSizing: "border-box",
+                            backgroundColor: theme.palette.background.paper,
+                            borderRadius: "1.5rem",
+                            padding: "1rem 1.6rem",
+                        }}
+                        title={skill.label}
+                    >
+                        <Stack
+                            sx={{
+                                width: "100%",
+                                gap: "0.5rem",
+                            }}
+                        >
+                            <Stack
+                                direction="row"
+                                sx={{
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    width: "100%",
+                                }}
+                            >
+                                <Typography variant="h6">From: {skill.experiences.length ? skill.experiences.join(", ") : "Miscellaneous"}</Typography>
+                                <SkillsList list={skill.categories} />
+                            </Stack>
+                            <Stack
+                                sx={{
+                                    gap: "0.5rem",
+                                    bgcolor: "#02737396",
+                                    padding: "8px 16px",
+                                }}
+                            >
+                                <Typography variant="h6">Skill Proficiency:</Typography>
+                                <LinearProgress
+                                    variant="determinate"
+                                    sx={{
+                                        width: "100%",
+                                    }}
+                                    value={skill.proficiency}
+                                />
+                                <Stack
+                                    direction="row"
+                                    sx={{
+                                        width: "100%",
+                                        justifyContent: "space-between",
+                                    }}
+                                >
+                                    <Stack
+                                        sx={{
+                                            alignItems: "start",
+                                            width: "0px",
+                                            textWrap: "nowrap",
+                                        }}
+                                    >
+                                        <Box sx={{ bgcolor: theme.palette.primary.main, width: "8px", height: "8px", borderRadius: "4px" }} />
+                                        <Typography>Saw a Video</Typography>
+                                    </Stack>
+                                    <Stack
+                                        sx={{
+                                            alignItems: "center",
+                                            width: "0px",
+                                            textWrap: "nowrap",
+                                        }}
+                                    >
+                                        <Box sx={{ bgcolor: theme.palette.primary.main, width: "8px", height: "8px", borderRadius: "4px" }} />
+                                        <Typography>Deployed a Project</Typography>
+                                    </Stack>
+                                    <Stack
+                                        sx={{
+                                            alignItems: "center",
+                                            width: "0px",
+                                            textWrap: "nowrap",
+                                        }}
+                                    >
+                                        <Box sx={{ bgcolor: theme.palette.primary.main, width: "8px", height: "8px", borderRadius: "4px" }} />
+                                        <Typography>Comfortable</Typography>
+                                    </Stack>
+                                    <Stack
+                                        sx={{
+                                            alignItems: "center",
+                                            width: "0px",
+                                            textWrap: "nowrap",
+                                        }}
+                                    >
+                                        <Box sx={{ bgcolor: theme.palette.primary.main, width: "8px", height: "8px", borderRadius: "4px" }} />
+                                        <Typography>Used Frequently</Typography>
+                                    </Stack>
+                                    <Stack
+                                        sx={{
+                                            alignItems: "end",
+                                            width: "0px",
+                                            textWrap: "nowrap",
+                                        }}
+                                    >
+                                        <Box sx={{ bgcolor: theme.palette.primary.main, width: "8px", height: "8px", borderRadius: "4px" }} />
+                                        <Typography>Legendary</Typography>
+                                    </Stack>
+                                </Stack>
+                            </Stack>
+                            {skill.description}
+                        </Stack>
+                    </ShowcaseCard>)}
+                </Stack>
+                <Paper
+                    square
+                    sx={{
+                        padding: "1rem",
+                        height: "max-content",
+                    }}
+                >
+                    <FormControlLabel
+                        label="Experiences"
+                        control={<Checkbox
+                            checked={miscellaneousExperiences && shownExperiences.length === Object.values(Organization).length}
+                            indeterminate={(miscellaneousExperiences || shownExperiences.length > 0) && (!miscellaneousExperiences || shownExperiences.length < Object.values(Organization).length)}
+                            onChange={() => setShownExperiences(previous => {
+                                const all = Object.values(Organization);
+                                if (previous.length === all.length) {
+                                    setMiscellaneousExperiences(false);
+                                    return [];
+                                } else {
+                                    setMiscellaneousExperiences(true);
+                                    return [...all];
+                                }
+                            })}
+                        />}
+                    />
+                    <Stack
+                        direction="column"
+                        sx={{
+                            ml: 3,
+                        }}
+                    >
+                        {experienceCheckboxLabels.map(organization => <FormControlLabel
+                            label={organization}
+                            control={<Checkbox
+                                checked={shownExperiences.includes(organization)}
+                                onChange={() => setShownExperiences(previous => {
+                                    if (previous.includes(organization)) return previous.filter(o => o !== organization);
+                                    else return [...previous, organization];
+                                })}
+                            />}
+                        />)}
+                        <FormControlLabel
+                            label="Miscellaneous"
+                            control={<Checkbox
+                                checked={miscellaneousExperiences}
+                                onChange={() => setMiscellaneousExperiences(previous => !previous)}
+                            />}
+                        />
+                    </Stack>
+                    <FormControlLabel
+                        label="Skill Categories"
+                        control={<Checkbox
+                            checked={miscellaneousSkills && shownSkillCategories.length === Object.values(SkillCategory).length}
+                            indeterminate={(miscellaneousSkills || shownSkillCategories.length > 0) && (!miscellaneousSkills || shownSkillCategories.length < Object.values(SkillCategory).length)}
+                            onChange={() => setShownSkillCategories(previous => {
+                                const all = Object.values(SkillCategory);
+                                if (previous.length === all.length) {
+                                    setMiscellaneousSkills(false);
+                                    return [];
+                                } else {
+                                    setMiscellaneousSkills(true);
+                                    return [...all];
+                                }
+                            })}
+                        />}
+                    />
+                    <Stack
+                        direction="column"
+                        sx={{
+                            ml: 3,
+                        }}
+                    >
+                        {skillCategoryCheckboxLabels.map(skillCategory => <FormControlLabel
+                            label={skillCategory}
+                            control={<Checkbox
+                                checked={shownSkillCategories.includes(skillCategory)}
+                                onChange={() => setShownSkillCategories(previous => {
+                                    if (previous.includes(skillCategory)) return previous.filter(o => o !== skillCategory);
+                                    else return [...previous, skillCategory];
+                                })}
+                            />}
+                        />)}
+                        <FormControlLabel
+                            label="Miscellaneous"
+                            control={<Checkbox
+                                checked={miscellaneousSkills}
+                                onChange={() => setMiscellaneousSkills(previous => !previous)}
+                            />}
+                        />
+                    </Stack>
+                </Paper>
+            </Stack>
         </Stack>
     </Stack>;
 }

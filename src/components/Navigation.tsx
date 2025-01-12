@@ -23,11 +23,9 @@ export default function Navigation({ sx, ...props }: TabsProps) {
         key="navigation"
         role="navigation"
         sx={{
-            position: "fixed",
-            zIndex: 20,
             transition: "all .2s linear",
             backdropFilter: top ? undefined : "blur(20px) saturate(1.6)",
-            backgroundColor: top ? undefined : `${theme.palette.grey[600]}80`,
+            backgroundColor: top ? undefined : `${theme.palette.grey[200]}80`,
             "& > .MuiTabs-scroller": {
                 "& > .MuiTabs-flexContainer": {
                     "& > .MuiTab-root": {

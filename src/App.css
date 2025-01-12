@@ -41,3 +41,37 @@
 .read-the-docs {
   color: #888;
 }
+
+@keyframes moving-gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes enter-frame {
+    0% {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    100% {
+        transform: none;
+        opacity: 1;
+    }
+}
+
+.animate-enter-frame:not(.animate-enter-frame-animator) {
+    visibility: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .animate-enter-frame-animator {
+        visibility: visible;
+        animation: enter-frame 1s 1;
+    }
+}

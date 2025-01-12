@@ -16,6 +16,7 @@ import Databases from "../assets/database-schema-1895779_960_720-3491758589.png"
 import AWS from "../assets/amazon_web_services_73a55e2b43-154728351.png";
 import GameDevelopment from "../assets/41285-1-game-controller-png-download-free-1989348200.png";
 import Mobile from "../assets/mobile-dev-android-studio-apple-app-store.png";
+import { useEnterFrameAnimation } from "../utility";
 
 // #172026
 // #5FCDD9
@@ -25,13 +26,10 @@ import Mobile from "../assets/mobile-dev-android-studio-apple-app-store.png";
 
 export default function About() {
     const theme = useTheme();
+    const animatorProps = useEnterFrameAnimation();
 
     return <Stack
         direction="column"
-        sx={{
-            backgroundImage: "linear-gradient(120deg, #5FCDD9 0%, #04BF9D 10%, #04BFAD 40%, #172026 65%)",
-            backgroundAttachment: "fixed",
-        }}
     >
         <Box
             sx={{
@@ -57,6 +55,7 @@ export default function About() {
             }}
         >
             <Stack
+                {...animatorProps}
                 direction="column"
             >
                 <Stack
@@ -77,6 +76,8 @@ export default function About() {
             >
                 <Grid size={{ xs: 12, xl: 8 }}>
                     <ShowcaseCard
+                        animateIn
+                        delay={200}
                         title="Web Development"
                         image={WebDevelopment}
                         sx={{
@@ -87,6 +88,8 @@ export default function About() {
                 </Grid>
                 <Grid size={{ xs: 12, xl: 4 }}>
                     <ShowcaseCard
+                        animateIn
+                        delay={200}
                         title="APIs"
                         image={APIs}
                         sx={{
@@ -97,6 +100,8 @@ export default function About() {
                 </Grid>
                 <Grid size={{ xs: 12, xl: 4 }}>
                     <ShowcaseCard
+                        animateIn
+                        delay={200}
                         title="Databases"
                         image={Databases}
                         sx={{
@@ -107,6 +112,8 @@ export default function About() {
                 </Grid>
                 <Grid size={{ xs: 12, xl: 8 }}>
                     <ShowcaseCard
+                        animateIn
+                        delay={200}
                         title="AWS"
                         image={AWS}
                         sx={{
@@ -117,6 +124,8 @@ export default function About() {
                 </Grid>
                 <Grid size={{ xs: 12, xl: 8 }}>
                     <ShowcaseCard
+                        animateIn
+                        delay={200}
                         title="Game Development"
                         image={GameDevelopment}
                         sx={{
@@ -127,6 +136,8 @@ export default function About() {
                 </Grid>
                 <Grid size={{ xs: 12, xl: 4 }}>
                     <ShowcaseCard
+                        animateIn
+                        delay={200}
                         title="Mobile"
                         image={Mobile}
                         sx={{

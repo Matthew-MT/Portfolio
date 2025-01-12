@@ -10,8 +10,11 @@ export default function SkillsList({
 }: SkillsListProps) {
     return <Stack
         direction="row"
-        spacing={1}
+        sx={{
+            flexWrap: "wrap",
+            gap: "8px",
+        }}
     >
-        {list.map(skill => <Chip color="info" label={skill} />)}
+        {list.map(skill => <Chip color="secondary" label={skill} />)}
     </Stack>;
 }

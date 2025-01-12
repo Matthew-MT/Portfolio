@@ -9,7 +9,7 @@ import App from "./App.tsx";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme} >
             <BrowserRouter>
                 <App />
             </BrowserRouter>

@@ -19,11 +19,6 @@ export default function About() {
 
     return <Stack
         direction="column"
-        sx={{
-            backgroundImage: "linear-gradient(120deg, #5FCDD9 0%, #04BF9D 10%, #04BFAD 40%, #172026 65%)",
-            backgroundAttachment: "fixed",
-            minHeight: "100%",
-        }}
     >
         <Stack
             direction="column"

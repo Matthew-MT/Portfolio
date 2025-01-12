@@ -2,8 +2,12 @@ import Stack, { StackProps } from "@mui/material/Stack";
 import useTheme from "@mui/material/styles/useTheme";
 import Typography, { TypographyProps } from "@mui/material/Typography";
 import { ReactNode, useMemo } from "react";
+import { useEnterFrameAnimation } from "../utility";
 
 export interface ShowcaseCardProps extends StackProps {
+    animateIn?: boolean;
+    delay?: number;
+    hoverable?: boolean;
     variant?: TypographyProps["variant"];
     title: string;
     image?: string;
@@ -11,6 +15,9 @@ export interface ShowcaseCardProps extends StackProps {
 };
 
 export default function ShowcaseCard({
+    animateIn,
+    delay,
+    hoverable = true,
     variant,
     title,
     image,
@@ -20,10 +27,12 @@ export default function ShowcaseCard({
 }: ShowcaseCardProps) {
     const theme = useTheme();
     const contrast = useMemo(() => theme.palette.getContrastText(sx && typeof sx === "object" && "backgroundColor" in sx && typeof sx.backgroundColor === "string" && sx.backgroundColor.startsWith("#") ? sx.backgroundColor : "#fff"), [sx, theme.palette]);
+    const animatorProps = useEnterFrameAnimation(delay);
 
     return <Stack
+        {...(animateIn ? animatorProps : {})}
         direction="column"
-        sx={{
+        sx={[{
             borderRadius: "4rem",
             color: contrast,
             alignItems: "flex-end",
@@ -32,12 +41,13 @@ export default function ShowcaseCard({
             overflow: "hidden",
             transition: "all .2s ease-out",
             boxShadow: `0 0 8px 0 ${theme.palette.grey[600]}`,
-            ":hover": {
-                boxShadow: `0 0 32px 0 ${theme.palette.grey[600]}`,
-                transform: "translate(0, -0.2rem)",
-            },
-            ...sx,
-        }}
+            ...(hoverable ? {
+                "&:hover": {
+                    boxShadow: `0 0 32px 0 ${theme.palette.grey[600]}`,
+                    transform: "translate(0, -0.2rem)",
+                },
+            } : {}),
+        }, ...(sx ? Array.isArray(sx) ? sx : [sx] : [])]}
         {...props}
     >
         <Typography variant={variant || "h2"} textAlign="right">{title}</Typography>
