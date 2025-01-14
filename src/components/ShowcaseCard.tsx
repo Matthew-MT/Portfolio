@@ -27,7 +27,7 @@ export default function ShowcaseCard({
 }: ShowcaseCardProps) {
     const theme = useTheme();
     const contrast = useMemo(() => theme.palette.getContrastText(sx && typeof sx === "object" && "backgroundColor" in sx && typeof sx.backgroundColor === "string" && sx.backgroundColor.startsWith("#") ? sx.backgroundColor : "#fff"), [sx, theme.palette]);
-    const animatorProps = useEnterFrameAnimation(delay);
+    const animatorProps = useEnterFrameAnimation(undefined, delay);
 
     return <Stack
         {...(animateIn ? animatorProps : {})}

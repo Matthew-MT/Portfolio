@@ -5,7 +5,7 @@ import useTheme from "@mui/material/styles/useTheme";
 import ShowcaseCard from "../components/ShowcaseCard";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useRef, useState } from "react";
 import Alert from "@mui/material/Alert";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -50,19 +50,43 @@ const labels = (new Array(months - 1)).fill(0).map((_, index) => {
 const experienceCheckboxLabels = Object.values(Organization).sort();
 const skillCategoryCheckboxLabels = Object.values(SkillCategory).sort();
 
-export default function Work() {
+export interface WorkProps {
+    shownExperiences: Organization[];
+    setShownExperiences: Dispatch<SetStateAction<Organization[]>>;
+    miscellaneousExperiences: boolean;
+    setMiscellaneousExperiences: Dispatch<SetStateAction<boolean>>;
+    shownSkillCategories: SkillCategory[];
+    setShownSkillCategories: Dispatch<SetStateAction<SkillCategory[]>>;
+    miscellaneousSkills: boolean;
+    setMiscellaneousSkills: Dispatch<SetStateAction<boolean>>;
+};
+
+export default function Work({
+    shownExperiences,
+    setShownExperiences,
+    miscellaneousExperiences,
+    setMiscellaneousExperiences,
+    shownSkillCategories,
+    setShownSkillCategories,
+    miscellaneousSkills,
+    setMiscellaneousSkills,
+}: WorkProps) {
     const theme = useTheme();
+    const resumeRef = useRef<HTMLDivElement | null>(null);
+    const skillsRef = useRef<HTMLDivElement | null>(null);
 
     const [showInfo, setShowInfo] = useState<boolean>(true);
-    const [shownExperiences, setShownExperiences] = useState<Organization[]>(Object.values(Organization));
-    const [miscellaneousExperiences, setMiscellaneousExperiences] = useState<boolean>(true);
-    const [shownSkillCategories, setShownSkillCategories] = useState<SkillCategory[]>(Object.values(SkillCategory));
-    const [miscellaneousSkills, setMiscellaneousSkills] = useState<boolean>(true);
 
     const mainAnimatorProps = useEnterFrameAnimation();
-    const introAnimatorProps = useEnterFrameAnimation(200);
-    const resumeAnimatorProps = useEnterFrameAnimation(400);
-    const skillsAnimatorProps = useEnterFrameAnimation(200);
+    const introAnimatorProps = useEnterFrameAnimation(undefined, 200);
+    const resumeAnimatorProps = useEnterFrameAnimation(instance => {
+        resumeRef.current = instance;
+        if (window.location.hash === "#Resume") window.scrollTo({ top: (instance?.getBoundingClientRect().top || 0) + document.documentElement.scrollTop });
+    }, 400);
+    const skillsAnimatorProps = useEnterFrameAnimation(instance => {
+        skillsRef.current = instance;
+        if (window.location.hash === "#Skills") window.scrollTo({ top: (instance?.getBoundingClientRect().top || 0) + document.documentElement.scrollTop });
+    }, 200);
 
     return <Stack
         {...mainAnimatorProps}
@@ -117,7 +141,7 @@ export default function Work() {
                     >
                         <ListItemButton
                             component="a"
-                            href="#Interactive-Resume"
+                            href="#Resume"
                         >
                             <ListItemIcon>
                                 <ResumeIcon />
@@ -143,12 +167,13 @@ export default function Work() {
         </Stack>
         <Stack
             {...resumeAnimatorProps}
+            id="Resume"
             direction="column"
             sx={{
                 gap: "24px",
             }}
         >
-            <Typography id="Interactive-Resume" variant="h2" >Interactive Resume</Typography>
+            <Typography variant="h2" >Interactive Resume</Typography>
             {showInfo && <Alert
                 variant="filled"
                 severity="info"
@@ -236,12 +261,20 @@ export default function Work() {
                                 height: "100%",
                                 padding: "1rem 1.6rem",
                                 gap: "0.5rem",
+                                cursor: "pointer",
                                 "&:hover": {
                                     height: "max-content",
                                     minHeight: "100%",
                                 },
                             }}
                             title={experience.label}
+                            onClick={() => {
+                                setShownExperiences([experience.organization]);
+                                setMiscellaneousExperiences(false);
+                                setShownSkillCategories(Object.values(SkillCategory));
+                                setMiscellaneousSkills(true);
+                                window.scrollTo({ top: (skillsRef.current?.getBoundingClientRect().top || 0) + document.documentElement.scrollTop });
+                            }}
                         >
                             <Stack
                                 direction="column"
@@ -268,12 +301,13 @@ export default function Work() {
         </Stack>
         <Stack
             {...skillsAnimatorProps}
+            id="Skills"
             direction="column"
             sx={{
                 gap: "24px",
             }}
         >
-            <Typography id="Skills" variant="h2" >Skills</Typography>
+            <Typography variant="h2" >Skills</Typography>
             <Stack
                 direction="row"
                 sx={{
@@ -289,8 +323,8 @@ export default function Work() {
                 >
                     {skills.filter(
                         skill =>
-                        ((skill.experiences.length === 0 && miscellaneousExperiences) || skill.experiences.some(experience => shownExperiences.includes(experience)))
-                        && ((skill.categories.length === 0 && miscellaneousSkills) || skill.categories.some(category => shownSkillCategories.includes(category)))
+                        (shownExperiences.length === 0 || (skill.experiences.length === 0 && miscellaneousExperiences) || skill.experiences.some(experience => shownExperiences.includes(experience)))
+                        && (shownSkillCategories.length === 0 || (skill.categories.length === 0 && miscellaneousSkills) || skill.categories.some(category => shownSkillCategories.includes(category)))
                     ).map(skill => <ShowcaseCard
                         hoverable={false}
                         variant="h5"
@@ -358,7 +392,7 @@ export default function Work() {
                                             textWrap: "nowrap",
                                         }}
                                     >
-                                        <Box sx={{ bgcolor: theme.palette.primary.main, width: "8px", height: "8px", borderRadius: "4px" }} />
+                                        <Box sx={{ bgcolor: skill.proficiency >= 25 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
                                         <Typography>Deployed a Project</Typography>
                                     </Stack>
                                     <Stack
@@ -368,7 +402,7 @@ export default function Work() {
                                             textWrap: "nowrap",
                                         }}
                                     >
-                                        <Box sx={{ bgcolor: theme.palette.primary.main, width: "8px", height: "8px", borderRadius: "4px" }} />
+                                        <Box sx={{ bgcolor: skill.proficiency >= 50 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
                                         <Typography>Comfortable</Typography>
                                     </Stack>
                                     <Stack
@@ -378,7 +412,7 @@ export default function Work() {
                                             textWrap: "nowrap",
                                         }}
                                     >
-                                        <Box sx={{ bgcolor: theme.palette.primary.main, width: "8px", height: "8px", borderRadius: "4px" }} />
+                                        <Box sx={{ bgcolor: skill.proficiency >= 75 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
                                         <Typography>Used Frequently</Typography>
                                     </Stack>
                                     <Stack
@@ -388,7 +422,7 @@ export default function Work() {
                                             textWrap: "nowrap",
                                         }}
                                     >
-                                        <Box sx={{ bgcolor: theme.palette.primary.main, width: "8px", height: "8px", borderRadius: "4px" }} />
+                                        <Box sx={{ bgcolor: skill.proficiency >= 100 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
                                         <Typography>Legendary</Typography>
                                     </Stack>
                                 </Stack>
@@ -400,6 +434,10 @@ export default function Work() {
                 <Paper
                     square
                     sx={{
+                        position: "sticky",
+                        top: 0,
+                        maxHeight: "100vh",
+                        overflowY: "auto",
                         padding: "1rem",
                         height: "max-content",
                     }}

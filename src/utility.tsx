@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { MutableRefObject, useEffect, /*useRef,*/ useState } from "react";
 
 export function samePageLinkNavigation(
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
@@ -14,11 +14,12 @@ export function samePageLinkNavigation(
     return true;
 }
 
-export function useEnterFrameAnimation(delay?: number, className?: string) {
-    const ref = useRef<HTMLDivElement | null>(null);
+export function useEnterFrameAnimation($ref?: (_ref: HTMLDivElement | null) => void, delay?: number, className?: string) {
+    const [_ref, setRef] = useState<MutableRefObject<HTMLDivElement | null>>({ current: null });
+    // const ref = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        if (!ref.current) return;
+        if (!_ref.current) return;
 
         const observer = new IntersectionObserver(entries => {
             for (const entry of entries) if (entry.isIntersecting) {
@@ -27,15 +28,19 @@ export function useEnterFrameAnimation(delay?: number, className?: string) {
             }
         });
 
-        observer.observe(ref.current);
+        observer.observe(_ref.current);
 
         return () => {
             observer.disconnect();
         };
-    }, [delay]);
+    }, [_ref, delay]);
 
     return {
-        ref,
+        ref: (instance: HTMLDivElement | null) => {
+            if (_ref.current || !instance) return;
+            setRef({ current: instance });
+            if ($ref) $ref(instance);
+        },
         className: className ? className + " " : "" + "animate-enter-frame",
     };
 }

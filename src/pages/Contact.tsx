@@ -4,7 +4,7 @@ import { NavLink } from "react-router";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import useTheme from "@mui/material/styles/useTheme";
-import Divider from "@mui/material/Divider";
+import { useEnterFrameAnimation } from "../utility";
 
 // assets
 
@@ -16,8 +16,10 @@ import Divider from "@mui/material/Divider";
 
 export default function About() {
     const theme = useTheme();
+    const animatorProps = useEnterFrameAnimation();
 
     return <Stack
+        {...animatorProps}
         direction="column"
     >
         <Stack
@@ -32,7 +34,6 @@ export default function About() {
             }}
         >
             <Typography variant="h1">Contact Information</Typography>
-            <Divider />
             <Stack
                 direction="column"
             >

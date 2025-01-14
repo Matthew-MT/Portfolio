@@ -17,6 +17,9 @@ import AWS from "../assets/amazon_web_services_73a55e2b43-154728351.png";
 import GameDevelopment from "../assets/41285-1-game-controller-png-download-free-1989348200.png";
 import Mobile from "../assets/mobile-dev-android-studio-apple-app-store.png";
 import { useEnterFrameAnimation } from "../utility";
+import { Organization, SkillCategory } from "../config/data";
+import { Dispatch, SetStateAction } from "react";
+import { useNavigate } from "react-router";
 
 // #172026
 // #5FCDD9
@@ -24,9 +27,22 @@ import { useEnterFrameAnimation } from "../utility";
 // #04BFAD
 // #04BF9D
 
-export default function About() {
+export interface AboutProps {
+    setShownExperiences: Dispatch<SetStateAction<Organization[]>>;
+    setMiscellaneousExperiences: Dispatch<SetStateAction<boolean>>;
+    setShownSkillCategories: Dispatch<SetStateAction<SkillCategory[]>>;
+    setMiscellaneousSkills: Dispatch<SetStateAction<boolean>>;
+};
+
+export default function About({
+    setShownExperiences,
+    setMiscellaneousExperiences,
+    setShownSkillCategories,
+    setMiscellaneousSkills,
+}: AboutProps) {
     const theme = useTheme();
     const animatorProps = useEnterFrameAnimation();
+    const navigate = useNavigate();
 
     return <Stack
         direction="column"
@@ -83,6 +99,14 @@ export default function About() {
                         sx={{
                             backgroundColor: "#5FCDD9",
                             height: "24rem",
+                            cursor: "pointer",
+                        }}
+                        onClick={() => {
+                            setShownExperiences(Object.values(Organization));
+                            setMiscellaneousExperiences(true);
+                            setShownSkillCategories([SkillCategory.WEB]);
+                            setMiscellaneousSkills(false);
+                            navigate("/work#Skills");
                         }}
                     />
                 </Grid>
@@ -95,6 +119,14 @@ export default function About() {
                         sx={{
                             backgroundColor: "#027373",
                             height: "24rem",
+                            cursor: "pointer",
+                        }}
+                        onClick={() => {
+                            setShownExperiences(Object.values(Organization));
+                            setMiscellaneousExperiences(true);
+                            setShownSkillCategories([SkillCategory.APIS]);
+                            setMiscellaneousSkills(false);
+                            navigate("/work#Skills");
                         }}
                     />
                 </Grid>
@@ -107,6 +139,14 @@ export default function About() {
                         sx={{
                             backgroundColor: "#04BFAD",
                             height: "24rem",
+                            cursor: "pointer",
+                        }}
+                        onClick={() => {
+                            setShownExperiences(Object.values(Organization));
+                            setMiscellaneousExperiences(true);
+                            setShownSkillCategories([SkillCategory.DATABASES]);
+                            setMiscellaneousSkills(false);
+                            navigate("/work#Skills");
                         }}
                     />
                 </Grid>
@@ -119,6 +159,14 @@ export default function About() {
                         sx={{
                             backgroundColor: "#172026",
                             height: "24rem",
+                            cursor: "pointer",
+                        }}
+                        onClick={() => {
+                            setShownExperiences(Object.values(Organization));
+                            setMiscellaneousExperiences(true);
+                            setShownSkillCategories([SkillCategory.AWS]);
+                            setMiscellaneousSkills(false);
+                            navigate("/work#Skills");
                         }}
                     />
                 </Grid>
@@ -131,6 +179,14 @@ export default function About() {
                         sx={{
                             backgroundColor: "#027373",
                             height: "24rem",
+                            cursor: "pointer",
+                        }}
+                        onClick={() => {
+                            setShownExperiences(Object.values(Organization));
+                            setMiscellaneousExperiences(true);
+                            setShownSkillCategories([SkillCategory.GAMES]);
+                            setMiscellaneousSkills(false);
+                            navigate("/work#Skills");
                         }}
                     />
                 </Grid>
@@ -143,6 +199,14 @@ export default function About() {
                         sx={{
                             backgroundColor: "#04BF9D",
                             height: "24rem",
+                            cursor: "pointer",
+                        }}
+                        onClick={() => {
+                            setShownExperiences(Object.values(Organization));
+                            setMiscellaneousExperiences(true);
+                            setShownSkillCategories([SkillCategory.MOBILE]);
+                            setMiscellaneousSkills(false);
+                            navigate("/work#Skills");
                         }}
                     />
                 </Grid>

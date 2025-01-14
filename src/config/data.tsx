@@ -365,6 +365,7 @@ export const skills: Skill[] = [
             Organization.CMU,
         ],
         categories: [
+            SkillCategory.GAMES,
             SkillCategory.LANGUAGES,
         ],
         label: "C/C++",
@@ -410,8 +411,28 @@ export const skills: Skill[] = [
             Organization.MORR,
             Organization.FREELANCE,
         ],
-        categories: [],
+        categories: [
+            SkillCategory.SOFT,
+        ],
         label: "Communication",
+        proficiency: 100,
+        description: <Stack
+            spacing={1}
+        >
+        </Stack>,
+    },
+    {
+        experiences: [
+            Organization.AMAZON,
+            Organization.CMU,
+            Organization.MORR,
+        ],
+        categories: [
+            SkillCategory.LANGUAGES,
+            SkillCategory.UI,
+            SkillCategory.WEB,
+        ],
+        label: "CSS3",
         proficiency: 100,
         description: <Stack
             spacing={1}
@@ -469,6 +490,7 @@ export const skills: Skill[] = [
         ],
         categories: [
             SkillCategory.DEVELOPMENT,
+            SkillCategory.GAMES,
             SkillCategory.UI,
         ],
         label: "Game Development",
@@ -502,6 +524,24 @@ export const skills: Skill[] = [
         ],
         label: "GPT Assistant API",
         proficiency: 50,
+        description: <Stack
+            spacing={1}
+        >
+        </Stack>,
+    },
+    {
+        experiences: [
+            Organization.AMAZON,
+            Organization.CMU,
+            Organization.MORR,
+        ],
+        categories: [
+            SkillCategory.LANGUAGES,
+            SkillCategory.UI,
+            SkillCategory.WEB,
+        ],
+        label: "HTML5",
+        proficiency: 100,
         description: <Stack
             spacing={1}
         >
@@ -598,6 +638,7 @@ export const skills: Skill[] = [
             Organization.CMU,
         ],
         categories: [
+            SkillCategory.GAMES,
             SkillCategory.LANGUAGES,
         ],
         label: "Python",
@@ -648,10 +689,11 @@ export const skills: Skill[] = [
             Organization.CMU,
         ],
         categories: [
+            SkillCategory.GAMES,
             SkillCategory.LIBRARIES,
             SkillCategory.UI,
         ],
-        label: "Simple DirectMedia Library (SDL)",
+        label: "Simple DirectMedia Layer (SDL)",
         proficiency: 75,
         description: <Stack
             spacing={1}
@@ -663,6 +705,7 @@ export const skills: Skill[] = [
             Organization.CMU,
         ],
         categories: [
+            SkillCategory.GAMES,
             SkillCategory.LIBRARIES,
             SkillCategory.UI,
         ],
@@ -682,6 +725,21 @@ export const skills: Skill[] = [
         ],
         label: "Socket Programming",
         proficiency: 50,
+        description: <Stack
+            spacing={1}
+        >
+        </Stack>,
+    },
+    {
+        experiences: [
+            Organization.MORR,
+        ],
+        categories: [
+            SkillCategory.UI,
+            SkillCategory.WEB,
+        ],
+        label: "Tailwind CSS",
+        proficiency: 75,
         description: <Stack
             spacing={1}
         >
@@ -758,6 +816,25 @@ export const skills: Skill[] = [
         ],
         label: "User Interface Design",
         proficiency: 75,
+        description: <Stack
+            spacing={1}
+        >
+        </Stack>,
+    },
+    {
+        experiences: [
+            Organization.AMAZON,
+            Organization.CMU,
+            Organization.INCIPIO,
+            Organization.MORR,
+        ],
+        categories: [
+            SkillCategory.DEVELOPMENT,
+            SkillCategory.UI,
+            SkillCategory.WEB,
+        ],
+        label: "Web Development",
+        proficiency: 100,
         description: <Stack
             spacing={1}
         >
