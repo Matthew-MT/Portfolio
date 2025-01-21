@@ -6,6 +6,7 @@ import Work from "./pages/Work";
 import Contact from "./pages/Contact";
 import { Organization, SkillCategory } from "./config/data";
 import { useState } from "react";
+import Stack from "@mui/material/Stack";
 
 export default function App() {
     const [shownExperiences, setShownExperiences] = useState<Organization[]>(Object.values(Organization));
@@ -13,13 +14,14 @@ export default function App() {
     const [shownSkillCategories, setShownSkillCategories] = useState<SkillCategory[]>(Object.values(SkillCategory));
     const [miscellaneousSkills, setMiscellaneousSkills] = useState<boolean>(true);
 
-    return <div
-        style={{
+    return <Stack
+        direction="column"
+        sx={{
+            flexGrow: 1,
             backgroundImage: "linear-gradient(120deg, #5FCDD9, #04BF9D, #04BFAD, #027373)",
             backgroundSize: "400% 400%",
             backgroundAttachment: "fixed",
             animation: "moving-gradient 15s ease infinite",
-            flexGrow: 1,
         }}
     >
         <Box
@@ -54,5 +56,5 @@ export default function App() {
             />} />
             <Route path="contact" element={<Contact />} />
         </Routes>
-    </div>;
+    </Stack>;
 }

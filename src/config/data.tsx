@@ -219,7 +219,7 @@ export const skills: Skill[] = [
             SkillCategory.MOBILE,
             SkillCategory.WEB,
         ],
-        label: "Agora",
+        label: "Agora.io",
         proficiency: 50,
         description: <Stack
             spacing={1}
@@ -263,7 +263,7 @@ export const skills: Skill[] = [
             SkillCategory.LIBRARIES,
         ],
         label: "AWS-DynamoDB",
-        proficiency: 75,
+        proficiency: 50,
         description: <Stack
             spacing={1}
         >
@@ -277,6 +277,21 @@ export const skills: Skill[] = [
             SkillCategory.AWS,
         ],
         label: "AWS-EC2",
+        proficiency: 50,
+        description: <Stack
+            spacing={1}
+        >
+        </Stack>,
+    },
+    {
+        experiences: [
+            Organization.AMAZON,
+            Organization.MORR,
+        ],
+        categories: [
+            SkillCategory.AWS,
+        ],
+        label: "AWS-IAM",
         proficiency: 50,
         description: <Stack
             spacing={1}
@@ -605,6 +620,21 @@ export const skills: Skill[] = [
     },
     {
         experiences: [
+            Organization.MORR,
+        ],
+        categories: [
+            SkillCategory.LIBRARIES,
+            SkillCategory.WEB,
+        ],
+        label: "Next.js",
+        proficiency: 50,
+        description: <Stack
+            spacing={1}
+        >
+        </Stack>,
+    },
+    {
+        experiences: [
             Organization.AMAZON,
             Organization.CMU,
             Organization.MORR,
@@ -627,7 +657,7 @@ export const skills: Skill[] = [
             SkillCategory.DATABASES,
         ],
         label: "PostgreSQL",
-        proficiency: 100,
+        proficiency: 75,
         description: <Stack
             spacing={1}
         >
@@ -815,6 +845,20 @@ export const skills: Skill[] = [
             SkillCategory.UI,
         ],
         label: "User Interface Design",
+        proficiency: 75,
+        description: <Stack
+            spacing={1}
+        >
+        </Stack>,
+    },
+    {
+        experiences: [
+            Organization.MORR,
+        ],
+        categories: [
+            SkillCategory.WEB,
+        ],
+        label: "Vercel",
         proficiency: 75,
         description: <Stack
             spacing={1}

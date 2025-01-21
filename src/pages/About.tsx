@@ -1,15 +1,12 @@
 // mui
 import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid2";
-import useTheme from "@mui/material/styles/useTheme";
 
 // components
 import ShowcaseCard from "../components/ShowcaseCard";
 
 // assets
-import Banner from "../assets/banner-1500x630-2809715463.jpg";
 import WebDevelopment from "../assets/3-2-web-development-png-hd-2495354893.png";
 import APIs from "../assets/Technology-528960878.png";
 import Databases from "../assets/database-schema-1895779_960_720-3491758589.png";
@@ -20,6 +17,17 @@ import { useEnterFrameAnimation } from "../utility";
 import { Organization, SkillCategory } from "../config/data";
 import { Dispatch, SetStateAction } from "react";
 import { useNavigate } from "react-router";
+import useTheme from "@mui/material/styles/useTheme";
+import Profile from "../assets/IMG_20250120_180742.jpg";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+// import List from "@mui/material/List";
+// import ListItemButton from "@mui/material/ListItemButton";
+// import ListSubheader from "@mui/material/ListSubheader";
+// import ListItemText from "@mui/material/ListItemText";
+// import ListItemIcon from "@mui/material/ListItemIcon";
+// import ResumeIcon from "@mui/icons-material/ContactPage";
+// import SkillsIcon from "@mui/icons-material/Checklist";
 
 // #172026
 // #5FCDD9
@@ -42,50 +50,164 @@ export default function About({
 }: AboutProps) {
     const theme = useTheme();
     const animatorProps = useEnterFrameAnimation();
+    const introAnimatorProps = useEnterFrameAnimation(undefined, 100);
+    const valuesAnimatorProps = useEnterFrameAnimation(undefined, 300);
+    const skillsAnimatorProps = useEnterFrameAnimation();
     const navigate = useNavigate();
 
     return <Stack
+        {...animatorProps}
         direction="column"
+        sx={{
+            alignSelf: "center",
+            marginTop: "calc(112px - 4rem)",
+            width: `min(80vw, ${theme.breakpoints.values.xl}px)`,
+            padding: "4rem",
+            alignItems: "center",
+            gap: "4rem",
+        }}
     >
-        <Box
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                width: "100%",
-                height: "64vh",
-                backgroundSize: "cover",
-                backgroundAttachment: "fixed",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-                backgroundImage: `url(${Banner})`,
-            }}
-        />
+        <Typography variant="h1" >Hi. I'm Matthew.</Typography>
         <Stack
-            direction="column"
+            {...introAnimatorProps}
+            direction="row"
             sx={{
-                alignSelf: "center",
-                padding: "4rem",
-                width: `min(80vw, ${theme.breakpoints.values.xl}px)`,
-                rowGap: "48px",
+                gap: "2rem",
+                maxWidth: "100%",
             }}
         >
+            <img
+                style={{
+                    flexGrow: 0,
+                    height: "32rem",
+                    aspectRatio: "1 / 1",
+                    objectFit: "cover",
+                    objectPosition: "center top",
+                    borderRadius: "50%",
+                }}
+                src={Profile}
+            />
             <Stack
-                {...animatorProps}
                 direction="column"
+                sx={{
+                    gap: "2rem",
+                    justifyContent: "space-between",
+                }}
             >
-                <Stack
-                    direction="row"
+                <Box>
+                    <Typography variant="h4">I am a full-stack software engineer with 3 years of experience in technologies such as React, AWS, Databases, and Linux.</Typography>
+                    <Typography>
+                        <br />
+                        I've worked in several different environments, including large cross-functional teams at Amazon.com and as the sole developer at MORR LLC. I also have a Bachelor's in Computer Science and a Bachelor's in Mathematics, making me uniquely strong in mathematical inquiry, research, and problem-solving.
+                        <br /><br />
+                        And I love solving problems. From math problems to features, my favorite hobby is to sit down with a good snack and iterate on a clean, elegant solution to a problem, and to see the impact that solution makes.
+                        <br /><br />
+                        Let's collaborate.
+                    </Typography>
+                </Box>
+                {/* <Paper
+                    square
                     sx={{
-                        flexWrap: "wrap",
-                        columnGap: "38px",
+                        width: "max-content",
+                        height: "max-content",
+                        alignSelf: "end",
                     }}
                 >
-                    <Typography fontSize="8rem" lineHeight="1.2em">Matthew</Typography><Typography fontSize="8rem" lineHeight="1.2em">Montoni-Tiller.</Typography>
-                </Stack>
-                <Typography fontSize="8rem" lineHeight="1.2em">Software Engineer.</Typography>
-                <Typography variant="h5">I'm enthusiastic to solve complex problems and deliver powerful features that delight users.</Typography>
+                    <List
+                        sx={{
+                            width: "max-content",
+                            maxWidth: "24rem",
+                            height: "max-content",
+                        }}
+                        subheader={<ListSubheader>
+                            Quick Links
+                        </ListSubheader>}
+                    >
+                        <ListItemButton
+                            component="a"
+                            href="#Resume"
+                        >
+                            <ListItemIcon>
+                                <ResumeIcon />
+                            </ListItemIcon>
+                            <ListItemText>
+                                Interactive Resume
+                            </ListItemText>
+                        </ListItemButton>
+                        <ListItemButton
+                            component="a"
+                            href="#Skills"
+                        >
+                            <ListItemIcon>
+                                <SkillsIcon />
+                            </ListItemIcon>
+                            <ListItemText>
+                                Skills
+                            </ListItemText>
+                        </ListItemButton>
+                    </List>
+                </Paper> */}
             </Stack>
+        </Stack>
+        <Stack
+            {...valuesAnimatorProps}
+            direction="column"
+            sx={{
+                alignItems: "center",
+                gap: "48px",
+            }}
+        >
+            <Typography variant="h1" >My Values</Typography>
+            <Grid
+                container
+                sx={{
+                    alignSelf: "center",
+                    backgroundColor: "#02737340",
+                    backgroundFilter: "blur(20px) saturate(1.6)",
+                    width: "72rem",
+                    padding: "6rem",
+                    borderRadius: "6rem",
+                }}
+                spacing={8}
+            >
+                <Grid container size={6} sx={{ justifyContent: "right" }} >
+                    <Typography variant="h3">Quality</Typography>
+                </Grid>
+                <Grid container size={6} sx={{ justifyContent: "left" }} >
+                    <Typography>Quality is not just about getting it right the first time, it's also about continually iterating to develop better solutions.</Typography>
+                </Grid>
+                <Grid size={12} ><Divider /></Grid>
+                <Grid container size={6} sx={{ justifyContent: "left" }} >
+                    <Typography>Communication means understanding. Understanding means comprehensive knowledge of the feature or problem.</Typography>
+                </Grid>
+                <Grid container size={6} sx={{ justifyContent: "left" }} >
+                    <Typography variant="h3">Communication</Typography>
+                </Grid>
+                <Grid size={12} ><Divider /></Grid>
+                <Grid container size={6} sx={{ justifyContent: "right" }} >
+                    <Typography variant="h3">Inclusion</Typography>
+                </Grid>
+                <Grid container size={6} sx={{ justifyContent: "left" }} >
+                    <Typography>It's critical to include all stakeholders in the conversation. Incorporating diverse client perspectives can make or break a solution.</Typography>
+                </Grid>
+                <Grid size={12} ><Divider /></Grid>
+                <Grid container size={6} sx={{ justifyContent: "left" }} >
+                    <Typography>It isn't enough to memorize formulas in an ever-changing world. Being open to learning and growing is crucial.</Typography>
+                </Grid>
+                <Grid container size={6} sx={{ justifyContent: "left" }} >
+                    <Typography variant="h3">Learning</Typography>
+                </Grid>
+            </Grid>
+        </Stack>
+        <Stack
+            {...skillsAnimatorProps}
+            direction="column"
+            sx={{
+                alignItems: "center",
+                gap: "48px",
+            }}
+        >
+            <Typography variant="h1" >My Skills</Typography>
             <Grid
                 container
                 spacing={12}
@@ -93,12 +215,12 @@ export default function About({
                 <Grid size={{ xs: 12, xl: 8 }}>
                     <ShowcaseCard
                         animateIn
-                        delay={200}
+                        delay={100}
                         title="Web Development"
                         image={WebDevelopment}
                         sx={{
                             backgroundColor: "#5FCDD9",
-                            height: "24rem",
+                            height: "20rem",
                             cursor: "pointer",
                         }}
                         onClick={() => {
@@ -113,12 +235,12 @@ export default function About({
                 <Grid size={{ xs: 12, xl: 4 }}>
                     <ShowcaseCard
                         animateIn
-                        delay={200}
+                        delay={100}
                         title="APIs"
                         image={APIs}
                         sx={{
                             backgroundColor: "#027373",
-                            height: "24rem",
+                            height: "20rem",
                             cursor: "pointer",
                         }}
                         onClick={() => {
@@ -133,12 +255,12 @@ export default function About({
                 <Grid size={{ xs: 12, xl: 4 }}>
                     <ShowcaseCard
                         animateIn
-                        delay={200}
+                        delay={100}
                         title="Databases"
                         image={Databases}
                         sx={{
                             backgroundColor: "#04BFAD",
-                            height: "24rem",
+                            height: "20rem",
                             cursor: "pointer",
                         }}
                         onClick={() => {
@@ -153,12 +275,12 @@ export default function About({
                 <Grid size={{ xs: 12, xl: 8 }}>
                     <ShowcaseCard
                         animateIn
-                        delay={200}
+                        delay={100}
                         title="AWS"
                         image={AWS}
                         sx={{
                             backgroundColor: "#172026",
-                            height: "24rem",
+                            height: "20rem",
                             cursor: "pointer",
                         }}
                         onClick={() => {
@@ -173,12 +295,12 @@ export default function About({
                 <Grid size={{ xs: 12, xl: 8 }}>
                     <ShowcaseCard
                         animateIn
-                        delay={200}
+                        delay={100}
                         title="Game Development"
                         image={GameDevelopment}
                         sx={{
                             backgroundColor: "#027373",
-                            height: "24rem",
+                            height: "20rem",
                             cursor: "pointer",
                         }}
                         onClick={() => {
@@ -193,12 +315,12 @@ export default function About({
                 <Grid size={{ xs: 12, xl: 4 }}>
                     <ShowcaseCard
                         animateIn
-                        delay={200}
+                        delay={100}
                         title="Mobile"
                         image={Mobile}
                         sx={{
                             backgroundColor: "#04BF9D",
-                            height: "24rem",
+                            height: "20rem",
                             cursor: "pointer",
                         }}
                         onClick={() => {

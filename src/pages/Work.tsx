@@ -7,13 +7,6 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import Alert from "@mui/material/Alert";
-import List from "@mui/material/List";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListSubheader from "@mui/material/ListSubheader";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ResumeIcon from "@mui/icons-material/ContactPage";
-import SkillsIcon from "@mui/icons-material/Checklist";
 import Paper from "@mui/material/Paper";
 import { experiences, Organization, SkillCategory, skills } from "../config/data";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -42,8 +35,8 @@ const months = ((now.getFullYear() - 2019) * 12) + (now.getMonth() - 7);
 const labels = (new Array(months - 1)).fill(0).map((_, index) => {
     const date = new Date(now);
     date.setMonth(date.getMonth() - index);
-    if (date.getMonth() === 0) return date.getFullYear();
     // January shouldn't show up because the number representing the year represents it.
+    if (date.getMonth() === 0) return date.getFullYear();
     return monthNames[date.getMonth()];
 });
 
@@ -72,99 +65,34 @@ export default function Work({
     setMiscellaneousSkills,
 }: WorkProps) {
     const theme = useTheme();
-    const resumeRef = useRef<HTMLDivElement | null>(null);
-    const skillsRef = useRef<HTMLDivElement | null>(null);
+    const resumeRef = useRef<HTMLElement | null>(null);
+    const skillsRef = useRef<HTMLElement | null>(null);
 
     const [showInfo, setShowInfo] = useState<boolean>(true);
 
     const mainAnimatorProps = useEnterFrameAnimation();
-    const introAnimatorProps = useEnterFrameAnimation(undefined, 200);
     const resumeAnimatorProps = useEnterFrameAnimation(instance => {
         resumeRef.current = instance;
         if (window.location.hash === "#Resume") window.scrollTo({ top: (instance?.getBoundingClientRect().top || 0) + document.documentElement.scrollTop });
-    }, 400);
+    }, 200);
     const skillsAnimatorProps = useEnterFrameAnimation(instance => {
         skillsRef.current = instance;
         if (window.location.hash === "#Skills") window.scrollTo({ top: (instance?.getBoundingClientRect().top || 0) + document.documentElement.scrollTop });
-    }, 200);
+    }, 100);
 
     return <Stack
         {...mainAnimatorProps}
         direction="column"
         sx={{
-            marginX: "auto",
-            alignContent: "center",
+            alignSelf: "center",
+            width: `min(80vw, ${theme.breakpoints.values.xl}px)`,
             marginTop: "calc(112px - 4rem)",
             padding: "4rem",
-            width: `min(80vw, ${theme.breakpoints.values.xl}px)`,
-            flexGrow: 1,
+            alignItems: "center",
             gap: "48px",
         }}
     >
         <Typography variant="h1" >My Work</Typography>
-        <Stack
-            {...introAnimatorProps}
-            direction="column"
-            sx={{
-                gap: "24px",
-            }}
-        >
-            {/* <Typography variant="h2" >Introduction</Typography> */}
-            <Stack
-                direction="row"
-                sx={{
-                    gap: "2rem",
-                }}
-            >
-                <Box>
-                    <Typography>
-                        I am a full-stack software engineer with 3 years of experience in technologies such as React, AWS, Databases, and Linux, and with Bachelor's degrees in Computer Science and Mathematics.
-                        I have worked in several different environments, including large cross-functional teams at Amazon.com and as the sole developer at MORR LLC.
-                    </Typography>
-                </Box>
-                <Paper
-                    square
-                    sx={{
-                        width: "max-content",
-                        height: "max-content",
-                    }}
-                >
-                    <List
-                        sx={{
-                            width: "max-content",
-                            maxWidth: "24rem",
-                            height: "max-content",
-                        }}
-                        subheader={<ListSubheader>
-                            Quick Links
-                        </ListSubheader>}
-                    >
-                        <ListItemButton
-                            component="a"
-                            href="#Resume"
-                        >
-                            <ListItemIcon>
-                                <ResumeIcon />
-                            </ListItemIcon>
-                            <ListItemText>
-                                Interactive Resume
-                            </ListItemText>
-                        </ListItemButton>
-                        <ListItemButton
-                            component="a"
-                            href="#Skills"
-                        >
-                            <ListItemIcon>
-                                <SkillsIcon />
-                            </ListItemIcon>
-                            <ListItemText>
-                                Skills
-                            </ListItemText>
-                        </ListItemButton>
-                    </List>
-                </Paper>
-            </Stack>
-        </Stack>
         <Stack
             {...resumeAnimatorProps}
             id="Resume"
@@ -173,7 +101,6 @@ export default function Work({
                 gap: "24px",
             }}
         >
-            <Typography variant="h2" >Interactive Resume</Typography>
             {showInfo && <Alert
                 variant="filled"
                 severity="info"
@@ -299,233 +226,227 @@ export default function Work({
                 })}
             </Box>
         </Stack>
+        <Typography variant="h1" >My Skills</Typography>
         <Stack
             {...skillsAnimatorProps}
             id="Skills"
-            direction="column"
+            direction="row"
             sx={{
-                gap: "24px",
+                width: "100%",
+                gap: "2rem",
             }}
         >
-            <Typography variant="h2" >Skills</Typography>
             <Stack
-                direction="row"
+                direction="column"
+                spacing={1}
                 sx={{
-                    gap: "2rem",
+                    flexGrow: 1,
                 }}
             >
-                <Stack
-                    direction="column"
-                    spacing={1}
+                {skills.filter(
+                    skill =>
+                    ((shownExperiences.length === 0 && !miscellaneousExperiences) || (skill.experiences.length === 0 && miscellaneousExperiences) || skill.experiences.some(experience => shownExperiences.includes(experience)))
+                    && ((shownSkillCategories.length === 0 && !miscellaneousSkills) || (skill.categories.length === 0 && miscellaneousSkills) || skill.categories.some(category => shownSkillCategories.includes(category)))
+                ).map(skill => <ShowcaseCard
+                    hoverable={false}
+                    variant="h5"
                     sx={{
-                        flexGrow: 1,
+                        boxSizing: "border-box",
+                        backgroundColor: theme.palette.background.paper,
+                        borderRadius: "1.5rem",
+                        padding: "1rem 1.6rem",
                     }}
+                    title={skill.label}
                 >
-                    {skills.filter(
-                        skill =>
-                        (shownExperiences.length === 0 || (skill.experiences.length === 0 && miscellaneousExperiences) || skill.experiences.some(experience => shownExperiences.includes(experience)))
-                        && (shownSkillCategories.length === 0 || (skill.categories.length === 0 && miscellaneousSkills) || skill.categories.some(category => shownSkillCategories.includes(category)))
-                    ).map(skill => <ShowcaseCard
-                        hoverable={false}
-                        variant="h5"
+                    <Stack
                         sx={{
-                            boxSizing: "border-box",
-                            backgroundColor: theme.palette.background.paper,
-                            borderRadius: "1.5rem",
-                            padding: "1rem 1.6rem",
+                            width: "100%",
+                            gap: "0.5rem",
                         }}
-                        title={skill.label}
                     >
                         <Stack
+                            direction="row"
                             sx={{
+                                alignItems: "center",
+                                justifyContent: "space-between",
                                 width: "100%",
-                                gap: "0.5rem",
                             }}
                         >
+                            <Typography variant="h6">From: {skill.experiences.length ? skill.experiences.join(", ") : "Miscellaneous"}</Typography>
+                            <SkillsList list={skill.categories} />
+                        </Stack>
+                        <Stack
+                            sx={{
+                                gap: "0.5rem",
+                                bgcolor: "#02737396",
+                                padding: "8px 16px",
+                            }}
+                        >
+                            <Typography variant="h6">Skill Proficiency:</Typography>
+                            <LinearProgress
+                                variant="determinate"
+                                sx={{
+                                    width: "100%",
+                                }}
+                                value={skill.proficiency}
+                            />
                             <Stack
                                 direction="row"
                                 sx={{
-                                    alignItems: "center",
-                                    justifyContent: "space-between",
                                     width: "100%",
+                                    justifyContent: "space-between",
                                 }}
                             >
-                                <Typography variant="h6">From: {skill.experiences.length ? skill.experiences.join(", ") : "Miscellaneous"}</Typography>
-                                <SkillsList list={skill.categories} />
-                            </Stack>
-                            <Stack
-                                sx={{
-                                    gap: "0.5rem",
-                                    bgcolor: "#02737396",
-                                    padding: "8px 16px",
-                                }}
-                            >
-                                <Typography variant="h6">Skill Proficiency:</Typography>
-                                <LinearProgress
-                                    variant="determinate"
-                                    sx={{
-                                        width: "100%",
-                                    }}
-                                    value={skill.proficiency}
-                                />
                                 <Stack
-                                    direction="row"
                                     sx={{
-                                        width: "100%",
-                                        justifyContent: "space-between",
+                                        alignItems: "start",
+                                        width: "0px",
+                                        textWrap: "nowrap",
                                     }}
                                 >
-                                    <Stack
-                                        sx={{
-                                            alignItems: "start",
-                                            width: "0px",
-                                            textWrap: "nowrap",
-                                        }}
-                                    >
-                                        <Box sx={{ bgcolor: theme.palette.primary.main, width: "8px", height: "8px", borderRadius: "4px" }} />
-                                        <Typography>Saw a Video</Typography>
-                                    </Stack>
-                                    <Stack
-                                        sx={{
-                                            alignItems: "center",
-                                            width: "0px",
-                                            textWrap: "nowrap",
-                                        }}
-                                    >
-                                        <Box sx={{ bgcolor: skill.proficiency >= 25 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
-                                        <Typography>Deployed a Project</Typography>
-                                    </Stack>
-                                    <Stack
-                                        sx={{
-                                            alignItems: "center",
-                                            width: "0px",
-                                            textWrap: "nowrap",
-                                        }}
-                                    >
-                                        <Box sx={{ bgcolor: skill.proficiency >= 50 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
-                                        <Typography>Comfortable</Typography>
-                                    </Stack>
-                                    <Stack
-                                        sx={{
-                                            alignItems: "center",
-                                            width: "0px",
-                                            textWrap: "nowrap",
-                                        }}
-                                    >
-                                        <Box sx={{ bgcolor: skill.proficiency >= 75 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
-                                        <Typography>Used Frequently</Typography>
-                                    </Stack>
-                                    <Stack
-                                        sx={{
-                                            alignItems: "end",
-                                            width: "0px",
-                                            textWrap: "nowrap",
-                                        }}
-                                    >
-                                        <Box sx={{ bgcolor: skill.proficiency >= 100 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
-                                        <Typography>Legendary</Typography>
-                                    </Stack>
+                                    <Box sx={{ bgcolor: theme.palette.primary.main, width: "8px", height: "8px", borderRadius: "4px" }} />
+                                    <Typography variant="body2" >Saw a Video</Typography>
+                                </Stack>
+                                <Stack
+                                    sx={{
+                                        alignItems: "center",
+                                        width: "0px",
+                                        textWrap: "nowrap",
+                                    }}
+                                >
+                                    <Box sx={{ bgcolor: skill.proficiency >= 25 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
+                                    <Typography variant="body2" >Deployed a Project</Typography>
+                                </Stack>
+                                <Stack
+                                    sx={{
+                                        alignItems: "center",
+                                        width: "0px",
+                                        textWrap: "nowrap",
+                                    }}
+                                >
+                                    <Box sx={{ bgcolor: skill.proficiency >= 50 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
+                                    <Typography variant="body2" >Comfortable</Typography>
+                                </Stack>
+                                <Stack
+                                    sx={{
+                                        alignItems: "center",
+                                        width: "0px",
+                                        textWrap: "nowrap",
+                                    }}
+                                >
+                                    <Box sx={{ bgcolor: skill.proficiency >= 75 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
+                                    <Typography variant="body2" >Used Frequently</Typography>
+                                </Stack>
+                                <Stack
+                                    sx={{
+                                        alignItems: "end",
+                                        width: "0px",
+                                        textWrap: "nowrap",
+                                    }}
+                                >
+                                    <Box sx={{ bgcolor: skill.proficiency >= 100 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
+                                    <Typography variant="body2" >Legendary</Typography>
                                 </Stack>
                             </Stack>
-                            {skill.description}
                         </Stack>
-                    </ShowcaseCard>)}
-                </Stack>
-                <Paper
-                    square
+                        {skill.description}
+                    </Stack>
+                </ShowcaseCard>)}
+            </Stack>
+            <Paper
+                square
+                sx={{
+                    position: "sticky",
+                    top: 0,
+                    maxHeight: "100vh",
+                    overflowY: "auto",
+                    padding: "1rem",
+                    height: "max-content",
+                }}
+            >
+                <FormControlLabel
+                    label="Experiences"
+                    control={<Checkbox
+                        checked={miscellaneousExperiences && shownExperiences.length === Object.values(Organization).length}
+                        indeterminate={(miscellaneousExperiences || shownExperiences.length > 0) && (!miscellaneousExperiences || shownExperiences.length < Object.values(Organization).length)}
+                        onChange={() => setShownExperiences(previous => {
+                            const all = Object.values(Organization);
+                            if (previous.length === all.length) {
+                                setMiscellaneousExperiences(false);
+                                return [];
+                            } else {
+                                setMiscellaneousExperiences(true);
+                                return [...all];
+                            }
+                        })}
+                    />}
+                />
+                <Stack
+                    direction="column"
                     sx={{
-                        position: "sticky",
-                        top: 0,
-                        maxHeight: "100vh",
-                        overflowY: "auto",
-                        padding: "1rem",
-                        height: "max-content",
+                        ml: 3,
                     }}
                 >
-                    <FormControlLabel
-                        label="Experiences"
+                    {experienceCheckboxLabels.map(organization => <FormControlLabel
+                        label={organization}
                         control={<Checkbox
-                            checked={miscellaneousExperiences && shownExperiences.length === Object.values(Organization).length}
-                            indeterminate={(miscellaneousExperiences || shownExperiences.length > 0) && (!miscellaneousExperiences || shownExperiences.length < Object.values(Organization).length)}
+                            checked={shownExperiences.includes(organization)}
                             onChange={() => setShownExperiences(previous => {
-                                const all = Object.values(Organization);
-                                if (previous.length === all.length) {
-                                    setMiscellaneousExperiences(false);
-                                    return [];
-                                } else {
-                                    setMiscellaneousExperiences(true);
-                                    return [...all];
-                                }
+                                if (previous.includes(organization)) return previous.filter(o => o !== organization);
+                                else return [...previous, organization];
                             })}
                         />}
-                    />
-                    <Stack
-                        direction="column"
-                        sx={{
-                            ml: 3,
-                        }}
-                    >
-                        {experienceCheckboxLabels.map(organization => <FormControlLabel
-                            label={organization}
-                            control={<Checkbox
-                                checked={shownExperiences.includes(organization)}
-                                onChange={() => setShownExperiences(previous => {
-                                    if (previous.includes(organization)) return previous.filter(o => o !== organization);
-                                    else return [...previous, organization];
-                                })}
-                            />}
-                        />)}
-                        <FormControlLabel
-                            label="Miscellaneous"
-                            control={<Checkbox
-                                checked={miscellaneousExperiences}
-                                onChange={() => setMiscellaneousExperiences(previous => !previous)}
-                            />}
-                        />
-                    </Stack>
+                    />)}
                     <FormControlLabel
-                        label="Skill Categories"
+                        label="Miscellaneous"
                         control={<Checkbox
-                            checked={miscellaneousSkills && shownSkillCategories.length === Object.values(SkillCategory).length}
-                            indeterminate={(miscellaneousSkills || shownSkillCategories.length > 0) && (!miscellaneousSkills || shownSkillCategories.length < Object.values(SkillCategory).length)}
-                            onChange={() => setShownSkillCategories(previous => {
-                                const all = Object.values(SkillCategory);
-                                if (previous.length === all.length) {
-                                    setMiscellaneousSkills(false);
-                                    return [];
-                                } else {
-                                    setMiscellaneousSkills(true);
-                                    return [...all];
-                                }
-                            })}
+                            checked={miscellaneousExperiences}
+                            onChange={() => setMiscellaneousExperiences(previous => !previous)}
                         />}
                     />
-                    <Stack
-                        direction="column"
-                        sx={{
-                            ml: 3,
-                        }}
-                    >
-                        {skillCategoryCheckboxLabels.map(skillCategory => <FormControlLabel
-                            label={skillCategory}
-                            control={<Checkbox
-                                checked={shownSkillCategories.includes(skillCategory)}
-                                onChange={() => setShownSkillCategories(previous => {
-                                    if (previous.includes(skillCategory)) return previous.filter(o => o !== skillCategory);
-                                    else return [...previous, skillCategory];
-                                })}
-                            />}
-                        />)}
-                        <FormControlLabel
-                            label="Miscellaneous"
-                            control={<Checkbox
-                                checked={miscellaneousSkills}
-                                onChange={() => setMiscellaneousSkills(previous => !previous)}
-                            />}
-                        />
-                    </Stack>
-                </Paper>
-            </Stack>
+                </Stack>
+                <FormControlLabel
+                    label="Skill Categories"
+                    control={<Checkbox
+                        checked={miscellaneousSkills && shownSkillCategories.length === Object.values(SkillCategory).length}
+                        indeterminate={(miscellaneousSkills || shownSkillCategories.length > 0) && (!miscellaneousSkills || shownSkillCategories.length < Object.values(SkillCategory).length)}
+                        onChange={() => setShownSkillCategories(previous => {
+                            const all = Object.values(SkillCategory);
+                            if (previous.length === all.length) {
+                                setMiscellaneousSkills(false);
+                                return [];
+                            } else {
+                                setMiscellaneousSkills(true);
+                                return [...all];
+                            }
+                        })}
+                    />}
+                />
+                <Stack
+                    direction="column"
+                    sx={{
+                        ml: 3,
+                    }}
+                >
+                    {skillCategoryCheckboxLabels.map(skillCategory => <FormControlLabel
+                        label={skillCategory}
+                        control={<Checkbox
+                            checked={shownSkillCategories.includes(skillCategory)}
+                            onChange={() => setShownSkillCategories(previous => {
+                                if (previous.includes(skillCategory)) return previous.filter(o => o !== skillCategory);
+                                else return [...previous, skillCategory];
+                            })}
+                        />}
+                    />)}
+                    <FormControlLabel
+                        label="Miscellaneous"
+                        control={<Checkbox
+                            checked={miscellaneousSkills}
+                            onChange={() => setMiscellaneousSkills(previous => !previous)}
+                        />}
+                    />
+                </Stack>
+            </Paper>
         </Stack>
     </Stack>;
 }

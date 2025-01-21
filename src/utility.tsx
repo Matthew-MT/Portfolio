@@ -14,8 +14,8 @@ export function samePageLinkNavigation(
     return true;
 }
 
-export function useEnterFrameAnimation($ref?: (_ref: HTMLDivElement | null) => void, delay?: number, className?: string) {
-    const [_ref, setRef] = useState<MutableRefObject<HTMLDivElement | null>>({ current: null });
+export function useEnterFrameAnimation($ref?: (_ref: HTMLElement | null) => void, delay?: number, className?: string) {
+    const [_ref, setRef] = useState<MutableRefObject<HTMLElement | null>>({ current: null });
     // const ref = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -36,7 +36,7 @@ export function useEnterFrameAnimation($ref?: (_ref: HTMLDivElement | null) => v
     }, [_ref, delay]);
 
     return {
-        ref: (instance: HTMLDivElement | null) => {
+        ref: (instance: HTMLElement | null) => {
             if (_ref.current || !instance) return;
             setRef({ current: instance });
             if ($ref) $ref(instance);
