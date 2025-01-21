@@ -811,6 +811,7 @@ export const skills: Skill[] = [
         ],
         categories: [
             SkillCategory.LANGUAGES,
+            SkillCategory.WEB,
         ],
         label: "TypeScript",
         proficiency: 100,

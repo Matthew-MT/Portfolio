@@ -26,12 +26,13 @@ export default function App() {
     >
         <Box
             sx={{
+                alignSelf: "center",
                 position: "fixed",
                 zIndex: 100,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                width: "100%",
+                // width: "100%",
                 height: "70px",
             }}
         >
