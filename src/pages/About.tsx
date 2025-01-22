@@ -68,7 +68,7 @@ export default function About({
             gap: "4rem",
         }}
     >
-        <Typography variant="h1" >Hi. I'm Matthew.</Typography>
+        <Typography variant="h1" textAlign="center" >Hi. I'm Matthew.</Typography>
         <Stack
             {...introAnimatorProps}
             direction="row"
@@ -160,7 +160,7 @@ export default function About({
                 gap: "48px",
             }}
         >
-            <Typography variant="h1" >My Values</Typography>
+            <Typography variant="h1" textAlign="center" >My Values</Typography>
             <Grid
                 container
                 sx={{
@@ -214,7 +214,7 @@ export default function About({
                 gap: "48px",
             }}
         >
-            <Typography variant="h1" >My Skills</Typography>
+            <Typography variant="h1" textAlign="center" >My Skills</Typography>
             <Grid
                 container
                 spacing={12}

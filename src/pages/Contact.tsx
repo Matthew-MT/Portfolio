@@ -31,7 +31,7 @@ export default function About() {
             gap: "48px",
         }}
     >
-        <Typography variant="h1">Contact Information</Typography>
+        <Typography variant="h1" textAlign="center" >Contact Information</Typography>
         <Stack
             {...contactAnimatorProps}
             direction="column"

@@ -107,7 +107,7 @@ export default function Work({
             gap: "48px",
         }}
     >
-        <Typography variant="h1" >My Work</Typography>
+        <Typography variant="h1" textAlign="center" >My Work</Typography>
         <Stack
             {...resumeAnimatorProps}
             id="Resume"
@@ -253,7 +253,7 @@ export default function Work({
                 alignItems: "center",
             }}
         >
-            <Typography variant="h1" >My Skills</Typography>
+            <Typography variant="h1" textAlign="center" >My Skills</Typography>
             {!mobile && <Button
                 size="large"
                 variant="contained"
