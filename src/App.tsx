@@ -7,24 +7,26 @@ import Contact from "./pages/Contact";
 import { Organization, SkillCategory } from "./config/data";
 import { useState } from "react";
 import Stack from "@mui/material/Stack";
+import useTheme from "@mui/material/styles/useTheme";
+import { useIsMobile } from "./config/utility";
 
 export default function App() {
+    const theme = useTheme();
+    const mobile = useIsMobile(theme);
     const [shownExperiences, setShownExperiences] = useState<Organization[]>(Object.values(Organization));
     const [miscellaneousExperiences, setMiscellaneousExperiences] = useState<boolean>(true);
     const [shownSkillCategories, setShownSkillCategories] = useState<SkillCategory[]>(Object.values(SkillCategory));
     const [miscellaneousSkills, setMiscellaneousSkills] = useState<boolean>(true);
 
     return <Stack
+        id="content"
         direction="column"
         sx={{
             flexGrow: 1,
-            backgroundImage: "linear-gradient(120deg, #5FCDD9, #04BF9D, #04BFAD, #027373)",
-            backgroundSize: "400% 400%",
-            backgroundAttachment: "fixed",
-            animation: "moving-gradient 15s ease infinite",
         }}
     >
         <Box
+            component="nav"
             sx={{
                 alignSelf: "center",
                 position: "fixed",
@@ -32,11 +34,12 @@ export default function App() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                // width: "100%",
-                height: "70px",
+                width: "100vw",
+                height: mobile ? "min-content" : "70px",
+                overflow: mobile ? "hidden" : undefined,
             }}
         >
-            <Navigation sx={{ marginTop: "32px" }} />
+            <Navigation sx={{ marginTop: mobile ? undefined : "32px" }} />
         </Box>
         <Routes>
             <Route index element={<About

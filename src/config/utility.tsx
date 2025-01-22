@@ -1,3 +1,5 @@
+import { Theme } from "@mui/material/styles/createTheme";
+import useTheme from "@mui/material/styles/useTheme";
 import { MutableRefObject, useEffect, /*useRef,*/ useState } from "react";
 
 export function samePageLinkNavigation(
@@ -16,7 +18,6 @@ export function samePageLinkNavigation(
 
 export function useEnterFrameAnimation($ref?: (_ref: HTMLElement | null) => void, delay?: number, className?: string) {
     const [_ref, setRef] = useState<MutableRefObject<HTMLElement | null>>({ current: null });
-    // const ref = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         if (!_ref.current) return;
@@ -26,7 +27,7 @@ export function useEnterFrameAnimation($ref?: (_ref: HTMLElement | null) => void
                 if (delay) setTimeout(() => entry.target.classList.add("animate-enter-frame-animator"), delay);
                 else entry.target.classList.add("animate-enter-frame-animator");
             }
-        });
+        }, { threshold: [1, 0] });
 
         observer.observe(_ref.current);
 
@@ -43,4 +44,17 @@ export function useEnterFrameAnimation($ref?: (_ref: HTMLElement | null) => void
         },
         className: className ? className + " " : "" + "animate-enter-frame",
     };
+}
+
+export function useIsMobile(theme?: Theme) {
+    const _theme = useTheme();
+    const [width, setWidth] = useState<number>(document.documentElement.clientWidth);
+
+    useEffect(() => {
+        function handleResize() { setWidth(document.documentElement.clientWidth); }
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    return width < (theme || _theme).breakpoints.values.md;
 }

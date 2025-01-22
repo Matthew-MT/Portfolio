@@ -4,7 +4,7 @@ import { NavLink } from "react-router";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import useTheme from "@mui/material/styles/useTheme";
-import { useEnterFrameAnimation } from "../utility";
+import { useEnterFrameAnimation } from "../config/utility";
 
 // assets
 

@@ -13,7 +13,7 @@ import Databases from "../assets/database-schema-1895779_960_720-3491758589.png"
 import AWS from "../assets/amazon_web_services_73a55e2b43-154728351.png";
 import GameDevelopment from "../assets/41285-1-game-controller-png-download-free-1989348200.png";
 import Mobile from "../assets/mobile-dev-android-studio-apple-app-store.png";
-import { useEnterFrameAnimation } from "../utility";
+import { useEnterFrameAnimation, useIsMobile } from "../config/utility";
 import { Organization, SkillCategory } from "../config/data";
 import { Dispatch, SetStateAction } from "react";
 import { useNavigate } from "react-router";
@@ -49,6 +49,7 @@ export default function About({
     setMiscellaneousSkills,
 }: AboutProps) {
     const theme = useTheme();
+    const mobile = useIsMobile(theme);
     const animatorProps = useEnterFrameAnimation();
     const introAnimatorProps = useEnterFrameAnimation(undefined, 100);
     const valuesAnimatorProps = useEnterFrameAnimation(undefined, 300);
@@ -73,13 +74,15 @@ export default function About({
             direction="row"
             sx={{
                 gap: "2rem",
-                maxWidth: "100%",
+                maxWidth: "100vw",
+                flexWrap: mobile ? "wrap" : "nowrap",
+                justifyContent: "center",
             }}
         >
             <img
                 style={{
                     flexGrow: 0,
-                    height: "32rem",
+                    height: "min(32rem, 80vw)",
                     aspectRatio: "1 / 1",
                     objectFit: "cover",
                     objectPosition: "center top",
@@ -164,39 +167,43 @@ export default function About({
                     alignSelf: "center",
                     backgroundColor: "#02737340",
                     backgroundFilter: "blur(20px) saturate(1.6)",
-                    width: "72rem",
-                    padding: "6rem",
-                    borderRadius: "6rem",
+                    width: "min(84vw, 72rem)",
+                    padding: "min(7vw, 6rem)",
+                    borderRadius: "min(14vw, 6rem)",
                 }}
-                spacing={8}
+                spacing="min(7vw, 6rem)"
             >
-                <Grid container size={6} sx={{ justifyContent: "right" }} >
+                <Grid container size={{ xs: 12, md: 6 }} sx={{ justifyContent: mobile ? "center" : "right" }} >
                     <Typography variant="h3">Quality</Typography>
                 </Grid>
-                <Grid container size={6} sx={{ justifyContent: "left" }} >
+                <Grid container size={{ xs: 12, md: 6 }} sx={{ justifyContent: "left" }} >
                     <Typography>Quality is not just about getting it right the first time, it's also about continually iterating to develop better solutions.</Typography>
                 </Grid>
                 <Grid size={12} ><Divider /></Grid>
-                <Grid container size={6} sx={{ justifyContent: "left" }} >
-                    <Typography>Communication means understanding. Understanding means comprehensive knowledge of the feature or problem.</Typography>
-                </Grid>
-                <Grid container size={6} sx={{ justifyContent: "left" }} >
-                    <Typography variant="h3">Communication</Typography>
-                </Grid>
+                {(mobile ? Array.prototype.reverse : Array.prototype.slice).call([
+                    <Grid container size={{ xs: 12, md: 6 }} sx={{ justifyContent: "left" }} >
+                        <Typography>Communication means understanding. Understanding means comprehensive knowledge of the feature or problem.</Typography>
+                    </Grid>,
+                    <Grid container size={{ xs: 12, md: 6 }} sx={{ justifyContent: mobile ? "center" : "left" }} >
+                        <Typography variant="h3">Communication</Typography>
+                    </Grid>,
+                ])}
                 <Grid size={12} ><Divider /></Grid>
-                <Grid container size={6} sx={{ justifyContent: "right" }} >
+                <Grid container size={{ xs: 12, md: 6 }} sx={{ justifyContent: mobile ? "center" : "right" }} >
                     <Typography variant="h3">Inclusion</Typography>
                 </Grid>
-                <Grid container size={6} sx={{ justifyContent: "left" }} >
+                <Grid container size={{ xs: 12, md: 6 }} sx={{ justifyContent: "left" }} >
                     <Typography>It's critical to include all stakeholders in the conversation. Incorporating diverse client perspectives can make or break a solution.</Typography>
                 </Grid>
                 <Grid size={12} ><Divider /></Grid>
-                <Grid container size={6} sx={{ justifyContent: "left" }} >
-                    <Typography>It isn't enough to memorize formulas in an ever-changing world. Being open to learning and growing is crucial.</Typography>
-                </Grid>
-                <Grid container size={6} sx={{ justifyContent: "left" }} >
-                    <Typography variant="h3">Learning</Typography>
-                </Grid>
+                {(mobile ? Array.prototype.reverse : Array.prototype.slice).call([
+                    <Grid container size={{ xs: 12, md: 6 }} sx={{ justifyContent: "left" }} >
+                        <Typography>It isn't enough to memorize formulas in an ever-changing world. Being open to learning and growing is crucial.</Typography>
+                    </Grid>,
+                    <Grid container size={{ xs: 12, md: 6 }} sx={{ justifyContent: mobile ? "center" : "left" }} >
+                        <Typography variant="h3">Learning</Typography>
+                    </Grid>,
+                ])}
             </Grid>
         </Stack>
         <Stack
@@ -220,7 +227,7 @@ export default function About({
                         image={WebDevelopment}
                         sx={{
                             backgroundColor: "#5FCDD9",
-                            height: "20rem",
+                            height: "min(20rem, 64vw)",
                             cursor: "pointer",
                         }}
                         onClick={() => {
@@ -240,7 +247,7 @@ export default function About({
                         image={APIs}
                         sx={{
                             backgroundColor: "#027373",
-                            height: "20rem",
+                            height: "min(20rem, 64vw)",
                             cursor: "pointer",
                         }}
                         onClick={() => {
@@ -260,7 +267,7 @@ export default function About({
                         image={Databases}
                         sx={{
                             backgroundColor: "#04BFAD",
-                            height: "20rem",
+                            height: "min(20rem, 64vw)",
                             cursor: "pointer",
                         }}
                         onClick={() => {
@@ -280,7 +287,7 @@ export default function About({
                         image={AWS}
                         sx={{
                             backgroundColor: "#172026",
-                            height: "20rem",
+                            height: "min(20rem, 64vw)",
                             cursor: "pointer",
                         }}
                         onClick={() => {
@@ -300,7 +307,7 @@ export default function About({
                         image={GameDevelopment}
                         sx={{
                             backgroundColor: "#027373",
-                            height: "20rem",
+                            height: "min(20rem, 64vw)",
                             cursor: "pointer",
                         }}
                         onClick={() => {
@@ -320,7 +327,7 @@ export default function About({
                         image={Mobile}
                         sx={{
                             backgroundColor: "#04BF9D",
-                            height: "20rem",
+                            height: "min(20rem, 64vw)",
                             cursor: "pointer",
                         }}
                         onClick={() => {

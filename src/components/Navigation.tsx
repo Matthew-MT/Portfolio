@@ -4,10 +4,12 @@ import Tab from "@mui/material/Tab";
 import useTheme from "@mui/material/styles/useTheme";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import { NavLink, useLocation } from "react-router";
+import { useIsMobile } from "../config/utility";
 
 export default function Navigation({ sx, ...props }: TabsProps) {
     // constants
     const theme = useTheme();
+    const mobile = useIsMobile(theme);
 
     // hooks
     const location = useLocation();
@@ -16,16 +18,23 @@ export default function Navigation({ sx, ...props }: TabsProps) {
     useEffect(() => {
         function handleScroll() { setTop(window.scrollY < 1); }
         window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        }
     }, []);
 
     return <Tabs
         key="navigation"
         role="navigation"
+        variant={mobile ? "scrollable" : "standard"}
+        scrollButtons="auto"
+        allowScrollButtonsMobile
         sx={{
+            maxWidth: "100%",
+            color: theme.palette.grey[800],
             transition: "all .2s linear",
-            backdropFilter: top ? undefined : "blur(20px) saturate(1.6)",
-            backgroundColor: top ? undefined : `${theme.palette.grey[200]}80`,
+            backdropFilter: top && !mobile ? undefined : "blur(20px) saturate(1.6)",
+            backgroundColor: top && !mobile ? undefined : `${theme.palette.grey[200]}80`,
             "& > .MuiTabs-scroller": {
                 "& > .MuiTabs-flexContainer": {
                     "& > .MuiTab-root": {

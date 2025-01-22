@@ -5,15 +5,20 @@ import useTheme from "@mui/material/styles/useTheme";
 import ShowcaseCard from "../components/ShowcaseCard";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import { Dispatch, SetStateAction, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import Alert from "@mui/material/Alert";
-import Paper from "@mui/material/Paper";
 import { experiences, Organization, SkillCategory, skills } from "../config/data";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import SkillsList from "../components/SkillsList";
-import { useEnterFrameAnimation } from "../utility";
+import { useEnterFrameAnimation, useIsMobile } from "../config/utility";
 import LinearProgress from "@mui/material/LinearProgress";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import CloseIcon from "@mui/icons-material/Close";
+import Fade from "@mui/material/Fade";
+import Fab from "@mui/material/Fab";
 
 // #172026
 // #5FCDD9
@@ -65,20 +70,29 @@ export default function Work({
     setMiscellaneousSkills,
 }: WorkProps) {
     const theme = useTheme();
+    const mobile = useIsMobile(theme);
     const resumeRef = useRef<HTMLElement | null>(null);
     const skillsRef = useRef<HTMLElement | null>(null);
 
+    const [filter, setFilter] = useState<boolean>(window.scrollY >= (skillsRef.current?.getBoundingClientRect().top ?? 0));
     const [showInfo, setShowInfo] = useState<boolean>(true);
+    const [showFilters, setShowFilters] = useState<boolean>(false);
 
     const mainAnimatorProps = useEnterFrameAnimation();
     const resumeAnimatorProps = useEnterFrameAnimation(instance => {
         resumeRef.current = instance;
-        if (window.location.hash === "#Resume") window.scrollTo({ top: (instance?.getBoundingClientRect().top || 0) + document.documentElement.scrollTop });
+        if (window.location.hash === "#Resume") window.scrollTo({ top: (instance?.getBoundingClientRect().top ?? 0) + document.documentElement.scrollTop });
     }, 200);
     const skillsAnimatorProps = useEnterFrameAnimation(instance => {
         skillsRef.current = instance;
-        if (window.location.hash === "#Skills") window.scrollTo({ top: (instance?.getBoundingClientRect().top || 0) + document.documentElement.scrollTop });
+        if (window.location.hash === "#Skills") window.scrollTo({ top: (instance?.getBoundingClientRect().top ?? 0) + document.documentElement.scrollTop });
     }, 100);
+
+    useEffect(() => {
+        function handleScroll() { setFilter(window.scrollY >= (skillsRef.current?.getBoundingClientRect().top ?? 0)); }
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     return <Stack
         {...mainAnimatorProps}
@@ -106,12 +120,12 @@ export default function Work({
                 severity="info"
                 onClose={() => setShowInfo(false)}
             >
-                Hover an item to learn more.
+                {mobile ? "Tap" : "Hover"} an item to learn more.
             </Alert>}
             <Box
                 sx={{
                     display: "grid",
-                    gridTemplateColumns: "4fr 1fr 4fr",
+                    gridTemplateColumns: `${mobile ? "" : "4fr "}1fr ${mobile ? "1fr 4fr 1fr" : "4fr"}`,
                     gridTemplateRows: `repeat(${months}, 2rem)`,
                     columnGap: "1rem",
                 }}
@@ -119,7 +133,7 @@ export default function Work({
                 {labels.map((label, index) => <Box
                     sx={{
                         gridRow: `${index + 1} / span 1`,
-                        gridColumn: "2 / span 1",
+                        gridColumn: `${mobile ? 1 : 2} / span 1`,
                         display: "flex",
                         flexDirection: "column",
                         borderTopLeftRadius: index === 0 ? "1rem" : undefined,
@@ -151,7 +165,7 @@ export default function Work({
                 <Box
                     sx={{
                         gridRow: `${months} / span 1`,
-                        gridColumn: "2 / span 1",
+                        gridColumn: `${mobile ? 1 : 2} / span 1`,
                         display: "flex",
                         borderBottomLeftRadius: "1rem",
                         borderBottomRightRadius: "1rem",
@@ -172,21 +186,23 @@ export default function Work({
                     return <Box
                         sx={{
                             gridRow: `${(months - (experience.end || months)) + 1} / span ${((experience.end === undefined ? months : experience.end) - experience.start) + 1}`,
-                            gridColumn: `${experience.side === "left" ? 1 : 3} / span 1`,
-                            zIndex: experiences.length - index,
+                            gridColumn: `${experience.side === "left" ? (mobile ? 2 : 1) : 3} / span ${mobile ? 2 : 1}`,
+                            zIndex: experiences.length - index + (experience.side === "right" ? experiences.length : 0),
                             "&:hover": {
-                                zIndex: experiences.length + 1,
+                                gridColumn: mobile ? "1 / 5" : undefined,
+                                zIndex: (experiences.length << 1) + 1,
                             },
                         }}
                     >
                         <ShowcaseCard
+                            align={mobile ? "left" : "right"}
                             variant="h5"
                             sx={{
                                 boxSizing: "border-box",
                                 backgroundColor: colors[index % 5],
-                                borderRadius: "1.5rem",
+                                borderRadius: mobile ? "1rem" : "1.5rem",
                                 height: "100%",
-                                padding: "1rem 1.6rem",
+                                padding: mobile ? "0.4rem 0.6rem" : "1rem 1.6rem",
                                 gap: "0.5rem",
                                 cursor: "pointer",
                                 "&:hover": {
@@ -196,6 +212,7 @@ export default function Work({
                             }}
                             title={experience.label}
                             onClick={() => {
+                                if (mobile) return;
                                 setShownExperiences([experience.organization]);
                                 setMiscellaneousExperiences(false);
                                 setShownSkillCategories(Object.values(SkillCategory));
@@ -211,22 +228,32 @@ export default function Work({
                                 }}
                             >
                                 <Stack
-                                    direction="row"
-                                    alignItems="center"
-                                    justifyContent="space-between"
+                                    direction={mobile ? "column" : "row"}
+                                    sx={{
+                                        justifyContent: "space-between",
+                                        alignItems: mobile ? undefined : "center",
+                                    }}
                                 >
-                                    <Typography variant="h6">{experience.organization}</Typography>
-                                    <Typography variant="subtitle2">{monthNames[start.getMonth()]} {start.getFullYear()} - {experience.end === undefined ? "Present" : `${monthNames[end.getMonth()]} ${end.getFullYear()}`}</Typography>
+                                    <Typography variant="h6" >{experience.organization}</Typography>
+                                    <Typography variant={mobile ? "caption" : "subtitle2"} >{monthNames[start.getMonth()]} {start.getFullYear()} - {experience.end === undefined ? "Present" : `${monthNames[end.getMonth()]} ${end.getFullYear()}`}</Typography>
                                 </Stack>
                                 <Divider sx={{ backgroundColor: "currentcolor" }} />
-                                <Typography variant="body2">{experience.description}</Typography>
+                                <Typography variant="body2" >{experience.description}</Typography>
                             </Stack>
                         </ShowcaseCard>
                     </Box>;
                 })}
             </Box>
         </Stack>
-        <Typography variant="h1" >My Skills</Typography>
+        <Stack
+            direction="row"
+            sx={{
+                gap: "2rem",
+                alignItems: "center",
+            }}
+        >
+            <Typography variant="h1" >My Skills</Typography>
+        </Stack>
         <Stack
             {...skillsAnimatorProps}
             id="Skills"
@@ -265,11 +292,10 @@ export default function Work({
                         }}
                     >
                         <Stack
-                            direction="row"
+                            direction={mobile ? "column" : "row"}
                             sx={{
-                                alignItems: "center",
-                                justifyContent: "space-between",
                                 width: "100%",
+                                justifyContent: "space-between",
                             }}
                         >
                             <Typography variant="h6">From: {skill.experiences.length ? skill.experiences.join(", ") : "Miscellaneous"}</Typography>
@@ -305,7 +331,7 @@ export default function Work({
                                     }}
                                 >
                                     <Box sx={{ bgcolor: theme.palette.primary.main, width: "8px", height: "8px", borderRadius: "4px" }} />
-                                    <Typography variant="body2" >Saw a Video</Typography>
+                                    {!mobile && <Typography variant="body2" >Saw a Video</Typography>}
                                 </Stack>
                                 <Stack
                                     sx={{
@@ -315,7 +341,7 @@ export default function Work({
                                     }}
                                 >
                                     <Box sx={{ bgcolor: skill.proficiency >= 25 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
-                                    <Typography variant="body2" >Deployed a Project</Typography>
+                                    {!mobile && <Typography variant="body2" >Deployed a Project</Typography>}
                                 </Stack>
                                 <Stack
                                     sx={{
@@ -325,7 +351,7 @@ export default function Work({
                                     }}
                                 >
                                     <Box sx={{ bgcolor: skill.proficiency >= 50 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
-                                    <Typography variant="body2" >Comfortable</Typography>
+                                    {!mobile && <Typography variant="body2" >Comfortable</Typography>}
                                 </Stack>
                                 <Stack
                                     sx={{
@@ -335,7 +361,7 @@ export default function Work({
                                     }}
                                 >
                                     <Box sx={{ bgcolor: skill.proficiency >= 75 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
-                                    <Typography variant="body2" >Used Frequently</Typography>
+                                    {!mobile && <Typography variant="body2" >Used Frequently</Typography>}
                                 </Stack>
                                 <Stack
                                     sx={{
@@ -345,7 +371,7 @@ export default function Work({
                                     }}
                                 >
                                     <Box sx={{ bgcolor: skill.proficiency >= 100 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
-                                    <Typography variant="body2" >Legendary</Typography>
+                                    {!mobile && <Typography variant="body2" >Legendary</Typography>}
                                 </Stack>
                             </Stack>
                         </Stack>
@@ -353,17 +379,38 @@ export default function Work({
                     </Stack>
                 </ShowcaseCard>)}
             </Stack>
-            <Paper
-                square
+            <Fade
+                in={filter}
+            >
+                <Fab
+                    sx={{
+                        position: "fixed",
+                        bottom: mobile ? 16 : 48,
+                        left: `min(calc(100vw - 72px), calc(calc(calc(100vw + ${theme.breakpoints.values.xl}px) / 2) + 4rem))`,
+                    }}
+                    onClick={() => setShowFilters(true)}
+                >
+                    <FilterAltIcon />
+                </Fab>
+            </Fade>
+            <Drawer
+                anchor="right"
+                open={showFilters}
+                onClose={() => setShowFilters(false)}
                 sx={{
-                    position: "sticky",
-                    top: 0,
-                    maxHeight: "100vh",
-                    overflowY: "auto",
-                    padding: "1rem",
-                    height: "max-content",
+                    "& > .MuiPaper-root": {
+                        display: "flex",
+                        flexDirection: "column",
+                        padding: "1rem",
+                        alignItems: "start",
+                    },
                 }}
             >
+                <IconButton
+                    onClick={() => setShowFilters(false)}
+                >
+                    <CloseIcon />
+                </IconButton>
                 <FormControlLabel
                     label="Experiences"
                     control={<Checkbox
@@ -446,7 +493,7 @@ export default function Work({
                         />}
                     />
                 </Stack>
-            </Paper>
+            </Drawer>
         </Stack>
     </Stack>;
 }

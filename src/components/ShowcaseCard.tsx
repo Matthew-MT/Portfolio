@@ -2,9 +2,10 @@ import Stack, { StackProps } from "@mui/material/Stack";
 import useTheme from "@mui/material/styles/useTheme";
 import Typography, { TypographyProps } from "@mui/material/Typography";
 import { ReactNode, useMemo } from "react";
-import { useEnterFrameAnimation } from "../utility";
+import { useEnterFrameAnimation } from "../config/utility";
 
 export interface ShowcaseCardProps extends StackProps {
+    align?: "right" | "left";
     animateIn?: boolean;
     delay?: number;
     hoverable?: boolean;
@@ -15,6 +16,7 @@ export interface ShowcaseCardProps extends StackProps {
 };
 
 export default function ShowcaseCard({
+    align = "right",
     animateIn,
     delay,
     hoverable = true,
@@ -35,7 +37,7 @@ export default function ShowcaseCard({
         sx={[{
             borderRadius: "4rem",
             color: contrast,
-            alignItems: "flex-end",
+            alignItems: align === "left" ? "flex-start" : "flex-end",
             gap: "2rem",
             padding: "2rem 3.2rem",
             overflow: "hidden",
@@ -50,7 +52,7 @@ export default function ShowcaseCard({
         }, ...(sx ? Array.isArray(sx) ? sx : [sx] : [])]}
         {...props}
     >
-        <Typography variant={variant || "h2"} textAlign="right">{title}</Typography>
+        <Typography variant={variant || "h2"} textAlign={align}>{title}</Typography>
         {children}
         {image && <figure
             style={{

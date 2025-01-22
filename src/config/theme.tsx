@@ -1,4 +1,5 @@
 import createTheme from "@mui/material/styles/createTheme";
+import responsiveFontSizes from "@mui/material/styles/responsiveFontSizes";
 
 const theme = createTheme({
     // colorSchemes: {
@@ -14,4 +15,6 @@ const theme = createTheme({
     },
 });
 
-export default theme;
+export default responsiveFontSizes(theme, {
+    factor: 4,
+});
