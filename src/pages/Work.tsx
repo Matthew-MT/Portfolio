@@ -19,6 +19,7 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import CloseIcon from "@mui/icons-material/Close";
 import Fade from "@mui/material/Fade";
 import Fab from "@mui/material/Fab";
+import Button from "@mui/material/Button";
 
 // #172026
 // #5FCDD9
@@ -89,9 +90,9 @@ export default function Work({
     }, 100);
 
     useEffect(() => {
-        function handleScroll() { setFilter(window.scrollY >= (skillsRef.current?.getBoundingClientRect().top ?? 0)); }
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
+        function handleScroll() { setFilter((document.getElementById("root")?.scrollTop || 0) >= (skillsRef.current?.getBoundingClientRect().top ?? 0)); }
+        document.getElementById("root")?.addEventListener("scroll", handleScroll);
+        return () => document.getElementById("root")?.removeEventListener("scroll", handleScroll);
     }, []);
 
     return <Stack
@@ -253,6 +254,15 @@ export default function Work({
             }}
         >
             <Typography variant="h1" >My Skills</Typography>
+            {!mobile && <Button
+                size="large"
+                variant="contained"
+                color="info"
+                startIcon={<FilterAltIcon />}
+                onClick={() => setShowFilters(true)}
+            >
+                Filter
+            </Button>}
         </Stack>
         <Stack
             {...skillsAnimatorProps}
@@ -379,9 +389,7 @@ export default function Work({
                     </Stack>
                 </ShowcaseCard>)}
             </Stack>
-            <Fade
-                in={filter}
-            >
+            {mobile && <Fade in={filter} >
                 <Fab
                     sx={{
                         position: "fixed",
@@ -392,7 +400,7 @@ export default function Work({
                 >
                     <FilterAltIcon />
                 </Fab>
-            </Fade>
+            </Fade>}
             <Drawer
                 anchor="right"
                 open={showFilters}
