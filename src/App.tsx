@@ -19,7 +19,6 @@ export default function App() {
     const [miscellaneousSkills, setMiscellaneousSkills] = useState<boolean>(true);
 
     return <Stack
-        id="content"
         direction="column"
         sx={{
             flexGrow: 1,
