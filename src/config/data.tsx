@@ -469,6 +469,22 @@ export const skills: Skill[] = [
     },
     {
         experiences: [
+            Organization.CMU,
+        ],
+        categories: [
+            SkillCategory.LANGUAGES,
+            SkillCategory.MOBILE,
+            SkillCategory.WEB,
+        ],
+        label: "Dart",
+        proficiency: 75,
+        description: <Stack
+            spacing={1}
+        >
+        </Stack>,
+    },
+    {
+        experiences: [
             Organization.AMAZON,
             Organization.CMU,
             Organization.MORR,
@@ -494,6 +510,23 @@ export const skills: Skill[] = [
         ],
         label: "Full-Stack Development",
         proficiency: 100,
+        description: <Stack
+            spacing={1}
+        >
+        </Stack>,
+    },
+    {
+        experiences: [
+            Organization.CMU,
+        ],
+        categories: [
+            SkillCategory.LIBRARIES,
+            SkillCategory.MOBILE,
+            SkillCategory.UI,
+            SkillCategory.WEB,
+        ],
+        label: "Flutter",
+        proficiency: 50,
         description: <Stack
             spacing={1}
         >

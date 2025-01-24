@@ -103,7 +103,7 @@ export default function About({
                         <br />
                         I've worked in several different environments, including large cross-functional teams at Amazon.com and as the sole developer at MORR LLC. I also have a Bachelor's in Computer Science and a Bachelor's in Mathematics, making me uniquely strong in mathematical inquiry, research, and problem-solving.
                         <br /><br />
-                        And I love solving problems. From math problems to features, my favorite hobby is to sit down with a good snack and iterate on a clean, elegant solution to a problem, and to see the impact that solution makes.
+                        And I love solving problems. From math problems to features, my favorite hobby is to sit down with a good snack and iterate on a clean, elegant solution, and to see the impact that solution makes.
                         <br /><br />
                         Let's collaborate.
                     </Typography>
