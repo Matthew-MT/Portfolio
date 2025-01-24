@@ -26,7 +26,7 @@ export default function About() {
             alignSelf: "center",
             width: `min(80vw, ${theme.breakpoints.values.xl}px)`,
             marginTop: "calc(112px - 4rem)",
-            padding: "4rem",
+            padding: "min(4rem, 10vw)",
             alignItems: "center",
             gap: "48px",
         }}

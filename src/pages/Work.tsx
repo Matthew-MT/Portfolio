@@ -90,9 +90,9 @@ export default function Work({
     }, 100);
 
     useEffect(() => {
-        function handleScroll() { setFilter((document.getElementById("root")?.scrollTop || 0) >= (skillsRef.current?.getBoundingClientRect().top ?? 0)); }
-        document.getElementById("root")?.addEventListener("scroll", handleScroll);
-        return () => document.getElementById("root")?.removeEventListener("scroll", handleScroll);
+        function handleScroll() { setFilter(window.scrollY >= (skillsRef.current?.getBoundingClientRect().top ?? 0)); }
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     return <Stack
@@ -102,7 +102,7 @@ export default function Work({
             alignSelf: "center",
             width: `min(80vw, ${theme.breakpoints.values.xl}px)`,
             marginTop: "calc(112px - 4rem)",
-            padding: "4rem",
+            padding: "min(4rem, 10vw)",
             alignItems: "center",
             gap: "48px",
         }}

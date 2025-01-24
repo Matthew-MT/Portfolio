@@ -13,12 +13,12 @@ export default function Navigation({ sx, ...props }: TabsProps) {
 
     // hooks
     const location = useLocation();
-    const [top, setTop] = useState<boolean>((document.getElementById("root")?.scrollTop ?? 0) < 1);
+    const [top, setTop] = useState<boolean>(window.scrollY < 1);
 
     useEffect(() => {
-        function handleScroll() { setTop((document.getElementById("root")?.scrollTop ?? 0) < 1); console.log(document.getElementById("root")?.scrollTop); }
-        document.getElementById("root")?.addEventListener("scroll", handleScroll);
-        return () => document.getElementById("root")?.removeEventListener("scroll", handleScroll);
+        function handleScroll() { setTop(window.scrollY < 1); }
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     return <Tabs
