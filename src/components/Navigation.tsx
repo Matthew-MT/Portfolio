@@ -30,7 +30,7 @@ export default function Navigation({ sx, ...props }: TabsProps) {
         sx={{
             maxWidth: "100%",
             color: theme.palette.grey[800],
-            transition: "all .2s linear",
+            // transition: "all .2s linear",
             backdropFilter: top && !mobile ? undefined : "blur(20px) saturate(1.6)",
             backgroundColor: top && !mobile ? undefined : `${theme.palette.grey[200]}80`,
             "& > .MuiTabs-scroller": {
@@ -56,6 +56,12 @@ export default function Navigation({ sx, ...props }: TabsProps) {
             label="Work"
             value="/work"
             to="/work"
+        />
+        <Tab
+            component={NavLink}
+            label="Interactives"
+            value="/interactives"
+            to="/interactives"
         />
         <Tab
             component={NavLink}

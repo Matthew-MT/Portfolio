@@ -27,7 +27,7 @@ export function useEnterFrameAnimation($ref?: (_ref: HTMLElement | null) => void
                 if (delay) setTimeout(() => entry.target.classList.add("animate-enter-frame-animator"), delay);
                 else entry.target.classList.add("animate-enter-frame-animator");
             }
-        }, { threshold: [1, 0] });
+        }, { threshold: [1, 0.5, 0] });
 
         observer.observe(_ref.current);
 

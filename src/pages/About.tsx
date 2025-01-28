@@ -73,10 +73,15 @@ export default function About({
             {...introAnimatorProps}
             direction="row"
             sx={{
-                gap: "2rem",
-                maxWidth: "100vw",
-                flexWrap: mobile ? "wrap" : "nowrap",
+                gap: "4rem",
+                maxWidth: "80vw",
+                alignItems: "center",
                 justifyContent: "center",
+                flexWrap: "nowrap",
+                [`@media only screen and (max-width: ${theme.breakpoints.values.xl}px)`]: {
+                    // textAlign: "center",
+                    flexWrap: "wrap",
+                },
             }}
         >
             <img
@@ -98,7 +103,7 @@ export default function About({
                 }}
             >
                 <Box>
-                    <Typography variant="h4">I am a full-stack software engineer with 3 years of experience in technologies such as React, AWS, Databases, and Linux.</Typography>
+                    <Typography variant="h4" >I am a full-stack software engineer with 3 years of experience in technologies such as React, AWS, Databases, and Linux.</Typography>
                     <Typography>
                         <br />
                         I've worked in several different environments, including large cross-functional teams at Amazon.com and as the sole developer at MORR LLC. I also have a Bachelor's in Computer Science and a Bachelor's in Mathematics, making me uniquely strong in mathematical inquiry, research, and problem-solving.
