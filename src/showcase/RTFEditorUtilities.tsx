@@ -1,5 +1,5 @@
-export function getIntersectedNodes(range: Range) {
-    const stack = [range.commonAncestorContainer];
+export function getIntersectedNodes(parent: Node, range: Range) {
+    const stack = [...parent.childNodes];
     const intersected = [];
 
     while (stack.length > 0) {
@@ -13,5 +13,7 @@ export function getIntersectedNodes(range: Range) {
 
 export default function surround(range: Range, element: keyof HTMLElementTagNameMap) {
     const _element = document.createElement(element);
-    range.surroundContents(_element);
+    const fragment = range.extractContents();
+    _element.appendChild(fragment);
+    range.insertNode(_element);
 }

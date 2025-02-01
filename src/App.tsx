@@ -9,7 +9,7 @@ import { useState } from "react";
 import Stack from "@mui/material/Stack";
 import useTheme from "@mui/material/styles/useTheme";
 import { useIsMobile } from "./config/utility";
-import Interactives from "./pages/Interactives";
+// import Interactives from "./pages/Interactives";
 
 export default function App() {
     const theme = useTheme();
@@ -58,7 +58,7 @@ export default function App() {
                 miscellaneousSkills={miscellaneousSkills}
                 setMiscellaneousSkills={setMiscellaneousSkills}
             />} />
-            <Route path="interactives" element={<Interactives />} />
+            {/* <Route path="interactives" element={<Interactives />} /> */}
             <Route path="contact" element={<Contact />} />
         </Routes>
     </Stack>;

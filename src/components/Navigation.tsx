@@ -57,12 +57,12 @@ export default function Navigation({ sx, ...props }: TabsProps) {
             value="/work"
             to="/work"
         />
-        <Tab
+        {/* <Tab
             component={NavLink}
             label="Interactives"
             value="/interactives"
             to="/interactives"
-        />
+        /> */}
         <Tab
             component={NavLink}
             label="Contact"

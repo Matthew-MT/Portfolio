@@ -18,7 +18,7 @@ import ClickAwayListener from "@mui/material/ClickAwayListener";
 import { HexColorPicker } from "react-colorful";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
-import { getIntersectedNodes } from "../showcase/RTFEditorUtilities";
+import surround, { getIntersectedNodes } from "../showcase/RTFEditorUtilities";
 
 export default function Interactives() {
     const ref = useRef<HTMLElement | null>(null);
@@ -26,19 +26,22 @@ export default function Interactives() {
     // hooks
     const theme = useTheme();
     const mainAnimatorProps = useEnterFrameAnimation();
-    const [formats, setFormats] = useState([]);
+    const [formats, setFormats] = useState<string[]>([]);
     const [colorAnchor, setColorAnchor] = useState<HTMLElement | null>(null);
     const [color, setColor] = useState<string>("#000000");
+    const [range, setRange] = useState<Range | undefined>();
 
     useEffect(() => {
+        const editor = ref.current;
+        if (!editor) return;
+        editor.innerHTML = "<ul><li>A</li><b><li>B</li><li>C</li></b></ul><b>bold</b>";
         function handleSelection() {
             const selection = window.getSelection();
-            if (!selection) return;
-            const intersected = getIntersectedNodes(selection.getRangeAt(0));
-            if (intersected.length) console.log("Intersects:", intersected);
+            if (!selection || !editor) return;
+            setRange(selection.getRangeAt(0));
         }
-        ref.current?.addEventListener("selectionchange", handleSelection);
-        return () => ref.current?.removeEventListener("selectionchange", handleSelection);
+        document.addEventListener("selectionchange", handleSelection);
+        return () => document.removeEventListener("selectionchange", handleSelection);
     }, []);
 
     return <Stack
@@ -55,7 +58,7 @@ export default function Interactives() {
     >
         <Typography variant="h1" >Interactive Examples</Typography>
         <Typography>
-            Below are a series of interactive examples that showcase various concepts and technologies. Play around with them to see the example features I've created!
+            Below are a series of interactive examples that showcase various concepts and technologies. Interact with them to see the example features I've created!
         </Typography>
         <Typography variant="h1" >Rich Text Editor</Typography>
         <Typography>
@@ -85,7 +88,10 @@ export default function Interactives() {
                         },
                     }}
                     value={formats}
-                    onChange={(event, formats) => setFormats(formats)}
+                    onChange={(event, _formats) => {
+                        if (range && range.endOffset !== 0 && !formats.includes("bold") && _formats.includes("bold")) surround(range, "b");
+                        setFormats(_formats);
+                    }}
                 >
                     <ToggleButton
                         value="bold"
@@ -160,7 +166,6 @@ export default function Interactives() {
                     minHeight: "1em",
                     padding: "4px",
                 }}
-                innerHtml="<ul><li>A</li><li>B</li><li>C</li></ul><b>bold</b>"
             />
         </Paper>
     </Stack>;
