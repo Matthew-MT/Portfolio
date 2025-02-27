@@ -58,58 +58,68 @@ export default function About({
             width: `min(80vw, ${theme.breakpoints.values.xl}px)`,
             padding: "min(4rem, 10vw)",
             alignItems: "center",
-            gap: "4rem",
+            gap: "128px",
         }}
     >
-        <Typography variant="h1" textAlign="center" >Hi. I'm Matthew.</Typography>
         <Stack
-            {...introAnimatorProps}
-            direction="row"
+            component="section"
+            direction="column"
             sx={{
-                gap: "4rem",
-                maxWidth: "80vw",
                 alignItems: "center",
-                justifyContent: "center",
-                flexWrap: "nowrap",
-                [`@media only screen and (max-width: ${theme.breakpoints.values.xl}px)`]: {
-                    // textAlign: "center",
-                    flexWrap: "wrap",
-                },
+                gap: "48px",
             }}
         >
-            <img
-                style={{
-                    flexGrow: 0,
-                    height: "min(32rem, 80vw)",
-                    aspectRatio: "1 / 1",
-                    objectFit: "cover",
-                    objectPosition: "center top",
-                    borderRadius: "50%",
-                }}
-                src={Profile}
-            />
+            <Typography variant="h1" textAlign="center" >Hi. I'm Matthew.</Typography>
             <Stack
-                direction="column"
+                {...introAnimatorProps}
+                direction="row"
                 sx={{
-                    gap: "2rem",
-                    justifyContent: "space-between",
+                    gap: "4rem",
+                    maxWidth: "80vw",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexWrap: "nowrap",
+                    [`@media only screen and (max-width: ${theme.breakpoints.values.xl}px)`]: {
+                        // textAlign: "center",
+                        flexWrap: "wrap",
+                    },
                 }}
             >
-                <Box>
-                    <Typography variant="h4" >I am a full-stack software engineer with 3 years of experience in technologies such as React, AWS, Databases, and Linux.</Typography>
-                    <Typography>
-                        <br />
-                        I've worked in several different environments, including large cross-functional teams at Amazon.com and as the sole developer at MORR LLC. I also have a Bachelor's in Computer Science and a Bachelor's in Mathematics, making me uniquely strong in mathematical inquiry, research, and problem-solving.
-                        <br /><br />
-                        And I love solving problems. From math problems to features, my favorite hobby is to sit down with a good snack and iterate on a clean, elegant solution, and to see the impact that solution makes.
-                        <br /><br />
-                        Let's collaborate.
-                    </Typography>
-                </Box>
+                <img
+                    style={{
+                        flexGrow: 0,
+                        height: "min(32rem, 80vw)",
+                        aspectRatio: "1 / 1",
+                        objectFit: "cover",
+                        objectPosition: "center top",
+                        borderRadius: "50%",
+                    }}
+                    src={Profile}
+                />
+                <Stack
+                    direction="column"
+                    sx={{
+                        gap: "2rem",
+                        justifyContent: "space-between",
+                    }}
+                >
+                    <Box>
+                        <Typography variant="h4" >I am a full-stack software engineer with 3 years of experience in technologies such as React, AWS, Databases, and Linux.</Typography>
+                        <Typography>
+                            <br />
+                            I've worked in several different environments, including large cross-functional teams at Amazon.com and as the sole developer at MORR LLC. I also have a Bachelor's in Computer Science and a Bachelor's in Mathematics, making me uniquely strong in mathematical inquiry, research, and problem-solving.
+                            <br /><br />
+                            And I love solving problems. From math problems to features, my favorite hobby is to sit down with a good snack and iterate on a clean, elegant solution, and to see the impact that solution makes.
+                            <br /><br />
+                            Let's collaborate.
+                        </Typography>
+                    </Box>
+                </Stack>
             </Stack>
         </Stack>
         <Stack
             {...valuesAnimatorProps}
+            component="section"
             direction="column"
             sx={{
                 alignItems: "center",
@@ -164,6 +174,7 @@ export default function About({
         </Stack>
         <Stack
             {...skillsAnimatorProps}
+            component="section"
             direction="column"
             sx={{
                 alignItems: "center",

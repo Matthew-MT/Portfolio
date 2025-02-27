@@ -54,48 +54,67 @@ export default function Work({
             marginTop: "calc(112px - 4rem)",
             padding: "min(4rem, 10vw)",
             alignItems: "center",
-            gap: "48px",
+            gap: "128px",
         }}
     >
-        <Typography id="Resume" variant="h1" textAlign="center" >My Work</Typography>
-        <Resume
-            resumeRef={resumeRef}
-            skillsRef={skillsRef}
-            setShownExperiences={setShownExperiences}
-            setMiscellaneousExperiences={setMiscellaneousExperiences}
-            setShownSkillCategories={setShownSkillCategories}
-            setMiscellaneousSkills={setMiscellaneousSkills}
-        />
         <Stack
-            direction="row"
+            component="section"
+            direction="column"
             sx={{
-                gap: "2rem",
                 alignItems: "center",
+                gap: "48px",
             }}
         >
-            <Typography id="Skills" variant="h1" textAlign="center" >My Skills</Typography>
-            {!mobile && <Button
-                size="large"
-                variant="contained"
-                color="info"
-                startIcon={<FilterAltIcon />}
-                onClick={() => setShowFilters(true)}
-            >
-                Filter
-            </Button>}
+            <Typography id="Resume" variant="h1" textAlign="center" >My Work</Typography>
+            <Resume
+                resumeRef={resumeRef}
+                skillsRef={skillsRef}
+                setShownExperiences={setShownExperiences}
+                setMiscellaneousExperiences={setMiscellaneousExperiences}
+                setShownSkillCategories={setShownSkillCategories}
+                setMiscellaneousSkills={setMiscellaneousSkills}
+            />
         </Stack>
-        <Skills
-            show={showFilters}
-            onSetShow={setShowFilters}
-            skillsRef={skillsRef}
-            shownExperiences={shownExperiences}
-            setShownExperiences={setShownExperiences}
-            miscellaneousExperiences={miscellaneousExperiences}
-            setMiscellaneousExperiences={setMiscellaneousExperiences}
-            shownSkillCategories={shownSkillCategories}
-            setShownSkillCategories={setShownSkillCategories}
-            miscellaneousSkills={miscellaneousSkills}
-            setMiscellaneousSkills={setMiscellaneousSkills}
-        />
+        <Stack
+            component="section"
+            direction="column"
+            sx={{
+                alignItems: "center",
+                gap: "48px",
+            }}
+        >
+            <Stack
+                direction="row"
+                sx={{
+                    width: "max-content",
+                    alignItems: "center",
+                    gap: "2rem",
+                }}
+            >
+                <Typography id="Skills" variant="h1" textAlign="center" >My Skills</Typography>
+                {!mobile && <Button
+                    size="large"
+                    variant="contained"
+                    color="info"
+                    startIcon={<FilterAltIcon />}
+                    onClick={() => setShowFilters(true)}
+                >
+                    Filter
+                </Button>}
+            </Stack>
+            <Skills
+                show={showFilters}
+                onSetShow={setShowFilters}
+                skillsRef={skillsRef}
+                shownExperiences={shownExperiences}
+                setShownExperiences={setShownExperiences}
+                miscellaneousExperiences={miscellaneousExperiences}
+                setMiscellaneousExperiences={setMiscellaneousExperiences}
+                shownSkillCategories={shownSkillCategories}
+                setShownSkillCategories={setShownSkillCategories}
+                miscellaneousSkills={miscellaneousSkills}
+                setMiscellaneousSkills={setMiscellaneousSkills}
+            />
+        </Stack>
     </Stack>;
 }
