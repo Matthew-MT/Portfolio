@@ -21,13 +21,6 @@ import useTheme from "@mui/material/styles/useTheme";
 import Profile from "../assets/IMG_20250120_180742.jpg";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
-// import List from "@mui/material/List";
-// import ListItemButton from "@mui/material/ListItemButton";
-// import ListSubheader from "@mui/material/ListSubheader";
-// import ListItemText from "@mui/material/ListItemText";
-// import ListItemIcon from "@mui/material/ListItemIcon";
-// import ResumeIcon from "@mui/icons-material/ContactPage";
-// import SkillsIcon from "@mui/icons-material/Checklist";
 
 // #172026
 // #5FCDD9
@@ -113,48 +106,6 @@ export default function About({
                         Let's collaborate.
                     </Typography>
                 </Box>
-                {/* <Paper
-                    square
-                    sx={{
-                        width: "max-content",
-                        height: "max-content",
-                        alignSelf: "end",
-                    }}
-                >
-                    <List
-                        sx={{
-                            width: "max-content",
-                            maxWidth: "24rem",
-                            height: "max-content",
-                        }}
-                        subheader={<ListSubheader>
-                            Quick Links
-                        </ListSubheader>}
-                    >
-                        <ListItemButton
-                            component="a"
-                            href="#Resume"
-                        >
-                            <ListItemIcon>
-                                <ResumeIcon />
-                            </ListItemIcon>
-                            <ListItemText>
-                                Interactive Resume
-                            </ListItemText>
-                        </ListItemButton>
-                        <ListItemButton
-                            component="a"
-                            href="#Skills"
-                        >
-                            <ListItemIcon>
-                                <SkillsIcon />
-                            </ListItemIcon>
-                            <ListItemText>
-                                Skills
-                            </ListItemText>
-                        </ListItemButton>
-                    </List>
-                </Paper> */}
             </Stack>
         </Stack>
         <Stack
