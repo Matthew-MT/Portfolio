@@ -81,6 +81,7 @@ export default function Work({
             sx={{
                 alignItems: "center",
                 gap: "48px",
+                width: "100%",
             }}
         >
             <Stack

@@ -61,7 +61,7 @@ export default function Skills({
         function handleScroll() { setFilter(window.scrollY >= (skillsRef.current?.getBoundingClientRect().top ?? 0)); }
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    }, [skillsRef]);
 
     return <Stack
         {...props}
