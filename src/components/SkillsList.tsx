@@ -15,6 +15,6 @@ export default function SkillsList({
             gap: "8px",
         }}
     >
-        {list.map(skill => <Chip color="secondary" label={skill} />)}
+        {list.map((skill, index) => <Chip key={index} color="secondary" label={skill} />)}
     </Stack>;
 }

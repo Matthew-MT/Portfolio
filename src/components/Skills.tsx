@@ -241,7 +241,8 @@ export default function Skills({
                     ml: 3,
                 }}
             >
-                {experienceCheckboxLabels.map(organization => <FormControlLabel
+                {experienceCheckboxLabels.map((organization, index) => <FormControlLabel
+                    key={index}
                     label={organization}
                     control={<Checkbox
                         checked={shownExperiences.includes(organization)}
@@ -282,7 +283,8 @@ export default function Skills({
                     ml: 3,
                 }}
             >
-                {skillCategoryCheckboxLabels.map(skillCategory => <FormControlLabel
+                {skillCategoryCheckboxLabels.map((skillCategory, index) => <FormControlLabel
+                    key={index}
                     label={skillCategory}
                     control={<Checkbox
                         checked={shownSkillCategories.includes(skillCategory)}

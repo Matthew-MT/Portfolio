@@ -71,8 +71,6 @@ export default function Work({
                 skillsRef={skillsRef}
                 setShownExperiences={setShownExperiences}
                 setMiscellaneousExperiences={setMiscellaneousExperiences}
-                setShownSkillCategories={setShownSkillCategories}
-                setMiscellaneousSkills={setMiscellaneousSkills}
             />
         </Stack>
         <Stack

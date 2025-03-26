@@ -5,7 +5,7 @@ import { useEnterFrameAnimation, useIsMobile } from "../config/utility";
 import useTheme from "@mui/material/styles/useTheme";
 import Alert from "@mui/material/Alert";
 import Divider from "@mui/material/Divider";
-import { experiences, Organization, SkillCategory, WorkExperience } from "../config/data";
+import { experiences, Organization, WorkExperience } from "../config/data";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
@@ -27,8 +27,6 @@ export interface ResumeProps {
     skillsRef: RefObject<HTMLElement | null>;
     setShownExperiences: Dispatch<SetStateAction<Organization[]>>;
     setMiscellaneousExperiences: Dispatch<SetStateAction<boolean>>;
-    setShownSkillCategories: Dispatch<SetStateAction<SkillCategory[]>>;
-    setMiscellaneousSkills: Dispatch<SetStateAction<boolean>>;
 };
 
 export default function Resume({
@@ -36,8 +34,6 @@ export default function Resume({
     skillsRef,
     setShownExperiences,
     setMiscellaneousExperiences,
-    setShownSkillCategories,
-    setMiscellaneousSkills,
     ...props//
 }: StackProps & ResumeProps) {
     const theme = useTheme();
@@ -88,6 +84,7 @@ export default function Resume({
 
                 return <>
                     {(mobile || _index % 2 === 1 || experience.end === all[index + 1]?.start) && <Box
+                        key={index * 7}
                         sx={{
                             gridRow: `${_index * 3} / span 1`,
                             gridColumn: "1 / span 1",
@@ -97,6 +94,7 @@ export default function Resume({
                         <Divider textAlign="right" >{!mobile && _index % 2 === 1 && <Typography variant="h5" >{experience.organization}</Typography>}</Divider>
                     </Box>}
                     <Box
+                        key={(index * 7) + 1}
                         sx={{
                             gridRow: `${_index * 3} / span 1`,
                             gridColumn: "2 / span 1",
@@ -108,6 +106,7 @@ export default function Resume({
                         {experience.end === undefined ? "Present" : getLabel(experience.end)}
                     </Box>
                     {(mobile || _index % 2 === 0 || experience.end !== undefined && experience.end === all[index + 1]?.start) && <Box
+                        key={(index * 7) + 2}
                         sx={{
                             gridRow: `${_index * 3} / span 1`,
                             gridColumn: "3 / span 1",
@@ -117,6 +116,7 @@ export default function Resume({
                         <Divider textAlign="left" >{!mobile && _index % 2 === 0 && <Typography variant="h5" >{experience.organization}</Typography>}</Divider>
                     </Box>}
                     <Box
+                        key={(index * 7) + 3}
                         component="button"
                         sx={{
                             transition: "linear 0.1s all",
@@ -141,6 +141,7 @@ export default function Resume({
                     </Box>
                     {(index === 0 || experience.end !== all[index + 1]?.start) && <>
                         {(mobile || _index % 2 === 1) && <Divider
+                            key={(index * 7) + 4}
                             sx={{
                                 gridRow: `${(_index * 3) + 2} / span 1`,
                                 gridColumn: "1 / span 1",
@@ -148,6 +149,7 @@ export default function Resume({
                             }}
                         />}
                         <Box
+                            key={(index * 7) + 5}
                             sx={{
                                 gridRow: `${(_index * 3) + 2} / span 1`,
                                 gridColumn: "2 / span 1",
@@ -159,6 +161,7 @@ export default function Resume({
                             {getLabel(experience.start)}
                         </Box>
                         {(mobile || _index % 2 === 0) && <Divider
+                            key={(index * 7) + 6}
                             sx={{
                                 gridRow: `${(_index * 3) + 2} / span 1`,
                                 gridColumn: "3 / span 1",
