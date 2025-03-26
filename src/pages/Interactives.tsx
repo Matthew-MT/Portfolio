@@ -18,7 +18,7 @@ import ClickAwayListener from "@mui/material/ClickAwayListener";
 import { HexColorPicker } from "react-colorful";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
-import surround, { getIntersectedNodes } from "../showcase/RTFEditorUtilities";
+import surround from "../showcase/RTFEditorUtilities";
 
 export default function Interactives() {
     const ref = useRef<HTMLElement | null>(null);
