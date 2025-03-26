@@ -2,6 +2,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { ReactNode } from "react";
 import SkillsList from "../components/SkillsList";
+import Box from "@mui/material/Box";
 
 export enum Organization {
     CMU = "Colorado Mesa University",
@@ -29,16 +30,18 @@ export enum SkillCategory {
     UI = "User Interfaces",
 };
 
-interface WorkExperience {
+export interface WorkExperience {
     start: number;
     end?: number;
     side: "left" | "right";
+    show: boolean;
     label: string;
     organization: Organization;
     description: ReactNode;
+    summary: ReactNode;
 };
 
-interface Skill {
+export interface Skill {
     experiences: (typeof experiences[number]["organization"])[];
     categories: SkillCategory[];
     label: string;
@@ -51,6 +54,7 @@ export const experiences: WorkExperience[] = [
         start: 0,
         end: 45,
         side: "left",
+        show: false,
         label: "Student",
         organization: Organization.CMU,
         description: <Stack
@@ -58,11 +62,13 @@ export const experiences: WorkExperience[] = [
         >
             <Typography>Graduated magna cum laude with a Bachelor's in Science in Computer Science and a Bachelor's in Science in Mathematics in May 2023.</Typography>
         </Stack>,
+        summary: <Typography>Graduated magna cum laude with a Bachelor's in Science in Computer Science and a Bachelor's in Science in Mathematics in May 2023.</Typography>,
     },
     {
         start: 9,
         end: 12,
         side: "right",
+        show: false,
         label: "Software Intern",
         organization: Organization.CMU,
         description: <Stack
@@ -77,11 +83,13 @@ export const experiences: WorkExperience[] = [
                 </ul>
             </Typography>
         </Stack>,
+        summary: <Box></Box>,
     },
     {
         start: 12,
         end: 33,
         side: "right",
+        show: false,
         label: "Mathematics Tutor",
         organization: Organization.CMU,
         description: <Stack
@@ -90,11 +98,13 @@ export const experiences: WorkExperience[] = [
             <SkillsList list={["Mathematics", "Mathematics Education", "Communication"]} />
             <Typography>Tutored students enrolled in the mathematics program at CMU.</Typography>
         </Stack>,
+        summary: <Box></Box>,
     },
     {
         start: 33,
         end: 36,
         side: "right",
+        show: true,
         label: "Software Development Engineer Intern",
         organization: Organization.AMAZON,
         description: <Stack
@@ -109,11 +119,13 @@ export const experiences: WorkExperience[] = [
                 </ul>
             </Typography>
         </Stack>,
+        summary: <Typography>Led the development of a serverless DevOps data control and monitoring solution using Node.js, AWS-Lambda, AWS-DynamoDB, JavaScript, and React to automate DevOps workflows for a 6-person team.</Typography>,
     },
     {
         start: 36,
         end: 45,
         side: "right",
+        show: true,
         label: "Software Intern",
         organization: Organization.CMU,
         description: <Stack
@@ -129,11 +141,28 @@ export const experiences: WorkExperience[] = [
                 </ul>
             </Typography>
         </Stack>,
+        summary: <Typography>Collaborated with two other students and several project stakeholders to design and develop a digital billboard solution using JavaScript, React, and MongoDB as a candidate to replace current university billboard software.</Typography>,
+    },
+    {
+        start: 45,
+        end: 48,
+        side: "left",
+        show: true,
+        label: "Graduation",
+        organization: Organization.CMU,
+        description: <Stack
+            spacing={1}
+        >
+            <SkillsList list={["React", "User Interface Design", "Client Relations", "JavaScript", "MongoDB"]} />
+            <Typography>Graduated magna cum laude with a Bachelor's in Science in Computer Science and a Bachelor's in Science in Mathematics in May 2023.</Typography>
+        </Stack>,
+        summary: <Typography>Graduated!</Typography>,
     },
     {
         start: 48,
-        end: 55,
+        end: 56,
         side: "right",
+        show: true,
         label: "Contract Software Developer",
         organization: Organization.MORR,
         description: <Stack
@@ -151,11 +180,13 @@ export const experiences: WorkExperience[] = [
                 </ul>
             </Typography>
         </Stack>,
+        summary: <Typography>Worked with a client to develop full-stack web and mobile applications to connect prospective students with dream universities using Node.js, PostgreSQL, TypeScript, React, and React Native.</Typography>,
     },
     {
         start: 53,
         end: 55,
         side: "left",
+        show: false,
         label: "Lead Contract Software Developer",
         organization: Organization.INCIPIO,
         description: <Stack
@@ -171,10 +202,12 @@ export const experiences: WorkExperience[] = [
                 </ul>
             </Typography>
         </Stack>,
+        summary: <Box></Box>,
     },
     {
         start: 56,
         side: "right",
+        show: true,
         label: "IT Specialist",
         organization: Organization.FREELANCE,
         description: <Stack
@@ -184,11 +217,12 @@ export const experiences: WorkExperience[] = [
             <Typography>
                 <ul>
                     <li>Built a client base through local networking, providing IT support for home and small business users.</li>
-                    <li>Resolved over 20 system administration issues across Windows and Linux environments, including troubleshooting and software deployment, resulting in improved system uptime and efficiency for clients.</li>
+                    <li>Resolved over 25 system administration issues across Windows and Linux environments, including troubleshooting and software deployment, resulting in improved system uptime and efficiency for clients.</li>
                     <li>Liaised with clients to maintain a 100% client satisfaction rate.</li>
                 </ul>
             </Typography>
         </Stack>,
+        summary: <Typography>Resolved over 25 system administration issues across Windows and Linux environments for home and small business users.</Typography>,
     },
 ];
 

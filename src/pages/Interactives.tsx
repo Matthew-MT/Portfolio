@@ -12,13 +12,12 @@ import FormatUnderlinedIcon from "@mui/icons-material/FormatUnderlined";
 import FormatColorFillIcon from "@mui/icons-material/FormatColorFill";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Divider from "@mui/material/Divider";
-import Box from "@mui/material/Box";
+// import Box from "@mui/material/Box";
 import Popper from "@mui/material/Popper";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import { HexColorPicker } from "react-colorful";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
-import surround from "../showcase/RTFEditorUtilities";
 
 export default function Interactives() {
     const ref = useRef<HTMLElement | null>(null);
@@ -29,7 +28,7 @@ export default function Interactives() {
     const [formats, setFormats] = useState<string[]>([]);
     const [colorAnchor, setColorAnchor] = useState<HTMLElement | null>(null);
     const [color, setColor] = useState<string>("#000000");
-    const [range, setRange] = useState<Range | undefined>();
+    // const [range, setRange] = useState<Range | undefined>();
 
     useEffect(() => {
         const editor = ref.current;
@@ -38,7 +37,7 @@ export default function Interactives() {
         function handleSelection() {
             const selection = window.getSelection();
             if (!selection || !editor) return;
-            setRange(selection.getRangeAt(0));
+            // setRange(selection.getRangeAt(0));
         }
         document.addEventListener("selectionchange", handleSelection);
         return () => document.removeEventListener("selectionchange", handleSelection);
@@ -88,10 +87,7 @@ export default function Interactives() {
                         },
                     }}
                     value={formats}
-                    onChange={(event, _formats) => {
-                        if (range && range.endOffset !== 0 && !formats.includes("bold") && _formats.includes("bold")) surround(range, "b");
-                        setFormats(_formats);
-                    }}
+                    onChange={(_, formats) => setFormats(formats)}
                 >
                     <ToggleButton
                         value="bold"
@@ -159,14 +155,15 @@ export default function Interactives() {
                 </Popper>
             </Stack>
             <Divider flexItem />
-            <Box
+            {/* <Box
                 ref={ref}
                 contentEditable
                 sx={{
                     minHeight: "1em",
                     padding: "4px",
                 }}
-            />
+                innerHtml="<ul><li>A</li><li>B</li><li>C</li></ul><b>bold</b>"
+            /> */}
         </Paper>
     </Stack>;
 }
