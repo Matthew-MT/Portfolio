@@ -1,6 +1,6 @@
 import { Theme } from "@mui/material/styles/createTheme";
 import useTheme from "@mui/material/styles/useTheme";
-import { MutableRefObject, useEffect, /*useRef,*/ useState } from "react";
+import { MutableRefObject, useEffect, useState } from "react";
 
 export function samePageLinkNavigation(
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,

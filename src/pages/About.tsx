@@ -104,12 +104,12 @@ export default function About({
                     }}
                 >
                     <Box>
-                        <Typography variant="h4" >I am a full-stack software engineer with 3 years of experience in technologies such as React, AWS, Databases, and Linux.</Typography>
+                        <Typography variant="h4" >I am a full-stack software engineer with 2 years of experience in technologies such as React, AWS, Databases, and Linux.</Typography>
                         <Typography>
                             <br />
-                            I've worked in several different environments, including large cross-functional teams at Amazon.com and as the sole developer at MORR LLC. I also have a Bachelor's in Computer Science and a Bachelor's in Mathematics, making me uniquely strong in mathematical inquiry, research, and problem-solving.
+                            I've worked in several different environments, including large cross-functional teams at Amazon.com and as the sole developer at MORR LLC. I hold a Bachelors in Computer Science and a Bachelors in Mathematics, and I am currently enrolled in a Masters in Computer Science specializing in AI and ML at Western Governors University.
                             <br /><br />
-                            And I love solving problems. From math problems to features, my favorite hobby is to sit down with a good snack and iterate on a clean, elegant solution, and to see the impact that solution makes.
+                            Building and improving software is my hobby, not just my career. I always jump at the chance to work on a challenging problem, whether that's a database schema or a physics simulation, to name just a few.
                             <br /><br />
                             Let's collaborate.
                         </Typography>

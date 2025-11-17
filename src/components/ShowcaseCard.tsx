@@ -40,13 +40,27 @@ export default function ShowcaseCard({
             alignItems: align === "left" ? "flex-start" : "flex-end",
             gap: "2rem",
             padding: "2rem 3.2rem",
+            position: "relative",
             overflow: "hidden",
-            transition: "all .2s ease-out",
+            transition: theme.transitions.create(["shadow", "transform"]),
             boxShadow: `0 0 8px 0 ${theme.palette.grey[600]}`,
             ...(hoverable ? {
                 "&:hover": {
                     boxShadow: `0 0 32px 0 ${theme.palette.grey[600]}`,
                     transform: "translate(0, -0.2rem)",
+                },
+                "&:before": {
+                    content: '""',
+                    position: "absolute",
+                    top: 0,
+                    left: "-100%",
+                    width: "100%",
+                    height: "100%",
+                    background: "linear-gradient(120deg, transparent, transparent, rgba(255, 255, 255, 0.4), transparent, transparent)",
+                    transition: theme.transitions.create("left", { duration: theme.transitions.duration.complex * 2 }),
+                },
+                "&:hover:before": {
+                    left: "100%",
                 },
             } : {}),
         }, ...(sx ? Array.isArray(sx) ? sx : [sx] : [])]}

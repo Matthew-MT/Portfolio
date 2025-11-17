@@ -94,7 +94,6 @@ export default function Work({
                 {!mobile && <Button
                     size="large"
                     variant="contained"
-                    color="info"
                     startIcon={<FilterAltIcon />}
                     onClick={() => setShowFilters(true)}
                 >

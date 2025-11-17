@@ -118,8 +118,11 @@ export default function Resume({
                     <Box
                         key={(index * 7) + 3}
                         component="button"
+                        className="pop"
                         sx={{
-                            transition: "linear 0.1s all",
+                            position: "relative",
+                            overflow: "hidden",
+                            transition: theme.transitions.create("backgroundColor"),
                             gridRow: `${(_index * 3) + 1} / span 1`,
                             gridColumn: `${mobile ? 1 : (_index % 2 === 0 ? 3 : 1)} / span ${mobile ? 3 : 1}`,
                             textAlign: !mobile && _index % 2 === 1 ? "right" : "left",
@@ -127,13 +130,26 @@ export default function Resume({
                             backgroundColor: "#00000000",
                             border: "none",
                             borderRadius: theme.shape.borderRadius,
-                            ":hover": {
-                                backgroundColor: "#5FCDD9AA",
-                            },
                             display: "flex",
                             flexDirection: "column",
                             gap: "1rem",
                             color: theme.palette.grey[800],
+                            "&:before": {
+                                content: '""',
+                                position: "absolute",
+                                top: 0,
+                                left: "-100%",
+                                width: "100%",
+                                height: "100%",
+                                background: "linear-gradient(120deg, transparent, transparent, rgba(255, 255, 255, 0.4), transparent, transparent)",
+                                transition: theme.transitions.create("left", { duration: theme.transitions.duration.complex * 2 }),
+                            },
+                            "&:hover": {
+                                backgroundColor: "#d8d8d844",
+                                "&:before": {
+                                    left: "100%",
+                                },
+                            },
                         }}
                         onClick={() => setShownExperience(experience)}
                     >

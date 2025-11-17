@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 
 export enum Organization {
     CMU = "Colorado Mesa University",
+    WGU = "Western Governors University",
     AMAZON = "Amazon.com",
     MORR = "MORR LLC",
     INCIPIO = "Incipio (MORR LLC)",
@@ -60,9 +61,9 @@ export const experiences: WorkExperience[] = [
         description: <Stack
             spacing={1}
         >
-            <Typography>Graduated magna cum laude with a Bachelor's in Science in Computer Science and a Bachelor's in Science in Mathematics in May 2023.</Typography>
+            <Typography>Graduated magna cum laude with a Bachelors in Science in Computer Science and a Bachelors in Science in Mathematics in May 2023.</Typography>
         </Stack>,
-        summary: <Typography>Graduated magna cum laude with a Bachelor's in Science in Computer Science and a Bachelor's in Science in Mathematics in May 2023.</Typography>,
+        summary: <Typography>Graduated magna cum laude with a Bachelors in Science in Computer Science and a Bachelors in Science in Mathematics in May 2023.</Typography>,
     },
     {
         start: 9,
@@ -114,7 +115,7 @@ export const experiences: WorkExperience[] = [
             <Typography>
                 <ul>
                     <li>Collaborated with 6 stakeholders to develop a task automation dashboard.</li>
-                    <li>Led the development of a serverless application using AWS-Lambda, AWS-DynamoDB, and JavaScript to manage business data. Integrated server and client using AWS-API Gateway for a real-time data workflow, increasing data recency by an estimated 50%.</li>
+                    <li>Led the development of a serverless application using AWS-Lambda, AWS-DynamoDB, and JavaScript to manage business data. Integrated server and client using AWS-API Gateway for a real-time data workflow.</li>
                     <li>Delivered a DevOps data control and monitoring solution by building a user-facing dashboard using Node.js, React, and Cloudscape, which automated DevOps workflows for the 6-person team and increased process efficiency.</li>
                 </ul>
             </Typography>
@@ -174,7 +175,7 @@ export const experiences: WorkExperience[] = [
                     <li>Worked with a client to develop a full-stack application to connect prospective students with dream universities.</li>
                     <li>Designed and implemented dashboards for universities and students using Node.js, TypeScript, and React, reducing design-to-development timeline by an estimated 30% compared to alternative solutions.</li>
                     <li>Automated the CI/CD pipeline using GitHub Actions and Vercel, reducing the need for manual monitoring by an estimated 90%.</li>
-                    <li>Developed and deployed a mobile app on Apple TestFlight for students using React Native and Expo, enabling seamless student-university interactions and increasing user engagement by an estimated 5%.</li>
+                    <li>Developed and deployed a mobile app on Apple TestFlight for students using React Native and Expo, enabling seamless student-university interactions.</li>
                     <li>Set up Supabase PostgreSQL for secure relational data storage, file handling, and live updates. Configured user authentication and row-level security (RLS), enhancing data security compliance for all users.</li>
                     <li>Coordinated the alpha testing phase to refine client requirements and user expectations, resulting in positive feedback from client stakeholders and at least 10 alpha-test users.</li>
                 </ul>
@@ -206,9 +207,10 @@ export const experiences: WorkExperience[] = [
     },
     {
         start: 56,
+        end: 73,
         side: "right",
         show: true,
-        label: "IT Specialist",
+        label: "IT Support Engineer",
         organization: Organization.FREELANCE,
         description: <Stack
             spacing={1}
@@ -223,6 +225,19 @@ export const experiences: WorkExperience[] = [
             </Typography>
         </Stack>,
         summary: <Typography>Resolved over 25 system administration issues across Windows and Linux environments for home and small business users.</Typography>,
+    },
+    {
+        start: 73,
+        side: "left",
+        show: true,
+        label: "Student",
+        organization: Organization.WGU,
+        description: <Stack
+            spacing={1}
+        >
+            <Typography>Enrolled in a Masters in Computer Science specializing in AI and ML at Western Governors University. Expected to graduate in March 2027.</Typography>
+        </Stack>,
+        summary: <Typography>Enrolled in a Masters in Computer Science specializing in AI and ML at Western Governors University. Expected to graduate in March 2027.</Typography>,
     },
 ];
 
@@ -263,6 +278,7 @@ export const skills: Skill[] = [
     {
         experiences: [
             Organization.CMU,
+            Organization.WGU,
         ],
         categories: [],
         label: "Algorithms",
@@ -366,6 +382,7 @@ export const skills: Skill[] = [
     {
         experiences: [
             Organization.CMU,
+            Organization.WGU,
         ],
         categories: [
             SkillCategory.LANGUAGES,
@@ -381,6 +398,7 @@ export const skills: Skill[] = [
     {
         experiences: [
             Organization.CMU,
+            Organization.WGU,
             Organization.FREELANCE,
         ],
         categories: [
@@ -536,6 +554,7 @@ export const skills: Skill[] = [
         experiences: [
             Organization.AMAZON,
             Organization.CMU,
+            Organization.WGU,
             Organization.MORR,
             Organization.FREELANCE,
         ],
@@ -733,6 +752,7 @@ export const skills: Skill[] = [
     {
         experiences: [
             Organization.CMU,
+            Organization.WGU,
         ],
         categories: [
             SkillCategory.GAMES,
@@ -776,6 +796,20 @@ export const skills: Skill[] = [
         ],
         label: "React Native",
         proficiency: 50,
+        description: <Stack
+            spacing={1}
+        >
+        </Stack>,
+    },
+    {
+        experiences: [
+            Organization.WGU,
+        ],
+        categories: [
+            SkillCategory.LANGUAGES,
+        ],
+        label: "Rust",
+        proficiency: 75,
         description: <Stack
             spacing={1}
         >
@@ -890,6 +924,7 @@ export const skills: Skill[] = [
     {
         experiences: [
             Organization.CMU,
+            Organization.WGU,
             Organization.FREELANCE,
         ],
         categories: [
