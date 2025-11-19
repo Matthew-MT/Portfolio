@@ -16,31 +16,18 @@ const theme = createTheme({
     palette: {
         contrastThreshold: 4.5,
         primary: { main: "#027373" },
-        secondary: { main: "#04BF9D" },
+        secondary: { main: "#172026" },
         info: { main: "#5FCDD9" },
     },
-    // components: {
-    //     MuiButton: {
-    //         variants: [
-    //             {
-    //                 props: { variant: "contained" },
-    //                 style: {
-    //                     backgroundColor: "#027373",
-    //                 },
-    //             },
-    //         ],
-    //     },
-    //     MuiChip: {
-    //         variants: [
-    //             {
-    //                 props: { variant: "filled" },
-    //                 style: {
-    //                     backgroundColor: "#027373",
-    //                 },
-    //             },
-    //         ],
-    //     },
-    // },
+    components: {
+        MuiLink: {
+            styleOverrides: {
+                root: {
+                    color: "#023773ff",
+                },
+            },
+        },
+    },
 });
 
 export default responsiveFontSizes(theme, {

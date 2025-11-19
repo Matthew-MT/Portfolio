@@ -18,7 +18,7 @@ import { Organization, SkillCategory } from "../config/data";
 import { Dispatch, SetStateAction } from "react";
 import { useNavigate } from "react-router";
 import useTheme from "@mui/material/styles/useTheme";
-import Profile from "../assets/IMG_20250120_180742.jpg";
+import Profile from "../assets/20251118_153715_cropped.jpg";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 
@@ -192,8 +192,12 @@ export default function About({
                         delay={100}
                         title="Web Development"
                         image={WebDevelopment}
+                        imageSx={{
+                            filter: `drop-shadow(20px 20px 20px ${theme.palette.grey[600]})`,
+                        }}
                         sx={{
-                            backgroundColor: "#5FCDD9",
+                            backgroundColor: "#5FCDD980",
+                            backdropFilter: "blur(20px)",
                             height: "min(20rem, 64vw)",
                             cursor: "pointer",
                         }}
@@ -212,8 +216,12 @@ export default function About({
                         delay={100}
                         title="APIs"
                         image={APIs}
+                        imageSx={{
+                            filter: `drop-shadow(20px 20px 20px ${theme.palette.grey[900]})`,
+                        }}
                         sx={{
-                            backgroundColor: "#027373",
+                            backgroundColor: "#02737380",
+                            backdropFilter: "blur(20px)",
                             height: "min(20rem, 64vw)",
                             cursor: "pointer",
                         }}
@@ -232,8 +240,12 @@ export default function About({
                         delay={100}
                         title="Databases"
                         image={Databases}
+                        imageSx={{
+                            filter: `drop-shadow(20px 20px 20px ${theme.palette.grey[600]})`,
+                        }}
                         sx={{
-                            backgroundColor: "#04BFAD",
+                            backgroundColor: "#04BFAD80",
+                            backdropFilter: "blur(20px)",
                             height: "min(20rem, 64vw)",
                             cursor: "pointer",
                         }}
@@ -252,8 +264,12 @@ export default function About({
                         delay={100}
                         title="AWS"
                         image={AWS}
+                        imageSx={{
+                            filter: `drop-shadow(10px 10px 10px ${theme.palette.grey[900]})`,
+                        }}
                         sx={{
-                            backgroundColor: "#172026",
+                            backgroundColor: "#17202680",
+                            backdropFilter: "blur(20px)",
                             height: "min(20rem, 64vw)",
                             cursor: "pointer",
                         }}
@@ -272,8 +288,12 @@ export default function About({
                         delay={100}
                         title="Game Development"
                         image={GameDevelopment}
+                        imageSx={{
+                            filter: `drop-shadow(40px 40px 40px ${theme.palette.grey[900]})`,
+                        }}
                         sx={{
-                            backgroundColor: "#027373",
+                            backgroundColor: "#02737380",
+                            backdropFilter: "blur(20px)",
                             height: "min(20rem, 64vw)",
                             cursor: "pointer",
                         }}
@@ -292,8 +312,12 @@ export default function About({
                         delay={100}
                         title="Mobile"
                         image={Mobile}
+                        imageSx={{
+                            filter: `drop-shadow(20px 20px 20px ${theme.palette.grey[600]})`,
+                        }}
                         sx={{
-                            backgroundColor: "#04BF9D",
+                            backgroundColor: "#04BF9D80",
+                            backdropFilter: "blur(20px)",
                             height: "min(20rem, 64vw)",
                             cursor: "pointer",
                         }}

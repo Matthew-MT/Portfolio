@@ -3,15 +3,18 @@ import useTheme from "@mui/material/styles/useTheme";
 import Typography, { TypographyProps } from "@mui/material/Typography";
 import { ReactNode, useMemo } from "react";
 import { useEnterFrameAnimation } from "../config/utility";
+import Box from "@mui/material/Box";
+import { SxProps } from "@mui/material/styles";
 
-export interface ShowcaseCardProps extends StackProps {
+export interface ShowcaseCardProps extends Omit<StackProps, "title"> {
     align?: "right" | "left";
     animateIn?: boolean;
     delay?: number;
     hoverable?: boolean;
     variant?: TypographyProps["variant"];
-    title: string;
+    title: ReactNode;
     image?: string;
+    imageSx?: SxProps;
     children?: ReactNode;
 };
 
@@ -23,6 +26,7 @@ export default function ShowcaseCard({
     variant,
     title,
     image,
+    imageSx,
     children,
     sx,
     ...props//
@@ -38,12 +42,12 @@ export default function ShowcaseCard({
             borderRadius: "4rem",
             color: contrast,
             alignItems: align === "left" ? "flex-start" : "flex-end",
-            gap: "2rem",
+            gap: theme.spacing(2),
             padding: "2rem 3.2rem",
             position: "relative",
             overflow: "hidden",
-            transition: theme.transitions.create(["shadow", "transform"]),
-            boxShadow: `0 0 8px 0 ${theme.palette.grey[600]}`,
+            transition: theme.transitions.create(["box-shadow", "transform"]),
+            boxShadow: `0 0 16px 0 ${theme.palette.grey[600]}`,
             ...(hoverable ? {
                 "&:hover": {
                     boxShadow: `0 0 32px 0 ${theme.palette.grey[600]}`,
@@ -66,21 +70,26 @@ export default function ShowcaseCard({
         }, ...(sx ? Array.isArray(sx) ? sx : [sx] : [])]}
         {...props}
     >
-        <Typography variant={variant || "h2"} textAlign={align}>{title}</Typography>
+        {typeof title === "string" ? <Typography variant={variant || "h2"} textAlign={align}>{title}</Typography> : title}
         {children}
-        {image && <figure
-            style={{
+        {image && <Box
+            component="figure"
+            sx={{
                 width: "100%",
                 margin: 0,
             }}
         >
-            <img
+            <Box
+                component="img"
                 src={image}
-                style={{
-                    float: "right",
-                    maxWidth: "min(100%, 640px)",
-                }}
+                sx={[
+                    ...(Array.isArray(imageSx) ? imageSx : [imageSx]),
+                    {
+                        float: "right",
+                        maxWidth: "min(100%, 640px)",
+                    },
+                ]}
             />
-        </figure>}
+        </Box>}
     </Stack>;
 }

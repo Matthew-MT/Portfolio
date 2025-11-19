@@ -5,6 +5,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import useTheme from "@mui/material/styles/useTheme";
 import { useEnterFrameAnimation } from "../config/utility";
+import Link from "@mui/material/Link";
 
 // assets
 
@@ -36,14 +37,61 @@ export default function About() {
             {...contactAnimatorProps}
             direction="column"
             sx={{
-                width: "100%",
+                backgroundColor: "#02737340",
+                borderRadius: "1.5rem",
+                padding: "1rem 1.6rem",
             }}
         >
-            <Typography variant="body1">Email: <NavLink to="mailto:mmontonitiller@gmail.com">mmontonitiller@gmail.com</NavLink></Typography>
-            <Typography variant="body1">Phone: <NavLink to="tel:+15402090928">(540) 209-0928</NavLink></Typography>
-            <Typography variant="body1">LinkedIn: <NavLink to="https://www.linkedin.com/in/matthew-montoni-tiller/">in/matthew-montoni-tiller</NavLink></Typography>
-            <Typography variant="body1">GitHub: <NavLink to="https://github.com/Matthew-MT">github.com/Matthew-MT</NavLink></Typography>
-            <Typography variant="body1">Portfolio: <NavLink to="https://github.com/Matthew-MT/Portfolio">The code for this website! (GitHub)</NavLink></Typography>
+            <Stack
+                direction="row"
+                sx={{
+                    justifyContent: "space-between",
+                    gap: theme.spacing(8),
+                }}
+            >
+                <Typography variant="body1">Email:</Typography>
+                <Typography variant="body1"><Link component={NavLink} to="mailto:mmontonitiller@gmail.com" >mmontonitiller@gmail.com</Link></Typography>
+            </Stack>
+            <Stack
+                direction="row"
+                sx={{
+                    justifyContent: "space-between",
+                    gap: theme.spacing(8),
+                }}
+            >
+                <Typography variant="body1">Phone:</Typography>
+                <Typography variant="body1"><Link component={NavLink} to="tel:+15402090928" >(540) 209-0928</Link></Typography>
+            </Stack>
+            <Stack
+                direction="row"
+                sx={{
+                    justifyContent: "space-between",
+                    gap: theme.spacing(8),
+                }}
+            >
+                <Typography variant="body1">LinkedIn:</Typography>
+                <Typography variant="body1"><Link component={NavLink} to="https://www.linkedin.com/in/matthew-montoni-tiller/" >in/matthew-montoni-tiller</Link></Typography>
+            </Stack>
+            <Stack
+                direction="row"
+                sx={{
+                    justifyContent: "space-between",
+                    gap: theme.spacing(8),
+                }}
+            >
+                <Typography variant="body1">GitHub:</Typography>
+                <Typography variant="body1"><Link component={NavLink} to="https://github.com/Matthew-MT" >github.com/Matthew-MT</Link></Typography>
+            </Stack>
+            <Stack
+                direction="row"
+                sx={{
+                    justifyContent: "space-between",
+                    gap: theme.spacing(8),
+                }}
+            >
+                <Typography variant="body1">Portfolio:</Typography>
+                <Typography variant="body1"><Link component={NavLink} to="https://github.com/Matthew-MT/Portfolio" >The code for this website! (GitHub)</Link></Typography>
+            </Stack>
         </Stack>
     </Stack>;
 }

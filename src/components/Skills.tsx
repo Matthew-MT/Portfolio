@@ -69,119 +69,124 @@ export default function Skills({
         direction="row"
         sx={{
             width: "100%",
-            gap: "2rem",
+            justifyContent: "center",
         }}
     >
         <Stack
             direction="column"
-            spacing={1}
+            spacing={3}
             sx={{
-                flexGrow: 1,
+                // flexGrow: 1,
+                // width: "min(100%, max(60%, 12rem))",
             }}
         >
             {skills.filter(
                 skill =>
-                ((shownExperiences.length === 0 && !miscellaneousExperiences) || (skill.experiences.length === 0 && miscellaneousExperiences) || skill.experiences.some(experience => shownExperiences.includes(experience)))
-                && ((shownSkillCategories.length === 0 && !miscellaneousSkills) || (skill.categories.length === 0 && miscellaneousSkills) || skill.categories.some(category => shownSkillCategories.includes(category)))
+                (
+                    (shownExperiences.length === 0 && !miscellaneousExperiences)
+                    || (skill.experiences.length === 0 && miscellaneousExperiences)
+                    || skill.experiences.some(experience => shownExperiences.includes(experience))
+                )
+                && (
+                    (shownSkillCategories.length === 0 && !miscellaneousSkills)
+                    || (skill.categories.length === 0 && miscellaneousSkills)
+                    || skill.categories.some(category => shownSkillCategories.includes(category))
+                )
             ).map(skill => <ShowcaseCard
                 hoverable={false}
-                variant="h5"
+                align="left"
+                variant="h6"
                 sx={{
                     boxSizing: "border-box",
-                    backgroundColor: theme.palette.background.paper,
+                    backgroundColor: "#02737340",
+                    backdropFilter: "blur(20px)",
                     borderRadius: "1.5rem",
+                    boxShadow: "unset",
                     padding: "1rem 1.6rem",
                 }}
-                title={skill.label}
+                title={<Stack
+                    direction={mobile ? "column" : "row"}
+                    spacing={1}
+                    sx={{
+                        alignItems: mobile ? "flex-start" : "center",
+                    }}
+                >
+                    <Typography variant="h6" >{skill.label}</Typography>
+                    {!mobile && <Typography variant="h6" sx={{ opacity: 0.4 }} >•</Typography>}
+                    <SkillsList list={skill.categories.length ? skill.categories : ["Miscellaneous"]} />
+                    {!mobile && <Typography variant="h6" sx={{ opacity: 0.4 }} >•</Typography>}
+                    <Typography variant="h6" >{skill.shortExperiences.length ? skill.shortExperiences.join(", ") : "Miscellaneous"}</Typography>
+                </Stack>}
             >
                 <Stack
                     sx={{
                         width: "100%",
-                        gap: "0.5rem",
                     }}
+                    spacing={2}
                 >
+                    <LinearProgress
+                        variant="determinate"
+                        sx={{
+                            width: "100%",
+                        }}
+                        value={skill.proficiency}
+                    />
                     <Stack
-                        direction={mobile ? "column" : "row"}
+                        direction="row"
                         sx={{
                             width: "100%",
                             justifyContent: "space-between",
                         }}
                     >
-                        <Typography variant="h6">From: {skill.experiences.length ? skill.experiences.join(", ") : "Miscellaneous"}</Typography>
-                        <SkillsList list={skill.categories} />
-                    </Stack>
-                    <Stack
-                        sx={{
-                            gap: "0.5rem",
-                            bgcolor: "#02737396",
-                            padding: "8px 16px",
-                        }}
-                    >
-                        <Typography variant="h6">Skill Proficiency:</Typography>
-                        <LinearProgress
-                            variant="determinate"
-                            sx={{
-                                width: "100%",
-                            }}
-                            value={skill.proficiency}
-                        />
                         <Stack
-                            direction="row"
                             sx={{
-                                width: "100%",
-                                justifyContent: "space-between",
+                                alignItems: "start",
+                                width: "0px",
+                                textWrap: "nowrap",
                             }}
                         >
-                            <Stack
-                                sx={{
-                                    alignItems: "start",
-                                    width: "0px",
-                                    textWrap: "nowrap",
-                                }}
-                            >
-                                <Box sx={{ bgcolor: theme.palette.primary.main, width: "8px", height: "8px", borderRadius: "4px" }} />
-                                {!mobile && <Typography variant="body2" >Saw a Video</Typography>}
-                            </Stack>
-                            <Stack
-                                sx={{
-                                    alignItems: "center",
-                                    width: "0px",
-                                    textWrap: "nowrap",
-                                }}
-                            >
-                                <Box sx={{ bgcolor: skill.proficiency >= 25 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
-                                {!mobile && <Typography variant="body2" >Deployed a Project</Typography>}
-                            </Stack>
-                            <Stack
-                                sx={{
-                                    alignItems: "center",
-                                    width: "0px",
-                                    textWrap: "nowrap",
-                                }}
-                            >
-                                <Box sx={{ bgcolor: skill.proficiency >= 50 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
-                                {!mobile && <Typography variant="body2" >Comfortable</Typography>}
-                            </Stack>
-                            <Stack
-                                sx={{
-                                    alignItems: "center",
-                                    width: "0px",
-                                    textWrap: "nowrap",
-                                }}
-                            >
-                                <Box sx={{ bgcolor: skill.proficiency >= 75 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
-                                {!mobile && <Typography variant="body2" >Used Frequently</Typography>}
-                            </Stack>
-                            <Stack
-                                sx={{
-                                    alignItems: "end",
-                                    width: "0px",
-                                    textWrap: "nowrap",
-                                }}
-                            >
-                                <Box sx={{ bgcolor: skill.proficiency >= 100 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
-                                {!mobile && <Typography variant="body2" >Legendary</Typography>}
-                            </Stack>
+                            <Box sx={{ bgcolor: theme.palette.primary.main, width: "8px", height: "8px", borderRadius: "4px" }} />
+                            {!mobile && <Typography variant="body2" >Familiar</Typography>}
+                        </Stack>
+                        <Stack
+                            sx={{
+                                alignItems: "center",
+                                width: "0px",
+                                textWrap: "nowrap",
+                            }}
+                        >
+                            <Box sx={{ bgcolor: skill.proficiency >= 25 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
+                            {!mobile && <Typography variant="body2" >Completed project</Typography>}
+                        </Stack>
+                        <Stack
+                            sx={{
+                                alignItems: "center",
+                                width: "0px",
+                                textWrap: "nowrap",
+                            }}
+                        >
+                            <Box sx={{ bgcolor: skill.proficiency >= 50 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
+                            {!mobile && <Typography variant="body2" >Comfortable</Typography>}
+                        </Stack>
+                        <Stack
+                            sx={{
+                                alignItems: "center",
+                                width: "0px",
+                                textWrap: "nowrap",
+                            }}
+                        >
+                            <Box sx={{ bgcolor: skill.proficiency >= 75 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
+                            {!mobile && <Typography variant="body2" >Frequently used</Typography>}
+                        </Stack>
+                        <Stack
+                            sx={{
+                                alignItems: "end",
+                                width: "0px",
+                                textWrap: "nowrap",
+                            }}
+                        >
+                            <Box sx={{ bgcolor: skill.proficiency >= 100 ? theme.palette.primary.main : theme.palette.grey[200], width: "8px", height: "8px", borderRadius: "4px" }} />
+                            {!mobile && <Typography variant="body2" >Legendary</Typography>}
                         </Stack>
                     </Stack>
                     {skill.description}

@@ -13,6 +13,15 @@ export enum Organization {
     FREELANCE = "Freelance",
 };
 
+export const ShortOrganization: { [Key in Organization]?: string } = {
+    [Organization.CMU]: "CMU",
+    [Organization.WGU]: "WGU",
+    [Organization.AMAZON]: "Amazon",
+    [Organization.MORR]: "MORR",
+    [Organization.INCIPIO]: "Incipio",
+};
+export type ShortOrganization = typeof ShortOrganization;
+
 export enum SkillCategory {
     WEB = "Web",
     APIS = "APIs",
@@ -22,13 +31,13 @@ export enum SkillCategory {
     MOBILE = "Mobile",
 
     AI = "AI",
-    DEVELOPMENT = "Development Paradigms",
+    PARADIGMS = "Paradigms",
     LANGUAGES = "Languages",
     LIBRARIES = "Libraries",
     LINUX = "Linux",
     REACT = "React",
     SOFT = "Soft Skills",
-    UI = "User Interfaces",
+    UI = "UI/UX",
 };
 
 export interface WorkExperience {
@@ -43,11 +52,12 @@ export interface WorkExperience {
 };
 
 export interface Skill {
-    experiences: (typeof experiences[number]["organization"])[];
+    experiences: Organization[];
+    shortExperiences: ShortOrganization[Organization][],
     categories: SkillCategory[];
     label: string;
     proficiency: number;
-    description: ReactNode;
+    description?: ReactNode;
 };
 
 export const experiences: WorkExperience[] = [
@@ -149,13 +159,13 @@ export const experiences: WorkExperience[] = [
         end: 48,
         side: "left",
         show: true,
-        label: "Graduation",
+        label: "Student",
         organization: Organization.CMU,
         description: <Stack
             spacing={1}
         >
             <SkillsList list={["React", "User Interface Design", "Client Relations", "JavaScript", "MongoDB"]} />
-            <Typography>Graduated magna cum laude with a Bachelor's in Science in Computer Science and a Bachelor's in Science in Mathematics in May 2023.</Typography>
+            <Typography>Graduated magna cum laude with a Bachelors in Science in Computer Science and a Bachelors in Science in Mathematics in May 2023.</Typography>
         </Stack>,
         summary: <Typography>Graduated!</Typography>,
     },
@@ -235,6 +245,7 @@ export const experiences: WorkExperience[] = [
         description: <Stack
             spacing={1}
         >
+            <SkillsList list={["AI", "Python", "Bash", "Research", "Technical Writing"]} />
             <Typography>Enrolled in a Masters in Computer Science specializing in AI and ML at Western Governors University. Expected to graduate in March 2027.</Typography>
         </Stack>,
         summary: <Typography>Enrolled in a Masters in Computer Science specializing in AI and ML at Western Governors University. Expected to graduate in March 2027.</Typography>,
@@ -249,14 +260,10 @@ export const skills: Skill[] = [
             Organization.INCIPIO,
         ],
         categories: [
-            SkillCategory.DEVELOPMENT,
+            SkillCategory.PARADIGMS,
         ],
         label: "Agile",
         proficiency: 75,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -270,10 +277,6 @@ export const skills: Skill[] = [
         ],
         label: "Agora.io",
         proficiency: 50,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -283,10 +286,6 @@ export const skills: Skill[] = [
         categories: [],
         label: "Algorithms",
         proficiency: 100,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -298,10 +297,6 @@ export const skills: Skill[] = [
         ],
         label: "AWS-API Gateway",
         proficiency: 25,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -314,10 +309,6 @@ export const skills: Skill[] = [
         ],
         label: "AWS-DynamoDB",
         proficiency: 50,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -328,10 +319,6 @@ export const skills: Skill[] = [
         ],
         label: "AWS-EC2",
         proficiency: 50,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -343,10 +330,6 @@ export const skills: Skill[] = [
         ],
         label: "AWS-IAM",
         proficiency: 50,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -357,10 +340,6 @@ export const skills: Skill[] = [
         ],
         label: "AWS-Lambda",
         proficiency: 50,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -374,10 +353,6 @@ export const skills: Skill[] = [
         ],
         label: "AWS-S3",
         proficiency: 75,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -390,10 +365,6 @@ export const skills: Skill[] = [
         ],
         label: "Bash Scripting",
         proficiency: 100,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -407,10 +378,6 @@ export const skills: Skill[] = [
         ],
         label: "Bash Terminal",
         proficiency: 100,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -422,10 +389,6 @@ export const skills: Skill[] = [
         ],
         label: "Bubble.io",
         proficiency: 75,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -437,10 +400,6 @@ export const skills: Skill[] = [
         ],
         label: "C/C++",
         proficiency: 100,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [],
@@ -449,10 +408,6 @@ export const skills: Skill[] = [
         ],
         label: "CentOS",
         proficiency: 75,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -466,10 +421,6 @@ export const skills: Skill[] = [
         ],
         label: "Client Relations",
         proficiency: 75,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -483,10 +434,6 @@ export const skills: Skill[] = [
         ],
         label: "Communication",
         proficiency: 100,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -501,10 +448,6 @@ export const skills: Skill[] = [
         ],
         label: "CSS3",
         proficiency: 100,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -514,10 +457,6 @@ export const skills: Skill[] = [
         categories: [],
         label: "Cybersecurity",
         proficiency: 25,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -530,10 +469,6 @@ export const skills: Skill[] = [
         ],
         label: "Dart",
         proficiency: 75,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -545,10 +480,6 @@ export const skills: Skill[] = [
         categories: [],
         label: "Debugging",
         proficiency: 100,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -556,17 +487,12 @@ export const skills: Skill[] = [
             Organization.CMU,
             Organization.WGU,
             Organization.MORR,
-            Organization.FREELANCE,
         ],
         categories: [
-            SkillCategory.DEVELOPMENT,
+            SkillCategory.PARADIGMS,
         ],
-        label: "Full-Stack Development",
+        label: "Full-Stack",
         proficiency: 100,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -580,26 +506,18 @@ export const skills: Skill[] = [
         ],
         label: "Flutter",
         proficiency: 50,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
             Organization.CMU,
         ],
         categories: [
-            SkillCategory.DEVELOPMENT,
+            SkillCategory.PARADIGMS,
             SkillCategory.GAMES,
             SkillCategory.UI,
         ],
         label: "Game Development",
         proficiency: 75,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -610,10 +528,6 @@ export const skills: Skill[] = [
         ],
         label: "GPT-4",
         proficiency: 25,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -625,10 +539,6 @@ export const skills: Skill[] = [
         ],
         label: "GPT Assistant API",
         proficiency: 50,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -643,10 +553,6 @@ export const skills: Skill[] = [
         ],
         label: "HTML5",
         proficiency: 100,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -655,10 +561,6 @@ export const skills: Skill[] = [
         categories: [],
         label: "Information Technology",
         proficiency: 75,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -672,10 +574,6 @@ export const skills: Skill[] = [
         ],
         label: "JavaScript",
         proficiency: 100,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -684,10 +582,6 @@ export const skills: Skill[] = [
         categories: [],
         label: "Mathematics",
         proficiency: 100,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -699,10 +593,6 @@ export const skills: Skill[] = [
         ],
         label: "MongoDB",
         proficiency: 100,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -714,10 +604,6 @@ export const skills: Skill[] = [
         ],
         label: "Next.js",
         proficiency: 50,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -730,10 +616,6 @@ export const skills: Skill[] = [
         ],
         label: "Node.js",
         proficiency: 100,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -744,10 +626,6 @@ export const skills: Skill[] = [
         ],
         label: "PostgreSQL",
         proficiency: 75,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -760,10 +638,6 @@ export const skills: Skill[] = [
         ],
         label: "Python",
         proficiency: 100,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -779,10 +653,6 @@ export const skills: Skill[] = [
         ],
         label: "React.js",
         proficiency: 100,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -796,10 +666,6 @@ export const skills: Skill[] = [
         ],
         label: "React Native",
         proficiency: 50,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -810,10 +676,6 @@ export const skills: Skill[] = [
         ],
         label: "Rust",
         proficiency: 75,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -826,10 +688,6 @@ export const skills: Skill[] = [
         ],
         label: "Simple DirectMedia Layer (SDL)",
         proficiency: 75,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -842,10 +700,6 @@ export const skills: Skill[] = [
         ],
         label: "Simple Fast Media Library (SFML)",
         proficiency: 75,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -856,10 +710,6 @@ export const skills: Skill[] = [
         ],
         label: "Socket Programming",
         proficiency: 50,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -871,10 +721,6 @@ export const skills: Skill[] = [
         ],
         label: "Tailwind CSS",
         proficiency: 75,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -886,10 +732,6 @@ export const skills: Skill[] = [
         ],
         label: "Teamwork",
         proficiency: 75,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -900,10 +742,6 @@ export const skills: Skill[] = [
         ],
         label: "Technical Support",
         proficiency: 50,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -916,10 +754,6 @@ export const skills: Skill[] = [
         ],
         label: "TypeScript",
         proficiency: 100,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -932,10 +766,6 @@ export const skills: Skill[] = [
         ],
         label: "Ubuntu",
         proficiency: 100,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -947,12 +777,8 @@ export const skills: Skill[] = [
         categories: [
             SkillCategory.UI,
         ],
-        label: "User Interface Design",
+        label: "UI Design",
         proficiency: 75,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -963,10 +789,6 @@ export const skills: Skill[] = [
         ],
         label: "Vercel",
         proficiency: 75,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -976,16 +798,12 @@ export const skills: Skill[] = [
             Organization.MORR,
         ],
         categories: [
-            SkillCategory.DEVELOPMENT,
+            SkillCategory.PARADIGMS,
             SkillCategory.UI,
             SkillCategory.WEB,
         ],
         label: "Web Development",
         proficiency: 100,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
     {
         experiences: [
@@ -996,9 +814,5 @@ export const skills: Skill[] = [
         ],
         label: "Windows Subsystem for Linux (WSL)",
         proficiency: 75,
-        description: <Stack
-            spacing={1}
-        >
-        </Stack>,
     },
-];
+].map(skill => ({ ...skill, shortExperiences: skill.experiences.map(experience => experience in ShortOrganization ? ShortOrganization[experience] : experience) }));
