@@ -102,6 +102,7 @@ export default function Skills({
                     backdropFilter: "blur(20px)",
                     borderRadius: "1.5rem",
                     boxShadow: "unset",
+                    width: mobile ? undefined : "48rem",
                     padding: "1rem 1.6rem",
                 }}
                 title={<Stack
