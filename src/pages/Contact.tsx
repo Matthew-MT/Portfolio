@@ -50,7 +50,7 @@ export default function About() {
                 }}
             >
                 <Typography variant="body1">Email:</Typography>
-                <Typography variant="body1"><Link component={NavLink} to="mailto:mmontonitiller@gmail.com" >mmontonitiller@gmail.com</Link></Typography>
+                <Link component={NavLink} variant="body1" to="mailto:mmontonitiller@gmail.com" >mmontonitiller@gmail.com</Link>
             </Stack>
             <Stack
                 direction="row"
@@ -60,7 +60,7 @@ export default function About() {
                 }}
             >
                 <Typography variant="body1">Phone:</Typography>
-                <Typography variant="body1"><Link component={NavLink} to="tel:+15402090928" >(540) 209-0928</Link></Typography>
+                <Link component={NavLink} variant="body1" to="tel:+15402090928" >(540) 209-0928</Link>
             </Stack>
             <Stack
                 direction="row"
@@ -70,7 +70,7 @@ export default function About() {
                 }}
             >
                 <Typography variant="body1">LinkedIn:</Typography>
-                <Typography variant="body1"><Link component={NavLink} to="https://www.linkedin.com/in/matthew-montoni-tiller/" >in/matthew-montoni-tiller</Link></Typography>
+                <Link component={NavLink} variant="body1" to="https://www.linkedin.com/in/matthew-montoni-tiller/" >in/matthew-montoni-tiller</Link>
             </Stack>
             <Stack
                 direction="row"
@@ -80,7 +80,7 @@ export default function About() {
                 }}
             >
                 <Typography variant="body1">GitHub:</Typography>
-                <Typography variant="body1"><Link component={NavLink} to="https://github.com/Matthew-MT" >github.com/Matthew-MT</Link></Typography>
+                <Link component={NavLink} variant="body1" to="https://github.com/Matthew-MT" >github.com/Matthew-MT</Link>
             </Stack>
             <Stack
                 direction="row"

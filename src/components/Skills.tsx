@@ -76,8 +76,8 @@ export default function Skills({
             direction="column"
             spacing={3}
             sx={{
-                // flexGrow: 1,
-                // width: "min(100%, max(60%, 12rem))",
+                width: "100%",
+                alignItems: "center",
             }}
         >
             {skills.filter(
@@ -102,7 +102,7 @@ export default function Skills({
                     backdropFilter: "blur(20px)",
                     borderRadius: "1.5rem",
                     boxShadow: "unset",
-                    width: mobile ? undefined : "48rem",
+                    width: "min(48rem, 100%)",
                     padding: "1rem 1.6rem",
                 }}
                 title={<Stack

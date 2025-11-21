@@ -101,6 +101,7 @@ export default function About({
                     sx={{
                         gap: "2rem",
                         justifyContent: "space-between",
+                        color: theme.palette.grey[800],
                     }}
                 >
                     <Box>

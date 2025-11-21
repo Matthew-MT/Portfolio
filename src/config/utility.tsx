@@ -2,6 +2,8 @@ import { Theme } from "@mui/material/styles/createTheme";
 import useTheme from "@mui/material/styles/useTheme";
 import { MutableRefObject, useEffect, useState } from "react";
 
+export const URL_REGEX = /\/?((?:[^/]+)+)/g;
+
 export function samePageLinkNavigation(
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
 ) {

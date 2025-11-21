@@ -4,7 +4,7 @@ import Tab from "@mui/material/Tab";
 import useTheme from "@mui/material/styles/useTheme";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import { NavLink, useLocation } from "react-router";
-import { useIsMobile } from "../config/utility";
+import { URL_REGEX, useIsMobile } from "../config/utility";
 
 export default function Navigation({ sx, ...props }: TabsProps) {
     // constants
@@ -42,7 +42,7 @@ export default function Navigation({ sx, ...props }: TabsProps) {
             },
             ...sx,
         }}
-        value={location.pathname}
+        value={location.pathname.match(URL_REGEX)?.[0]}
         {...props}
     >
         <Tab
@@ -57,12 +57,12 @@ export default function Navigation({ sx, ...props }: TabsProps) {
             value="/work"
             to="/work"
         />
-        {/* <Tab
+        <Tab
             component={NavLink}
             label="Interactives"
             value="/interactives"
             to="/interactives"
-        /> */}
+        />
         <Tab
             component={NavLink}
             label="Contact"
